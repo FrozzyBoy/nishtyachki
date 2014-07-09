@@ -12,11 +12,9 @@ namespace Project.Models
         public int Position { get; set; }
         public TimeSpan TimeOfResourceUsing { get; set; }
 
-       /*public override string ToString()
+        public override string ToString()
         {
-            return "Time of using is "+TimeOfUsing.ToString()+"\n"+"Time of visit is "+SettingTime.ToString()+"\n"&
-                ""
+            return "Write me";
         }
-        * */
     }
 }

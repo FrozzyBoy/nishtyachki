@@ -24,6 +24,9 @@ namespace nishtyachki
     {
         private IRepository _repo;
 
+        public event Action EnqueueEnter;
+        public event Action EnqueueError;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,22 +65,34 @@ namespace nishtyachki
         }
 
         private void Enqueue_Click(object sender, RoutedEventArgs e)
-        {
-            NotifyWindow not = new NotifyWindow("1");
-            not.Show();
-
-          /* bool isOkRequest = _repo.SendRequest();
+        {            
+            bool isOkRequest = _repo.SendRequest();
 
             if (isOkRequest)
             {
- 
+                OnEnqueueEnter();
             }
             else
             {
- 
+                OnEnqueueError();
             }
-            */
         }
-        
+
+        public void OnEnqueueEnter()
+        {
+            if (EnqueueEnter != null)
+            {
+                EnqueueEnter();
+            } 
+        }
+
+        public void OnEnqueueError()
+        {
+            if (EnqueueError != null)
+            {
+                EnqueueError();
+            }
+        }
+
     }
 }
