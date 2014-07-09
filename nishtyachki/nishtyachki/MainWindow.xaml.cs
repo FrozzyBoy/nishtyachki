@@ -63,7 +63,10 @@ namespace nishtyachki
 
         private void Enqueue_Click(object sender, RoutedEventArgs e)
         {
-            bool isOkRequest = _repo.SendRequest();
+            NotifyWindow not = new NotifyWindow("1");
+            not.Show();
+
+          /* bool isOkRequest = _repo.SendRequest();
 
             if (isOkRequest)
             {
@@ -73,7 +76,7 @@ namespace nishtyachki
             {
  
             }
-
+            */
         }
         
     }

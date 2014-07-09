@@ -4,7 +4,16 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="btnHideWindow" Content="Hide Me!" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="408,19,0,0" Click="btnHideWindow_Click"/>
-        <Button x:Name="Enqueue" Content="Enqueue" HorizontalAlignment="Left" Height="39" Margin="93,132,0,0" VerticalAlignment="Top" Width="51" Click="Enqueue_Click"/>
+        <Button x:Name="Enqueue" Content="Enqueue" HorizontalAlignment="Left" Height="180" Margin="78,69,0,0" VerticalAlignment="Top" Width="172" Click="Enqueue_Click" BorderBrush="#FF514141" Foreground="Black" FontSize="16" FontFamily="Showcard Gothic">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF975050" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
