@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="btnHideWindow" Content="Hide Me!" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="408,19,0,0" Click="btnHideWindow_Click"/>
+
     </Grid>
 </Window>
