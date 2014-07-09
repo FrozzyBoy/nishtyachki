@@ -22,15 +22,11 @@ namespace nishtyachki
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Guid _userGuid;
-
         private IRepository _repo;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            _userGuid = Guid.NewGuid();
 
             System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
             icon.Icon = new System.Drawing.Icon(AllStrings.MainIco);
@@ -67,7 +63,7 @@ namespace nishtyachki
 
         private void Enqueue_Click(object sender, RoutedEventArgs e)
         {
-            bool isOkRequest = _repo.SendRequest(_userGuid.ToString());
+            bool isOkRequest = _repo.SendRequest();
 
             if (isOkRequest)
             {
