@@ -4,6 +4,16 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="btnHideWindow" Content="Hide Me!" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="408,19,0,0" Click="btnHideWindow_Click"/>
+        <Button Content="Queue" HorizontalAlignment="Left" Margin="32,97,0,0" VerticalAlignment="Top" Width="161" Height="117" BorderBrush="Black" Foreground="#FF171616" FontSize="16" Click="Button_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF955F5F" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
