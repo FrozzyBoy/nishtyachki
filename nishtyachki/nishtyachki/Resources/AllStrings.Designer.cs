@@ -77,5 +77,14 @@ namespace nishtyachki.Resources {
                 return ResourceManager.GetString("MainIco", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is {0} people in queue.
+        /// </summary>
+        internal static string ShowNumberOfPeople {
+            get {
+                return ResourceManager.GetString("ShowNumberOfPeople", resourceCulture);
+            }
+        }
     }
 }

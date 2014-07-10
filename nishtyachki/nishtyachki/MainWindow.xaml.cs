@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using nishtyachki.Resources;
 using nishtyachki.Logic.Infrastructure;
+using nishtyachki.Logic;
 
 namespace nishtyachki
 {
@@ -29,6 +30,8 @@ namespace nishtyachki
 
         public MainWindow()
         {
+            _repo = new TempRepo();
+
             InitializeComponent();
 
             System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
@@ -41,12 +44,25 @@ namespace nishtyachki
                 this.Show();
                 this.WindowState = System.Windows.WindowState.Normal;
             };
+
+            this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
+        }
+
+        private void MainWindow_EnqueueEnter_HideWindow()
+        {
+            this.HideWindow();
+            ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));
         }
 
         private void HideWindow()
         {
             this.Hide();
-            System.Windows.Forms.MessageBox.Show(AllStrings.HideWinMsg);
+            ShowMessageToUser(AllStrings.HideWinMsg);
+        }
+
+        private void ShowMessageToUser(string message)
+        {
+            System.Windows.Forms.MessageBox.Show(message); 
         }
 
         private void btnHideWindow_Click(object sender, RoutedEventArgs e)

@@ -58,6 +58,7 @@
     <Compile Include="Logic\Infrastructure\IRepository.cs" />
     <Compile Include="Logic\Infrastructure\Statistics.cs" />
     <Compile Include="Logic\Infrastructure\User.cs" />
+    <Compile Include="Logic\TempRepo.cs" />
     <Compile Include="NotifyWindow.xaml.cs">
       <DependentUpon>NotifyWindow.xaml</DependentUpon>
     </Compile>

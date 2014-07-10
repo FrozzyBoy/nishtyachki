@@ -123,4 +123,7 @@
   <data name="MainIco" xml:space="preserve">
     <value>main.ico</value>
   </data>
+  <data name="ShowNumberOfPeople" xml:space="preserve">
+    <value>There is {0} people in queue</value>
+  </data>
 </root>
