@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Optimization;
 
-namespace WebApplication1
+namespace AdminApp
 {
     public class BundleConfig
     {

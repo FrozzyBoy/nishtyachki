@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Project.Models
+namespace AdminApp.App_Code
 {
-   public enum Role
+    public enum Role
     {
         Premium,
         Standart

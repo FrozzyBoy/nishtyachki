@@ -7,9 +7,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using WebApplication1.Providers;
+using AdminApp.Providers;
 
-namespace WebApplication1
+namespace AdminApp
 {
     public partial class Startup
     {
