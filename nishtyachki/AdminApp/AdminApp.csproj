@@ -184,6 +184,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\User.cs" />
+    <Content Include="App_Code\Statistics.cs" />
+    <Content Include="App_Code\Interfaces\IDeleteFromTheQueue.cs" />
+    <Content Include="App_Code\Interfaces\IChangeUserRole.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
