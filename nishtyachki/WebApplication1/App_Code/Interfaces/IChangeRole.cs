@@ -9,6 +9,5 @@ namespace AdminApp.App_Code.Interfaces
     interface IChangeRole
     {
         void ChangeRole(int id, Role role);
-        
     }
 }
