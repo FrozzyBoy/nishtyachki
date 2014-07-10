@@ -52,25 +52,10 @@ namespace nishtyachki
 
         private void SayHello()
         {
-            var myServiceHost = new ServiceHost(typeof(MyService));
-            myServiceHost.Open();
+            AdminApp.IWcfService service = new AdminApp.WcfServiceClient();
+            var message = service.DoWork("Arti!");
 
-            /*
-            WCFTestService.MyServiceClient myService =
-         new WCFTestService.MyServiceClient();
-            MessageBox.Show(myService.DoWork("Hello World!"));
-            myService.Close();
-            */
-
-            this.btnStopConnect.Click += (sender, e) =>
-                {
-                    if (myServiceHost != null)
-                    {
-                        myServiceHost.Close();
-                        myServiceHost = null;
-                    }
-                };
-
+            ShowMessageToUser(message);
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()

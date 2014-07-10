@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="btnHideWindow" Content="Hide Me!" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="408,19,0,0" Click="btnHideWindow_Click"/>
-        <Button x:Name="Enqueue" Content="Enqueue" HorizontalAlignment="Left" Height="180" Margin="78,69,0,0" VerticalAlignment="Top" Width="172" Click="Enqueue_Click" BorderBrush="#FF514141" Foreground="Black" FontSize="16" FontFamily="Showcard Gothic">
+        <Button x:Name="Enqueue" Content="Enqueue" HorizontalAlignment="Left" Height="57" Margin="78,69,0,0" VerticalAlignment="Top" Width="127" Click="Enqueue_Click" BorderBrush="#FF514141" Foreground="Black" FontSize="16" FontFamily="Showcard Gothic">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -14,7 +13,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="btnStopConnect" Content="Disconect" HorizontalAlignment="Left" Height="48" Margin="408,190,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
