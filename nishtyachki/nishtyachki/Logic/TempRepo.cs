@@ -21,5 +21,10 @@ namespace nishtyachki.Logic
                 return 5;// прост 5 
             }
         }
+
+        public int UserId
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

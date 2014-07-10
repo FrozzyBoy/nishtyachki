@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using nishtyachki.Resources;
 using nishtyachki.Logic.Infrastructure;
 using nishtyachki.Logic;
+using System.ServiceModel;
 
 namespace nishtyachki
 {
@@ -46,6 +47,30 @@ namespace nishtyachki
             };
 
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
+            this.EnqueueEnter += SayHello;
+        }
+
+        private void SayHello()
+        {
+            var myServiceHost = new ServiceHost(typeof(MyService));
+            myServiceHost.Open();
+
+            /*
+            WCFTestService.MyServiceClient myService =
+         new WCFTestService.MyServiceClient();
+            MessageBox.Show(myService.DoWork("Hello World!"));
+            myService.Close();
+            */
+
+            this.btnStopConnect.Click += (sender, e) =>
+                {
+                    if (myServiceHost != null)
+                    {
+                        myServiceHost.Close();
+                        myServiceHost = null;
+                    }
+                };
+
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()

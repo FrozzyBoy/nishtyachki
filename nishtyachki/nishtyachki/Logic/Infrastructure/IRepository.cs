@@ -5,5 +5,6 @@ namespace nishtyachki.Logic.Infrastructure
     {
         bool SendRequest();
         int NumberOfPeopleInFrontOfMe { get; }
+        int UserId { get; }
     }
 }
