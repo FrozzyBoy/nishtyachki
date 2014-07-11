@@ -58,13 +58,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CallBackClass.cs" />
-    <Compile Include="IShowMessage.cs" />
+    <Compile Include="Logic\CallBackClass.cs" />
+    <Compile Include="Logic\Infrastructure\IShowMessage.cs" />
+    <Compile Include="Logic\Infrastructure\IHideable.cs" />
     <Compile Include="Logic\Infrastructure\IRepository.cs" />
     <Compile Include="Logic\Service\IWcfService.cs" />
     <Compile Include="Logic\Service\Registration.cs" />
     <Compile Include="Logic\Service\WcfService.cs" />
     <Compile Include="Logic\TempRepo.cs" />
+    <Compile Include="Logic\TreyIcon.cs" />
     <Compile Include="NotifyWindow.xaml.cs">
       <DependentUpon>NotifyWindow.xaml</DependentUpon>
     </Compile>
@@ -138,9 +140,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\Communication\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AdminApp\" />
   </ItemGroup>

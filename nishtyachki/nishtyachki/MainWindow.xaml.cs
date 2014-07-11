@@ -22,12 +22,13 @@ namespace nishtyachki
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IShowMessage
+    public partial class MainWindow : Window, IShowMessage, IHideable
     {
-        private IRepository _repo;
-
         public event Action EnqueueEnter;
         public event Action EnqueueError;
+
+        private IRepository _repo;
+        private TreyIcon _treyIcon;
 
         public MainWindow()
         {
@@ -35,16 +36,7 @@ namespace nishtyachki
 
             InitializeComponent();
 
-            System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-            icon.Icon = new System.Drawing.Icon(AllStrings.MainIco);
-
-            icon.Visible = true;
-
-            icon.DoubleClick += (sender, args) =>
-            {
-                this.Show();
-                this.WindowState = System.Windows.WindowState.Normal;
-            };
+            _treyIcon = new TreyIcon(this);
 
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
             this.EnqueueEnter += SayHello;
@@ -64,12 +56,6 @@ namespace nishtyachki
             message = service.DoWork("Arti!");
 
             ShowMessageToUser(message);
-
-            /*
-            message = service.DoAnotherWork("Lolik!");
-
-            ShowMessageToUser(message);
-            */
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
@@ -78,7 +64,7 @@ namespace nishtyachki
             ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));
         }
 
-        private void HideWindow()
+        public void HideWindow()
         {
             this.Hide();
             ShowMessageToUser(AllStrings.HideWinMsg);
@@ -88,17 +74,16 @@ namespace nishtyachki
         {
             System.Windows.Forms.MessageBox.Show(message); 
         }
-
-        private void btnHideWindow_Click(object sender, RoutedEventArgs e)
-        {
-            HideWindow();
-        }
-        
+                
         protected override void OnStateChanged(EventArgs e)
         {
             if (WindowState == System.Windows.WindowState.Minimized)
             {
-                HideWindow(); 
+                _treyIcon.IsVicible = false;
+            }
+            else
+            {
+                _treyIcon.IsVicible = true;
             }
 
             base.OnStateChanged(e);
@@ -137,6 +122,12 @@ namespace nishtyachki
         public void ShowMessage(string msg)
         {
             ShowMessageToUser(msg);
+        }
+
+        public void ShowWindow()
+        {
+            this.Show();
+            this.WindowState = System.Windows.WindowState.Normal;
         }
     }
 }
