@@ -39,27 +39,15 @@ namespace nishtyachki
             _treyIcon = new TreyIcon(this);
 
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
-            this.EnqueueEnter += SayHello;
-        }
-
-        private void SayHello()//temp class for watching connection with server
-        {
-            AdminApp.IWcfServiceCallback callBack = new CallBackClass(this);
-
-            InstanceContext ic = new InstanceContext(callBack);
-
-            AdminApp.IWcfService service = new AdminApp.WcfServiceClient(ic);
-            var message = "lol";
-
-            service.OpenSession();
-
-            message = service.DoWork("Arti!");
-
-            ShowMessageToUser(message);
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
         {
+            AdminApp.IWcfServiceCallback callBack = new CallBackClass(this);
+            InstanceContext ic = new InstanceContext(callBack);
+            AdminApp.IWcfService service = new AdminApp.WcfServiceClient(ic);
+            service.StandInQueue();
+
             this.HideWindow();
             ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));
         }

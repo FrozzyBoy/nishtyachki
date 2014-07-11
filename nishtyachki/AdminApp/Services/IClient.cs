@@ -11,5 +11,7 @@ namespace AdminApp.Services
     {
         [OperationContract(IsOneWay = true)]
         void ShowMessage(string text);
+        [OperationContract(IsOneWay = true)]
+        void NotifyToUseObj(string text);
     }
 }

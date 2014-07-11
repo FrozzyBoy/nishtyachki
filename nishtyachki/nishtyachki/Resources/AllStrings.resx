@@ -124,6 +124,6 @@
     <value>main.ico</value>
   </data>
   <data name="ShowNumberOfPeople" xml:space="preserve">
-    <value>There is {0} people in queue</value>
+    <value>There is {0} people in queue. Wait For {0} seconds, please.</value>
   </data>
 </root>

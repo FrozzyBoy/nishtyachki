@@ -15,29 +15,17 @@ namespace nishtyachki.AdminApp {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AdminApp.IWcfService", CallbackContract=typeof(nishtyachki.AdminApp.IWcfServiceCallback))]
     public interface IWcfService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoWork", ReplyAction="http://tempuri.org/IWcfService/DoWorkResponse")]
-        string DoWork(string value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StandInQueue", ReplyAction="http://tempuri.org/IWcfService/StandInQueueResponse")]
+        void StandInQueue();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoWork", ReplyAction="http://tempuri.org/IWcfService/DoWorkResponse")]
-        System.Threading.Tasks.Task<string> DoWorkAsync(string value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StandInQueue", ReplyAction="http://tempuri.org/IWcfService/StandInQueueResponse")]
+        System.Threading.Tasks.Task StandInQueueAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoAnotherWork", ReplyAction="http://tempuri.org/IWcfService/DoAnotherWorkResponse")]
-        string DoAnotherWork(string value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/LeaveQueue", ReplyAction="http://tempuri.org/IWcfService/LeaveQueueResponse")]
+        void LeaveQueue();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoAnotherWork", ReplyAction="http://tempuri.org/IWcfService/DoAnotherWorkResponse")]
-        System.Threading.Tasks.Task<string> DoAnotherWorkAsync(string value);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/MyCallBack", ReplyAction="http://tempuri.org/IWcfService/MyCallBackResponse")]
-        void MyCallBack();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/MyCallBack", ReplyAction="http://tempuri.org/IWcfService/MyCallBackResponse")]
-        System.Threading.Tasks.Task MyCallBackAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/OpenSession", ReplyAction="http://tempuri.org/IWcfService/OpenSessionResponse")]
-        void OpenSession();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/OpenSession", ReplyAction="http://tempuri.org/IWcfService/OpenSessionResponse")]
-        System.Threading.Tasks.Task OpenSessionAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/LeaveQueue", ReplyAction="http://tempuri.org/IWcfService/LeaveQueueResponse")]
+        System.Threading.Tasks.Task LeaveQueueAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -45,6 +33,9 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowMessage")]
         void ShowMessage(string text);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/NotifyToUseObj")]
+        void NotifyToUseObj(string text);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -75,36 +66,20 @@ namespace nishtyachki.AdminApp {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public string DoWork(string value) {
-            return base.Channel.DoWork(value);
+        public void StandInQueue() {
+            base.Channel.StandInQueue();
         }
         
-        public System.Threading.Tasks.Task<string> DoWorkAsync(string value) {
-            return base.Channel.DoWorkAsync(value);
+        public System.Threading.Tasks.Task StandInQueueAsync() {
+            return base.Channel.StandInQueueAsync();
         }
         
-        public string DoAnotherWork(string value) {
-            return base.Channel.DoAnotherWork(value);
+        public void LeaveQueue() {
+            base.Channel.LeaveQueue();
         }
         
-        public System.Threading.Tasks.Task<string> DoAnotherWorkAsync(string value) {
-            return base.Channel.DoAnotherWorkAsync(value);
-        }
-        
-        public void MyCallBack() {
-            base.Channel.MyCallBack();
-        }
-        
-        public System.Threading.Tasks.Task MyCallBackAsync() {
-            return base.Channel.MyCallBackAsync();
-        }
-        
-        public void OpenSession() {
-            base.Channel.OpenSession();
-        }
-        
-        public System.Threading.Tasks.Task OpenSessionAsync() {
-            return base.Channel.OpenSessionAsync();
+        public System.Threading.Tasks.Task LeaveQueueAsync() {
+            return base.Channel.LeaveQueueAsync();
         }
     }
 }

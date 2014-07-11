@@ -20,5 +20,11 @@ namespace nishtyachki.Logic
         {
             _showMsg.ShowMessage(text);
         }
+
+
+        public void NotifyToUseObj(string text)
+        {
+            _showMsg.ShowMessage(text);
+        }
     }
 }

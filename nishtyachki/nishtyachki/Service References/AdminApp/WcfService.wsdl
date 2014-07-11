@@ -35,59 +35,45 @@
       <xsd:import schemaLocation="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IWcfService_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
+  <wsdl:message name="IWcfService_StandInQueue_InputMessage">
+    <wsdl:part name="parameters" element="tns:StandInQueue" />
   </wsdl:message>
-  <wsdl:message name="IWcfService_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  <wsdl:message name="IWcfService_StandInQueue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StandInQueueResponse" />
   </wsdl:message>
-  <wsdl:message name="IWcfService_DoAnotherWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoAnotherWork" />
+  <wsdl:message name="IWcfService_LeaveQueue_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeaveQueue" />
   </wsdl:message>
-  <wsdl:message name="IWcfService_DoAnotherWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoAnotherWorkResponse" />
-  </wsdl:message>
-  <wsdl:message name="IWcfService_MyCallBack_InputMessage">
-    <wsdl:part name="parameters" element="tns:MyCallBack" />
-  </wsdl:message>
-  <wsdl:message name="IWcfService_MyCallBack_OutputMessage">
-    <wsdl:part name="parameters" element="tns:MyCallBackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IWcfService_OpenSession_InputMessage">
-    <wsdl:part name="parameters" element="tns:OpenSession" />
-  </wsdl:message>
-  <wsdl:message name="IWcfService_OpenSession_OutputMessage">
-    <wsdl:part name="parameters" element="tns:OpenSessionResponse" />
+  <wsdl:message name="IWcfService_LeaveQueue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeaveQueueResponse" />
   </wsdl:message>
   <wsdl:message name="IWcfService_ShowMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ShowMessage" />
   </wsdl:message>
+  <wsdl:message name="IWcfService_NotifyToUseObj_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyToUseObj" />
+  </wsdl:message>
   <wsdl:portType name="IWcfService">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/DoWork" message="tns:IWcfService_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/DoWorkResponse" message="tns:IWcfService_DoWork_OutputMessage" />
+    <wsdl:operation name="StandInQueue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/StandInQueue" message="tns:IWcfService_StandInQueue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/StandInQueueResponse" message="tns:IWcfService_StandInQueue_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DoAnotherWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/DoAnotherWork" message="tns:IWcfService_DoAnotherWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/DoAnotherWorkResponse" message="tns:IWcfService_DoAnotherWork_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="MyCallBack">
-      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/MyCallBack" message="tns:IWcfService_MyCallBack_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/MyCallBackResponse" message="tns:IWcfService_MyCallBack_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OpenSession">
-      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/OpenSession" message="tns:IWcfService_OpenSession_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/OpenSessionResponse" message="tns:IWcfService_OpenSession_OutputMessage" />
+    <wsdl:operation name="LeaveQueue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/LeaveQueue" message="tns:IWcfService_LeaveQueue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/LeaveQueueResponse" message="tns:IWcfService_LeaveQueue_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ShowMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/ShowMessage" message="tns:IWcfService_ShowMessage_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyToUseObj">
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/NotifyToUseObj" message="tns:IWcfService_NotifyToUseObj_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IWcfService" type="tns:IWcfService">
     <wsp:PolicyReference URI="#NetTcpBinding_IWcfService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="DoWork">
-      <soap12:operation soapAction="http://tempuri.org/IWcfService/DoWork" style="document" />
+    <wsdl:operation name="StandInQueue">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/StandInQueue" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -95,26 +81,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DoAnotherWork">
-      <soap12:operation soapAction="http://tempuri.org/IWcfService/DoAnotherWork" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="MyCallBack">
-      <soap12:operation soapAction="http://tempuri.org/IWcfService/MyCallBack" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OpenSession">
-      <soap12:operation soapAction="http://tempuri.org/IWcfService/OpenSession" style="document" />
+    <wsdl:operation name="LeaveQueue">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/LeaveQueue" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -124,6 +92,12 @@
     </wsdl:operation>
     <wsdl:operation name="ShowMessage">
       <soap12:operation soapAction="http://tempuri.org/IWcfService/ShowMessage" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyToUseObj">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/NotifyToUseObj" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

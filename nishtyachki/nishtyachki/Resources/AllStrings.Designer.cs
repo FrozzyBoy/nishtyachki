@@ -79,7 +79,7 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is {0} people in queue.
+        ///   Looks up a localized string similar to There is {0} people in queue. Wait For {0} seconds, please..
         /// </summary>
         internal static string ShowNumberOfPeople {
             get {

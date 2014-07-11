@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
@@ -15,41 +14,30 @@ namespace AdminApp.Services
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
 
-        public string DoWork(string value)
-        {
-            Thread.Sleep(3000);
-            return "Welcome, " + value;
-        }
-
-        public string DoAnotherWork(string value)
-        {
-            Thread.Sleep(1000);
-            return "Another Welcome, " + value;
-        }
-
-        public void OpenSession()
+        public void StandInQueue()
         {
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             string key = OperationContext.Current.SessionId;
-            _clients.AddOrUpdate(key, client, (k, v) => v);
+            //_clients.AddOrUpdate(key, client, (k, v) => v);
 
-
-            new Thread(() =>
+            if (_clients.TryAdd(key, client))
             {
-                Thread.Sleep(5000);
-
-                IClient res;
-                if (_clients.TryGetValue(key, out res))
+                new Thread(() =>
                 {
-                    res.ShowMessage("yahoo!");
-                }
+                    Thread.Sleep(5000);
 
-            }).Start();
+                    IClient res;
+                    if (_clients.TryGetValue(key, out res))
+                    {
+                        res.NotifyToUseObj("yahoo! U can Use nishtiak!");
+                    }
+
+                }).Start();
+            }
         }
 
-        public void MyCallBack()
+        public void LeaveQueue()
         {
-            throw new NotImplementedException();
         }
     }
 }
