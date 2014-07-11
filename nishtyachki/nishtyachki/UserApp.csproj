@@ -59,7 +59,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Logic\CallBackClass.cs" />
-    <Compile Include="Logic\IClientWindow.cs" />
     <Compile Include="Logic\Infrastructure\IClientWindow.cs" />
     <Compile Include="Logic\Infrastructure\IHideable.cs" />
     <Compile Include="Logic\Infrastructure\IRepository.cs" />
