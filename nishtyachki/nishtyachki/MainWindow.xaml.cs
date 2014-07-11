@@ -43,13 +43,15 @@ namespace nishtyachki
 
         private void MainWindow_EnqueueEnter_HideWindow()
         {
+
+            _treyIcon.IsVicible = true;
+
+            ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));
+
             AdminApp.IWcfServiceCallback callBack = new CallBackClass(this);
             InstanceContext ic = new InstanceContext(callBack);
             AdminApp.IWcfService service = new AdminApp.WcfServiceClient(ic);
-            service.StandInQueue();
-
-            this.HideWindow();
-            ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));
+            service.StandInQueue();            
         }
 
         public void HideWindow()
