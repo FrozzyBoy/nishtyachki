@@ -13,7 +13,7 @@ namespace AdminApp.Services
     {
         public string DoWork(string value)
         {
-            return "Welcome " + value;
+            return "Welcome, " + value;
         }
     }
 }
