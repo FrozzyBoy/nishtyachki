@@ -12,7 +12,7 @@ namespace nishtyachki.AdminApp {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AdminApp.IWcfService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AdminApp.IWcfService", CallbackContract=typeof(nishtyachki.AdminApp.IWcfServiceCallback))]
     public interface IWcfService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoWork", ReplyAction="http://tempuri.org/IWcfService/DoWorkResponse")]
@@ -20,6 +20,31 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoWork", ReplyAction="http://tempuri.org/IWcfService/DoWorkResponse")]
         System.Threading.Tasks.Task<string> DoWorkAsync(string value);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoAnotherWork", ReplyAction="http://tempuri.org/IWcfService/DoAnotherWorkResponse")]
+        string DoAnotherWork(string value);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DoAnotherWork", ReplyAction="http://tempuri.org/IWcfService/DoAnotherWorkResponse")]
+        System.Threading.Tasks.Task<string> DoAnotherWorkAsync(string value);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/MyCallBack", ReplyAction="http://tempuri.org/IWcfService/MyCallBackResponse")]
+        void MyCallBack();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/MyCallBack", ReplyAction="http://tempuri.org/IWcfService/MyCallBackResponse")]
+        System.Threading.Tasks.Task MyCallBackAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/OpenSession", ReplyAction="http://tempuri.org/IWcfService/OpenSessionResponse")]
+        void OpenSession();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/OpenSession", ReplyAction="http://tempuri.org/IWcfService/OpenSessionResponse")]
+        System.Threading.Tasks.Task OpenSessionAsync();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IWcfServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowMessage")]
+        void ShowMessage(string text);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -28,25 +53,26 @@ namespace nishtyachki.AdminApp {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class WcfServiceClient : System.ServiceModel.ClientBase<nishtyachki.AdminApp.IWcfService>, nishtyachki.AdminApp.IWcfService {
+    public partial class WcfServiceClient : System.ServiceModel.DuplexClientBase<nishtyachki.AdminApp.IWcfService>, nishtyachki.AdminApp.IWcfService {
         
-        public WcfServiceClient() {
+        public WcfServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public WcfServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public WcfServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public WcfServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public WcfServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public WcfServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public WcfServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public WcfServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public WcfServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
         public string DoWork(string value) {
@@ -55,6 +81,30 @@ namespace nishtyachki.AdminApp {
         
         public System.Threading.Tasks.Task<string> DoWorkAsync(string value) {
             return base.Channel.DoWorkAsync(value);
+        }
+        
+        public string DoAnotherWork(string value) {
+            return base.Channel.DoAnotherWork(value);
+        }
+        
+        public System.Threading.Tasks.Task<string> DoAnotherWorkAsync(string value) {
+            return base.Channel.DoAnotherWorkAsync(value);
+        }
+        
+        public void MyCallBack() {
+            base.Channel.MyCallBack();
+        }
+        
+        public System.Threading.Tasks.Task MyCallBackAsync() {
+            return base.Channel.MyCallBackAsync();
+        }
+        
+        public void OpenSession() {
+            base.Channel.OpenSession();
+        }
+        
+        public System.Threading.Tasks.Task OpenSessionAsync() {
+            return base.Channel.OpenSessionAsync();
         }
     }
 }

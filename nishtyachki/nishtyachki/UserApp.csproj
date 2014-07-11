@@ -58,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CallBackClass.cs" />
+    <Compile Include="IShowMessage.cs" />
     <Compile Include="Logic\Infrastructure\IRepository.cs" />
     <Compile Include="Logic\Service\IWcfService.cs" />
     <Compile Include="Logic\Service\Registration.cs" />
@@ -129,7 +131,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -22,7 +22,7 @@ namespace nishtyachki
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IShowMessage
     {
         private IRepository _repo;
 
@@ -50,12 +50,26 @@ namespace nishtyachki
             this.EnqueueEnter += SayHello;
         }
 
-        private void SayHello()
+        private void SayHello()//temp class for watching connection with server
         {
-            AdminApp.IWcfService service = new AdminApp.WcfServiceClient();
-            var message = service.DoWork("Arti!");
+            AdminApp.IWcfServiceCallback callBack = new CallBackClass(this);
+
+            InstanceContext ic = new InstanceContext(callBack);
+
+            AdminApp.IWcfService service = new AdminApp.WcfServiceClient(ic);
+            var message = "lol";
+
+            service.OpenSession();
+
+            message = service.DoWork("Arti!");
 
             ShowMessageToUser(message);
+
+            /*
+            message = service.DoAnotherWork("Lolik!");
+
+            ShowMessageToUser(message);
+            */
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
@@ -120,5 +134,9 @@ namespace nishtyachki
             }
         }
 
+        public void ShowMessage(string msg)
+        {
+            ShowMessageToUser(msg);
+        }
     }
 }
