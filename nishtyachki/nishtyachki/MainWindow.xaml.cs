@@ -38,7 +38,7 @@ namespace nishtyachki
 
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
-
+            
             _repo = new Repository(this);
         }
 
