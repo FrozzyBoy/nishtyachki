@@ -25,7 +25,9 @@ namespace nishtyachki.Views
             tpos.getXY((int)this.Width, (int)this.Height, out top, out left, out prop, out end);
             this.Top = top;
             this.Left = left;
-            anim = new DoubleAnimation(end, TimeSpan.FromSeconds(1));
+
+            var animationDuration = TimeSpan.FromSeconds(1);
+            anim = new DoubleAnimation(end, animationDuration);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
