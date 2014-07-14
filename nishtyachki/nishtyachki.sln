@@ -1,14 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApp", "nishtyachki\UserApp.csproj", "{80A2E6D5-3D62-4444-BB7C-9BEE0CACA2A3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{99B5730D-C5C2-4D75-88A7-922B71B2FF7F} = {99B5730D-C5C2-4D75-88A7-922B71B2FF7F}
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity_test2", "..\..\..\Asp\Project\Identity_test2\Identity_test2\Identity_test2.csproj", "{ACAC5F00-2422-4D07-8FBD-FD9D47797816}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity_test2", "Identity_test2\Identity_test2.csproj", "{ACAC5F00-2422-4D07-8FBD-FD9D47797816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

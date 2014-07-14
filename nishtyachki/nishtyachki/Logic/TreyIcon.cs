@@ -39,7 +39,7 @@ namespace nishtyachki.Logic
         }
 
         private NotifyIcon _icon;
-        private IHideable _window;
+        private IHideable    _window;
 
         public TreyIcon(IHideable window)
         {
