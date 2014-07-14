@@ -50,8 +50,7 @@ namespace nishtyachki
 
         public void HideWindow()
         {
-            this.Hide();
-            ShowMessage(AllStrings.HideWinMsg);
+            this.Hide();            
         }
                         
         protected override void OnStateChanged(EventArgs e)
