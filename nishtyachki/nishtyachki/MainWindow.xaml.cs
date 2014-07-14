@@ -33,17 +33,13 @@ namespace nishtyachki
         public MainWindow()
         {
             _repo = new TempRepo();
-
             InitializeComponent();
-
             _treyIcon = new TreyIcon(this);
-
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
         {
-
             _treyIcon.IsVicible = true;
 
             ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));

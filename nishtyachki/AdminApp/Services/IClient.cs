@@ -10,6 +10,8 @@ namespace AdminApp.Services
     public interface IClient
     {
         [OperationContract(IsOneWay = true)]
+        void NotifyServerReady();
+        [OperationContract(IsOneWay = true)]
         void ShowMessage(string text);
         [OperationContract(IsOneWay = true)]
         void NotifyToUseObj(string text);

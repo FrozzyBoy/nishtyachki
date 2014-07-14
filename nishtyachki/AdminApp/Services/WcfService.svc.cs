@@ -14,30 +14,50 @@ namespace AdminApp.Services
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
 
-        public void StandInQueue()
+        public bool TryStandInQueue(string passkey)
         {
-            IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
-            string key = OperationContext.Current.SessionId;
-            //_clients.AddOrUpdate(key, client, (k, v) => v);
+            bool operationOk = false;
 
-            if (_clients.TryAdd(key, client))
+            if (passkey != null)
             {
                 new Thread(() =>
                 {
                     Thread.Sleep(5000);
 
                     IClient res;
-                    if (_clients.TryGetValue(key, out res))
+                    if (_clients.TryGetValue(passkey, out res))
                     {
                         res.NotifyToUseObj("yahoo! U can Use nishtiak!");
+                        operationOk = true;
                     }
 
                 }).Start();
             }
+
+            return operationOk;
         }
 
-        public void LeaveQueue()
+        public void LeaveQueue(string passkey)
         {
+            IClient client;
+            _clients.TryRemove(passkey, out client);
         }
+
+        public string GetPasskey()
+        {
+            IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
+            string key = OperationContext.Current.SessionId;
+
+            if (!_clients.TryAdd(key, client))
+            {
+                key = null;
+            }
+
+            client.NotifyServerReady();
+
+            return key;
+
+        }
+
     }
 }

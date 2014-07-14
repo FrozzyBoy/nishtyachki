@@ -10,10 +10,12 @@ namespace AdminApp.Services
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IWcfService" in both code and config file together.
     [ServiceContract(CallbackContract=typeof(IClient))]
     public interface IWcfService
-    {   
+    {
         [OperationContract(IsInitiating = true)]
-        void StandInQueue();
+        string GetPasskey();
         [OperationContract]
-        void LeaveQueue();
+        bool TryStandInQueue(string passkey);
+        [OperationContract]
+        void LeaveQueue(string passkey);
     }
 }
