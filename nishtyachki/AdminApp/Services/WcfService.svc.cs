@@ -13,20 +13,20 @@ namespace AdminApp.Services
     public class WcfService : IWcfService
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
-        private string _passkey;
+        private string _key;
 
         public bool TryStandInQueue()
         {
             bool operationOk = false;
 
-            if (_passkey != null)
+            if (_key != null)
             {
                 new Thread(() =>
                 {
                     Thread.Sleep(5000);
 
                     IClient res;
-                    if (_clients.TryGetValue(_passkey, out res))
+                    if (_clients.TryGetValue(_key, out res))
                     {
                         res.NotifyToUseObj("yahoo! U can Use nishtiak!");
                         operationOk = true;
@@ -41,17 +41,17 @@ namespace AdminApp.Services
         public void LeaveQueue()
         {
             IClient client;
-            _clients.TryRemove(_passkey, out client);
+            _clients.TryRemove(_key, out client);
         }
 
         public void InitUser()
         {
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
-            _passkey = OperationContext.Current.SessionId;
+            _key = Thread.CurrentPrincipal.Identity.Name;
 
-            if (!_clients.TryAdd(_passkey, client))
+            if (!_clients.TryAdd(_key, client))
             {
-                _passkey = null;
+                _key = null;
             }
 
             client.NotifyServerReady();
