@@ -12,10 +12,10 @@ namespace AdminApp.Services
     public interface IWcfService
     {
         [OperationContract(IsInitiating = true)]
-        string GetPasskey();
+        void InitUser();
         [OperationContract]
-        bool TryStandInQueue(string passkey);
+        bool TryStandInQueue();
         [OperationContract]
-        void LeaveQueue(string passkey);
+        void LeaveQueue();
     }
 }

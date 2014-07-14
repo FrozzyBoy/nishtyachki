@@ -22,7 +22,7 @@ namespace nishtyachki
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IShowMessage, IHideable
+    public partial class MainWindow : Window, IClientWindow, IHideable
     {
         public event Action EnqueueEnter;
         public event Action EnqueueError;
@@ -32,61 +32,50 @@ namespace nishtyachki
 
         public MainWindow()
         {
-            _repo = new TempRepo();
             InitializeComponent();
             _treyIcon = new TreyIcon(this);
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
+
+            this.btnEnqueue.Content = AllStrings.BtnTextInit;
+            btnEnqueue.IsEnabled = false;
+
+            _repo = new Repository(this);
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
         {
             _treyIcon.IsVicible = true;
-
-            ShowMessageToUser(string.Format(AllStrings.ShowNumberOfPeople, _repo.NumberOfPeopleInFrontOfMe));
-
-            AdminApp.IWcfServiceCallback callBack = new CallBackClass(this);
-            InstanceContext ic = new InstanceContext(callBack);
-            AdminApp.IWcfService service = new AdminApp.WcfServiceClient(ic);
-            service.StandInQueue();            
+            _repo.StayInQueue();
         }
 
         public void HideWindow()
         {
             this.Hide();
-            ShowMessageToUser(AllStrings.HideWinMsg);
+            ShowMessage(AllStrings.HideWinMsg);
         }
-
-        private void ShowMessageToUser(string message)
-        {
-            System.Windows.Forms.MessageBox.Show(message); 
-        }
-                
+                        
         protected override void OnStateChanged(EventArgs e)
         {
-            if (WindowState == System.Windows.WindowState.Minimized)
+            switch (WindowState)
             {
-                _treyIcon.IsVicible = false;
-            }
-            else
-            {
-                _treyIcon.IsVicible = true;
+                case WindowState.Maximized:
+                    break;
+                case WindowState.Minimized:
+                    _treyIcon.IsVicible = true;
+                    break;
+                case WindowState.Normal:
+                    _treyIcon.IsVicible = false;
+                    break;
+                default:
+                    break;
             }
 
             base.OnStateChanged(e);
         }
 
         private void Enqueue_Click(object sender, RoutedEventArgs e)
-        {            
-            bool isOkRequest = _repo.SendRequest();
-
-            if (isOkRequest)
-            {
-                OnEnqueueEnter();
-            }
-            else
-            {
-                OnEnqueueError();
-            }
+        {
+            OnEnqueueEnter();
         }
 
         public void OnEnqueueEnter()
@@ -107,7 +96,7 @@ namespace nishtyachki
 
         public void ShowMessage(string msg)
         {
-            ShowMessageToUser(msg);
+            MessageBox.Show(msg);
         }
 
         public void ShowWindow()
@@ -115,5 +104,18 @@ namespace nishtyachki
             this.Show();
             this.WindowState = System.Windows.WindowState.Normal;
         }
+
+
+        public void NotifyServerReady()
+        {
+            this.btnEnqueue.Content = AllStrings.BtnTextReady;
+            btnEnqueue.IsEnabled = true;
+        }
+
+        public void NotifyToUseObj()
+        {
+            ShowMessage("use it!");
+        }
+
     }
 }

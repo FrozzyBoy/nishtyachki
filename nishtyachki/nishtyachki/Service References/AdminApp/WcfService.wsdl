@@ -35,17 +35,26 @@
       <xsd:import schemaLocation="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IWcfService_StandInQueue_InputMessage">
-    <wsdl:part name="parameters" element="tns:StandInQueue" />
+  <wsdl:message name="IWcfService_InitUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:InitUser" />
   </wsdl:message>
-  <wsdl:message name="IWcfService_StandInQueue_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StandInQueueResponse" />
+  <wsdl:message name="IWcfService_InitUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InitUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWcfService_TryStandInQueue_InputMessage">
+    <wsdl:part name="parameters" element="tns:TryStandInQueue" />
+  </wsdl:message>
+  <wsdl:message name="IWcfService_TryStandInQueue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TryStandInQueueResponse" />
   </wsdl:message>
   <wsdl:message name="IWcfService_LeaveQueue_InputMessage">
     <wsdl:part name="parameters" element="tns:LeaveQueue" />
   </wsdl:message>
   <wsdl:message name="IWcfService_LeaveQueue_OutputMessage">
     <wsdl:part name="parameters" element="tns:LeaveQueueResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWcfService_NotifyServerReady_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyServerReady" />
   </wsdl:message>
   <wsdl:message name="IWcfService_ShowMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ShowMessage" />
@@ -54,13 +63,20 @@
     <wsdl:part name="parameters" element="tns:NotifyToUseObj" />
   </wsdl:message>
   <wsdl:portType name="IWcfService">
-    <wsdl:operation name="StandInQueue">
-      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/StandInQueue" message="tns:IWcfService_StandInQueue_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/StandInQueueResponse" message="tns:IWcfService_StandInQueue_OutputMessage" />
+    <wsdl:operation name="InitUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/InitUser" message="tns:IWcfService_InitUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/InitUserResponse" message="tns:IWcfService_InitUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TryStandInQueue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/TryStandInQueue" message="tns:IWcfService_TryStandInQueue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/TryStandInQueueResponse" message="tns:IWcfService_TryStandInQueue_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="LeaveQueue">
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/LeaveQueue" message="tns:IWcfService_LeaveQueue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/LeaveQueueResponse" message="tns:IWcfService_LeaveQueue_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyServerReady">
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/NotifyServerReady" message="tns:IWcfService_NotifyServerReady_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="ShowMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/ShowMessage" message="tns:IWcfService_ShowMessage_OutputCallbackMessage" />
@@ -72,8 +88,17 @@
   <wsdl:binding name="NetTcpBinding_IWcfService" type="tns:IWcfService">
     <wsp:PolicyReference URI="#NetTcpBinding_IWcfService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="StandInQueue">
-      <soap12:operation soapAction="http://tempuri.org/IWcfService/StandInQueue" style="document" />
+    <wsdl:operation name="InitUser">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/InitUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TryStandInQueue">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/TryStandInQueue" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -86,6 +111,12 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyServerReady">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/NotifyServerReady" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

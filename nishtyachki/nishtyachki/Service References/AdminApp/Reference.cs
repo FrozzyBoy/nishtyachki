@@ -15,11 +15,17 @@ namespace nishtyachki.AdminApp {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AdminApp.IWcfService", CallbackContract=typeof(nishtyachki.AdminApp.IWcfServiceCallback))]
     public interface IWcfService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StandInQueue", ReplyAction="http://tempuri.org/IWcfService/StandInQueueResponse")]
-        void StandInQueue();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/InitUser", ReplyAction="http://tempuri.org/IWcfService/InitUserResponse")]
+        void InitUser();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StandInQueue", ReplyAction="http://tempuri.org/IWcfService/StandInQueueResponse")]
-        System.Threading.Tasks.Task StandInQueueAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/InitUser", ReplyAction="http://tempuri.org/IWcfService/InitUserResponse")]
+        System.Threading.Tasks.Task InitUserAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/TryStandInQueue", ReplyAction="http://tempuri.org/IWcfService/TryStandInQueueResponse")]
+        bool TryStandInQueue();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/TryStandInQueue", ReplyAction="http://tempuri.org/IWcfService/TryStandInQueueResponse")]
+        System.Threading.Tasks.Task<bool> TryStandInQueueAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/LeaveQueue", ReplyAction="http://tempuri.org/IWcfService/LeaveQueueResponse")]
         void LeaveQueue();
@@ -30,6 +36,9 @@ namespace nishtyachki.AdminApp {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IWcfServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/NotifyServerReady")]
+        void NotifyServerReady();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowMessage")]
         void ShowMessage(string text);
@@ -66,12 +75,20 @@ namespace nishtyachki.AdminApp {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void StandInQueue() {
-            base.Channel.StandInQueue();
+        public void InitUser() {
+            base.Channel.InitUser();
         }
         
-        public System.Threading.Tasks.Task StandInQueueAsync() {
-            return base.Channel.StandInQueueAsync();
+        public System.Threading.Tasks.Task InitUserAsync() {
+            return base.Channel.InitUserAsync();
+        }
+        
+        public bool TryStandInQueue() {
+            return base.Channel.TryStandInQueue();
+        }
+        
+        public System.Threading.Tasks.Task<bool> TryStandInQueueAsync() {
+            return base.Channel.TryStandInQueueAsync();
         }
         
         public void LeaveQueue() {

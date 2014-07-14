@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BtnTextInit" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="BtnTextReady" xml:space="preserve">
+    <value>Enqueue</value>
+  </data>
   <data name="HideWinMsg" xml:space="preserve">
     <value>Your app hiden in trey</value>
   </data>

@@ -61,6 +61,24 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        internal static string BtnTextInit {
+            get {
+                return ResourceManager.GetString("BtnTextInit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enqueue.
+        /// </summary>
+        internal static string BtnTextReady {
+            get {
+                return ResourceManager.GetString("BtnTextReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your app hiden in trey.
         /// </summary>
         internal static string HideWinMsg {

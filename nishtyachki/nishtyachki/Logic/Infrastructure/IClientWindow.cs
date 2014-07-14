@@ -5,8 +5,10 @@ using System.Text;
 
 namespace nishtyachki.Logic.Infrastructure
 {
-    public interface IShowMessage
+    public interface IClientWindow
     {
         void ShowMessage(string msg);
+        void NotifyServerReady();
+        void NotifyToUseObj();
     }
 }
