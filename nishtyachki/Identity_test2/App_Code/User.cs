@@ -14,11 +14,11 @@ namespace AdminApp.App_Code
     {
         public User(string id)
         {
-            _ID = id;
+            this.ID = id;
         }
-        public string _ID { get; set; }
-        public string _userName { get; set; }
-        public Statistics _statistic { get; set; }
-        public Role _role { get; set; }       
+        public string ID { get; private set; }
+        public string UserName { get; set; }
+        public Statistics Statistic { get; set; }
+        public Role Role { get; set; }       
     }
 }
