@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using Identity_test2.Models;
+using AdminApp.Models;
 
-namespace Identity_test2.Controllers
+namespace AdminApp.Controllers
 {
     [Authorize]
     public class AccountController : Controller
