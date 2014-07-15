@@ -49,10 +49,7 @@ namespace AdminApp.Services
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
 
-            if (!_clients.TryAdd(_key, client))
-            {
-                _key = null;
-            }
+            _clients[_key] = client;
 
             client.NotifyServerReady();
         }

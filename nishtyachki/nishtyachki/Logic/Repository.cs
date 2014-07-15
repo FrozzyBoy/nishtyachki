@@ -27,7 +27,7 @@ namespace nishtyachki.Logic
 
         ~Repository()
         {
-            //_service.LeaveQueueAsync();
+            _service.LeaveQueueAsync();
         }
     }
 }
