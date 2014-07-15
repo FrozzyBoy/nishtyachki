@@ -113,7 +113,21 @@ namespace nishtyachki
 
         public void NotifyToUseObj()
         {
-            ShowMessage("use it!");
+            btnEnqueue.IsEnabled = true;
+            SwitchButtonStatus(AllStrings.MsgUserUseObj, true, AllStrings.BtnTextReady);
+        }
+
+        public void StandInQueue(int numberPeopleInfront)
+        {
+            string msg = string.Format(AllStrings.MsgUserInQueue, numberPeopleInfront);
+            SwitchButtonStatus(msg, false, AllStrings.BtnTextInqueue);
+        }
+
+        private void SwitchButtonStatus(string msg, bool isAnabled, string btnContent)
+        {
+            this.btnEnqueue.IsEnabled = isAnabled;
+            this.btnEnqueue.Content = btnContent;
+            ShowMessage(msg);
         }
 
     }

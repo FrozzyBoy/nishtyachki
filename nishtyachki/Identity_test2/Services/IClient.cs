@@ -15,5 +15,7 @@ namespace AdminApp.Services
         void ShowMessage(string text);
         [OperationContract(IsOneWay = true)]
         void NotifyToUseObj(string text);
+        [OperationContract(IsOneWay = true)]
+        void StandInQueue(int numberPeopleInfront);
     }
 }

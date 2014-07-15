@@ -10,5 +10,7 @@ namespace nishtyachki.Logic.Infrastructure
         void ShowMessage(string msg);
         void NotifyServerReady();
         void NotifyToUseObj();
+
+        void StandInQueue(int numberPeopleInfront);
     }
 }

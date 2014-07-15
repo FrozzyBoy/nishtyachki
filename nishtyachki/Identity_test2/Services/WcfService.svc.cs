@@ -23,13 +23,15 @@ namespace AdminApp.Services
             {
                 new Thread(() =>
                 {
-                    Thread.Sleep(5000);
-
                     IClient res;
                     if (_clients.TryGetValue(_key, out res))
                     {
+                        res.StandInQueue(5);
+
+                        Thread.Sleep(5000);
+
                         res.NotifyToUseObj("yahoo! U can Use nishtiak!");
-                        operationOk = true;
+                        operationOk = true;                        
                     }
 
                 }).Start();
