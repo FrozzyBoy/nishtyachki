@@ -7,14 +7,18 @@ namespace AdminApp.App_Code
 {
     public enum Role
     {
-        Premium,
-        Standart
+        premium,
+        standart
     }
     public class User
     {
-        
-        public string UserName { get; set; }
-        public Statistics Stat { get; set; }
-        public Role UserRole { get; set; }       
+        public User(string id)
+        {
+            _ID = id;
+        }
+        public string _ID { get; set; }
+        public string _userName { get; set; }
+        public Statistics _statistic { get; set; }
+        public Role _role { get; set; }       
     }
 }
