@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Identity_test2.Models
+namespace AdminApp.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

@@ -45,6 +45,9 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/NotifyToUseObj")]
         void NotifyToUseObj(string text);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/StandInQueue")]
+        void StandInQueue(int numberPeopleInfront);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

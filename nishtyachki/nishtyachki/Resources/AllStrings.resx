@@ -120,6 +120,9 @@
   <data name="BtnTextInit" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="BtnTextInqueue" xml:space="preserve">
+    <value>You are in queue</value>
+  </data>
   <data name="BtnTextReady" xml:space="preserve">
     <value>Enqueue</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="MainIco" xml:space="preserve">
     <value>main.ico</value>
+  </data>
+  <data name="MsgUserInQueue" xml:space="preserve">
+    <value>You are in queue, there is {0} people infront of you</value>
+  </data>
+  <data name="MsgUserUseObj" xml:space="preserve">
+    <value>You can use nishtiak!</value>
   </data>
   <data name="ShowNumberOfPeople" xml:space="preserve">
     <value>There is {0} people in queue. Wait For {0} seconds, please.</value>

@@ -31,5 +31,11 @@ namespace nishtyachki.Logic
         {
             Application.Current.Dispatcher.Invoke(() =>_window.NotifyToUseObj());
         }
+
+
+        public void StandInQueue(int numberPeopleInfront)
+        {
+            Application.Current.Dispatcher.Invoke(() => _window.StandInQueue(numberPeopleInfront));
+        }
     }
 }

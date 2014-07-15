@@ -70,6 +70,15 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are in queue.
+        /// </summary>
+        internal static string BtnTextInqueue {
+            get {
+                return ResourceManager.GetString("BtnTextInqueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enqueue.
         /// </summary>
         internal static string BtnTextReady {
@@ -93,6 +102,24 @@ namespace nishtyachki.Resources {
         internal static string MainIco {
             get {
                 return ResourceManager.GetString("MainIco", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are in queue, there is {0} people infront of you.
+        /// </summary>
+        internal static string MsgUserInQueue {
+            get {
+                return ResourceManager.GetString("MsgUserInQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can use nishtiak!.
+        /// </summary>
+        internal static string MsgUserUseObj {
+            get {
+                return ResourceManager.GetString("MsgUserUseObj", resourceCulture);
             }
         }
         

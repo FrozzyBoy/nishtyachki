@@ -23,13 +23,15 @@ namespace AdminApp.Services
             {
                 new Thread(() =>
                 {
-                    Thread.Sleep(5000);
-
                     IClient res;
                     if (_clients.TryGetValue(_key, out res))
                     {
+                        res.StandInQueue(5);
+
+                        Thread.Sleep(5000);
+
                         res.NotifyToUseObj("yahoo! U can Use nishtiak!");
-                        operationOk = true;
+                        operationOk = true;                        
                     }
 
                 }).Start();
@@ -49,10 +51,7 @@ namespace AdminApp.Services
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
 
-            if (!_clients.TryAdd(_key, client))
-            {
-                _key = null;
-            }
+            _clients[_key] = client;
 
             client.NotifyServerReady();
         }

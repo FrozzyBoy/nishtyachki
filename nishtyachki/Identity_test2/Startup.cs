@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Identity_test2.Startup))]
-namespace Identity_test2
+[assembly: OwinStartupAttribute(typeof(AdminApp.Startup))]
+namespace AdminApp
 {
     public partial class Startup
     {
