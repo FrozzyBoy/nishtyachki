@@ -1,31 +1,16 @@
 ﻿<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-    </style>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Queue</title>
+    <link href="~/Scripts/css/ng-grid.min.css" rel="stylesheet" />
+    <link href="~/Scripts/css/style.css" rel="stylesheet" />
+    <script src="~/Scripts/js/jquery-1.10.1.min.js"></script>
+    <script src="~/Scripts/js/angular.min.js"></script>
+    <script src="~/Scripts/js/ng-grid.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
 </head>
-<body>
-
-    <table style="width:300px">
-        <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-        </tr>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>80</td>
-        </tr>
-    </table>
-
+<body ng-controller="MyCtrl">
+    <div class="gridStyle" ng-grid="gridOptions"></div>
 </body>
 </html>
