@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminApp.Queue;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -26,11 +27,11 @@ namespace AdminApp.Services
                     IClient res;
                     if (_clients.TryGetValue(_key, out res))
                     {
-                        res.StandInQueue(5);
+                        User user = new User(_key, this.SayUserUseObj, this.SayUserHisPosition);
+                        UsersQueue.AddUser(user);                                                 
+                        res.StandInQueue(UsersQueue.GetCount);
+                        //Thread.Sleep(5000);           
 
-                        Thread.Sleep(5000);
-
-                        res.NotifyToUseObj("yahoo! U can Use nishtiak!");
                         operationOk = true;                        
                     }
 
@@ -38,6 +39,20 @@ namespace AdminApp.Services
             }
 
             return operationOk;
+        }
+
+
+     
+        private void SayUserUseObj()
+        {
+            _clients[_key].NotifyToUseObj("use it");
+        }
+
+    
+        private void SayUserHisPosition(int pos)
+        {
+            string msg = string.Format("you are {0}", pos);
+            _clients[_key].ShowMessage(msg);
         }
 
         public void LeaveQueue()

@@ -15,7 +15,7 @@
     <AssemblyName>AdminApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -155,10 +155,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Interfaces\IChangeRole.cs" />
-    <Content Include="App_Code\Interfaces\IDeleteFromTheQueue.cs" />
-    <Content Include="App_Code\Statistics.cs" />
-    <Content Include="App_Code\User.cs" />
+    <Compile Include="Nishtiachki\Nishtiachki.cs" />
+    <Compile Include="Nishtiachki\Nishtiachok.cs" />
+    <Compile Include="Queue\Interfaces\IChangeRole.cs" />
+    <Compile Include="Queue\Interfaces\IDeleteFromTheQueue.cs" />
+    <Compile Include="Queue\Statistics.cs" />
+    <Compile Include="Queue\User.cs" />
+    <Compile Include="Queue\UsersQueue.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -253,7 +256,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60540</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/AdminApp</IISUrl>
+          <IISUrl>http://localhost:60540/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

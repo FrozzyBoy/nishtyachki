@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminApp.App_Code.Interfaces
+namespace AdminApp.Queue.Interfaces
 {
-    interface IDeleteFromTheQueue
+    interface IChangeRole
     {
-        void DeleteFromTheQueue(int id);
+        void ChangeRole(int id, Role role);
     }
 }
