@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Identity_test2.Controllers
+namespace AdminApp.Controllers
 {
     public class HomeController : Controller
     {

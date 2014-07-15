@@ -3,7 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-namespace Identity_test2
+namespace AdminApp
 {
     public partial class Startup
     {

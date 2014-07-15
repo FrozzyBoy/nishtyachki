@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Identity_test2
+namespace AdminApp
 {
     public class BundleConfig
     {
