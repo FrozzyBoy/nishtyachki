@@ -10,11 +10,8 @@ namespace AdminApp.Nishtiachki
         static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
         static public event EventHandler EventChangeStatNisht;
 
-        public NishtiachkiContainer()
-        {
-            
-        }
-        public void OnEventChangeStatNisht(Nishtiachok obj,ChangeNishtArg arg)
+     
+      static  public void OnEventChangeStatNisht(Nishtiachok obj,ChangeNishtArg arg)
          {
              if (EventChangeStatNisht != null)
              {
@@ -23,24 +20,24 @@ namespace AdminApp.Nishtiachki
          }
         
         
-        public void ChangeNisht()
+     static   public void ChangeNisht()
         {
 
         }
 
-        public void AddNistiachok(Nishtiachok obj)
+     static public void AddNistiachok(Nishtiachok obj)
         {
             Nishtiachki.Add(obj);
             ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.add);
             OnEventChangeStatNisht(obj, arg);
         }
-        public void DeleteNishtiachok(Nishtiachok obj)
+     static public void DeleteNishtiachok(Nishtiachok obj)
         {
             Nishtiachki.Remove(obj);
             ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.delete);
             OnEventChangeStatNisht(obj, arg);
         }
-        public void ChangeStatNishtiachok(Nishtiachok obj, Nishtiachok_State state)
+     static public void ChangeStatNishtiachok(Nishtiachok obj, Nishtiachok_State state)
         {
 
            foreach(Nishtiachok n in Nishtiachki)
@@ -48,9 +45,10 @@ namespace AdminApp.Nishtiachki
                if (n.Equals(obj))
                {
                    obj.State = state;
+                   break;
                }
            }
-           ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.changeStat, state);
+           ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.change, state);
            OnEventChangeStatNisht(obj, arg);
             
         }

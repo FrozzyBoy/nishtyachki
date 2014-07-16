@@ -23,6 +23,23 @@ namespace AdminApp.Queue
         public string ID { get; private set; }
         public string UserName { get; set; }
         public Statistics Statistic { get; set; }
-        public Role Role { get; set; }       
+        public Role Role { get; set; }
+        public override bool Equals(Object obj)
+        {
+            User user = obj as User;
+            if (this.ID == user.ID)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

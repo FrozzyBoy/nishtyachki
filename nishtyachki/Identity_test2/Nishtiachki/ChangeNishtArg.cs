@@ -7,7 +7,7 @@ namespace AdminApp.Nishtiachki
 {
     public enum TypeOfChanges
     {
-        add,delete,changeStat
+        add,delete,change
     }
     public class ChangeNishtArg : EventArgs
     {

@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Web;
 using AdminApp.Services;
-
+using AdminApp.Nishtiachki;
 namespace AdminApp.Queue
 {
     public static class UsersQueue
@@ -19,30 +19,35 @@ namespace AdminApp.Queue
            lock (LockObj)
            {
                _queue.Add(user);
-              
+               QueueArgs args = new QueueArgs(TypeOfChanges.add);
+              OnQueueChanged(user,args);
            }
 
        }
        
-        public static void DeleteFromTheQueue(string id)
+        public static void DeleteFromTheQueue(User user)
         {
             lock (LockObj)
-            {
-                _queue.RemoveAll(m => m.ID == id);
+            {                
+                _queue.Remove(user);
+                QueueArgs args = new QueueArgs(TypeOfChanges.add);
+                OnQueueChanged(user, args);
                 AlertQueue();
             }
         }
        
-        public static void ChangeRole(string id, Role needed_role)
+        public static void ChangeRole(User user, Role needed_role)
         {
             lock (LockObj)
             {
                 for (int i = 0; i < _queue.Count; i++)
                 {
-                    if (_queue[i].ID == id)
+                    if (_queue[i].Equals(user))
                     {
                         _queue[i].Role = needed_role;
-                        UpdateQueue(i);
+                        QueueArgs args = new QueueArgs(TypeOfChanges.change, needed_role);
+                        OnQueueChanged(user, args);
+                        UpdateQueue(i,needed_role);
                         break;
                     }
                 }
@@ -63,23 +68,25 @@ namespace AdminApp.Queue
             
         }
         //сортировка,вызываемая при изменении роли пользователя
-        static void UpdateQueue(int i)
+        static void UpdateQueue(int i,Role changedRole)
         {
-
-            try
+            if (changedRole == Role.premium)
             {
-                while(_queue[i-1].Role!=Role.premium)
+                try
                 {
-                    User temp = _queue[i];
-                    _queue[i] = _queue[i - 1];
-                    _queue[i - 1] = temp;
-                    i--;
+                    while (_queue[i - 1].Role != Role.premium)
+                    {
+                        User temp = _queue[i];
+                        _queue[i] = _queue[i - 1];
+                        _queue[i - 1] = temp;
+                        i--;
+                    }
+
                 }
+                catch (IndexOutOfRangeException)
+                {
 
-            }
-            catch(IndexOutOfRangeException)
-            {
-
+                }
             }
         }
         public static int GetCount
