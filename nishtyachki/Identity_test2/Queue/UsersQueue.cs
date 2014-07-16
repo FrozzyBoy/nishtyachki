@@ -10,21 +10,26 @@ namespace AdminApp.Queue
     public static class UsersQueue
     {
        public static List<User> _queue= new List<User>();
+       public static event EventHandler QueueChanged;
        static Object LockObj = new Object();
-        public static void AddUser(User user)
-        {                       
-           lock( LockObj)
-            {
-            _queue.Add(user);
-        }
-        }
+
+
+       public static void AddUser(User user)
+       {
+           lock (LockObj)
+           {
+               _queue.Add(user);
+              
+           }
+
+       }
        
         public static void DeleteFromTheQueue(string id)
         {
             lock (LockObj)
             {
                 _queue.RemoveAll(m => m.ID == id);
-                UpdateQueue();
+                AlertQueue();
             }
         }
        
@@ -32,17 +37,20 @@ namespace AdminApp.Queue
         {
             lock (LockObj)
             {
-                foreach (User user in _queue)
+                for (int i = 0; i < _queue.Count; i++)
                 {
-                    if (user.ID == id)
+                    if (_queue[i].ID == id)
                     {
-                        user.Role = needed_role;
+                        _queue[i].Role = needed_role;
+                        UpdateQueue(i);
+                        break;
                     }
                 }
             }
+            
         }
-        //оповещение пацыков
-        public static void UpdateQueue()
+        //оповещение пользователей
+        public static void AlertQueue()
         {
             try
             {
@@ -54,10 +62,37 @@ namespace AdminApp.Queue
             }
             
         }
+        //сортировка,вызываемая при изменении роли пользователя
+        static void UpdateQueue(int i)
+        {
+
+            try
+            {
+                while(_queue[i-1].Role!=Role.premium)
+                {
+                    User temp = _queue[i];
+                    _queue[i] = _queue[i - 1];
+                    _queue[i - 1] = temp;
+                    i--;
+                }
+
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+        }
         public static int GetCount
         {
             get { return _queue.Count; }
         }
-
+       
+        static void OnQueueChanged(object obj,QueueArgs args )
+        {
+             if(QueueChanged!=null)
+             {
+                 QueueChanged(obj, args);
+             }
+        }
     }
 }
