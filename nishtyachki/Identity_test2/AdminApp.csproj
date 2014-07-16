@@ -156,6 +156,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
     <Compile Include="Nishtiachki\Nishtiachki.cs" />
     <Compile Include="Nishtiachki\Nishtiachok.cs" />
     <Compile Include="Queue\Interfaces\IChangeRole.cs" />
@@ -551,7 +552,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Scripts\version.json" />
-<Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Chart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
