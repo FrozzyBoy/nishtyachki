@@ -17,7 +17,7 @@ namespace AdminApp.Models
         static Object LockObj = new Object();
         DateTime _premiumEndDate;
         UserStat _statistic;       
-      
+      //getter for user
        public static UserInfo GetUser(string key)
         {
             lock (LockObj)
