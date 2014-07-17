@@ -14,8 +14,7 @@ namespace AdminApp.Services
     public class WcfService : IWcfService
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
-        private string _key;
-
+        private string _key;        
         public bool TryStandInQueue()
         {
             bool operationOk = false;
@@ -28,8 +27,8 @@ namespace AdminApp.Services
                     if (_clients.TryGetValue(_key, out res))
                     {
                         User user = new User(_key, this.SayUserUseObj, this.SayUserHisPosition);
-                        UsersQueue.AddUser(user);                                                 
-                        res.StandInQueue(UsersQueue.GetCount);
+                        UsersQueue.Instance.AddUserInQueue(user);
+                        res.StandInQueue(UsersQueue.Instance.GetCount);
                         //Thread.Sleep(5000);           
 
                         operationOk = true;                        
@@ -65,7 +64,7 @@ namespace AdminApp.Services
         {
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
-
+            
             _clients[_key] = client;
 
             client.NotifyServerReady();

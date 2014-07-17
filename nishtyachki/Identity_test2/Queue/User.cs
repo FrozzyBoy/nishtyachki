@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,19 +11,26 @@ namespace AdminApp.Queue
         premium,
         standart
     }
+    public enum UserState
+    {
+        Offline,InQueue,WaitingForAccept,UsingNishtiak
+    }
     public class User
     {
         public User(string id, Action tellToUse, Action<int> tellPossition)
         {
             this.ID = id;
             this.TellToUse = tellToUse;
-            this.TellPossition = tellPossition;
+            this.TellPossition = tellPossition;            
+         
+          
+
         }
         public Action TellToUse { get; private set; }
         public Action<int> TellPossition   { get; private set; }
         public string ID { get; private set; }
         public string UserName { get; set; }
-        public Statistics Statistic { get; set; }
+        public Stats Statistic { get; set; }
         public Role Role { get; set; }
         public override bool Equals(Object obj)
         {
@@ -39,7 +47,7 @@ namespace AdminApp.Queue
         }
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.ID.GetHashCode();
         }
     }
 }

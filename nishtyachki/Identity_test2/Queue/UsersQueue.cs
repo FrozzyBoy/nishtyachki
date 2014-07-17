@@ -5,27 +5,55 @@ using System.Linq;
 using System.Web;
 using AdminApp.Services;
 using AdminApp.Nishtiachki;
+using AdminApp.Models;
 namespace AdminApp.Queue
 {
-    public static class UsersQueue
+    public  class UsersQueue
     {
-       public static List<User> _queue= new List<User>();
-       public static event EventHandler QueueChanged;
+       private static List<User> _queue= new List<User>();
+       private static UsersQueue _instance ;
+       public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
 
 
-       public static void AddUser(User user)
+         private UsersQueue()
+       {
+       }
+         public static UsersQueue Instance
+         {
+             get
+             {
+                 
+                 lock (LockObj)
+                 {
+                    
+                     if (_instance == null)
+                     {
+                         _instance = new UsersQueue();
+                        
+                     }
+                 }
+                 return _instance;
+             }
+         }
+
+       public  void AddUserInQueue(User user)
        {
            lock (LockObj)
-           {
+           {               
+               UserInfo.CheckUser(user.ID);
                _queue.Add(user);
                QueueArgs args = new QueueArgs(TypeOfChanges.add);
               OnQueueChanged(user,args);
            }
 
        }
-       
-        public static void DeleteFromTheQueue(User user)
+       public static User GetUser(string id)
+       {
+           return _queue.Find(m => m.ID == id);
+       }
+
+        public  void DeleteFromTheQueue(User user)
         {
             lock (LockObj)
             {                
@@ -36,10 +64,14 @@ namespace AdminApp.Queue
             }
         }
        
-        public static void ChangeRole(User user, Role needed_role)
+        public  void ChangeRoleByAdmin(User user, Role needed_role)
         {
             lock (LockObj)
             {
+                //если роль юзера изменилась на премиум, то надо добавить ему 3 дня
+                if (needed_role==Role.premium)
+                { UserInfo.GetUser(user.ID).AddPremium(); }
+
                 for (int i = 0; i < _queue.Count; i++)
                 {
                     if (_queue[i].Equals(user))
@@ -55,7 +87,7 @@ namespace AdminApp.Queue
             
         }
         //оповещение пользователей
-        public static void AlertQueue()
+        public  void AlertQueue()
         {
             try
             {
@@ -89,12 +121,12 @@ namespace AdminApp.Queue
                 }
             }
         }
-        public static int GetCount
+        public  int GetCount
         {
             get { return _queue.Count; }
         }
        
-        static void OnQueueChanged(object obj,QueueArgs args )
+         void OnQueueChanged(object obj,QueueArgs args )
         {
              if(QueueChanged!=null)
              {
