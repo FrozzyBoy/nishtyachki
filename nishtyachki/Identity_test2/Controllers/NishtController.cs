@@ -17,8 +17,7 @@ namespace AdminApp.Controllers
         public IEnumerable<Nishtiachok> Get()
         {
             NishtiachkiContainer.AddNistiachok(new Nishtiachok(Nishtiachok_State.free, "1"));
-            return NishtiachkiContainer.Nishtiachki;
-            
+            return NishtiachkiContainer.Nishtiachki;            
         }
     }
 }

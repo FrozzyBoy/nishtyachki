@@ -1,5 +1,8 @@
 ﻿<html ng-app="myApp">
 <head lang="en">
+
+    <title></title>
+
     <link href="~/Scripts/css/ng-grid.min.css" rel="stylesheet" />
     <link href="~/Scripts/css/style.css" rel="stylesheet" />
     <script src="~/Scripts/js/jquery-1.10.1.min.js"></script>
@@ -8,26 +11,32 @@
     <script src="~/Scripts/js/main.js"></script>
 
     <script type='text/javascript'>
-        function NishtCntrl($scope) {
+        function NishtCntrl($scope, $http) {
             var url = "http://localhost:60540/api/nisht";
-            update();
+            $scope.nisht = [{Im: 'test1'}];
+            $scope.test = "test";
 
-            function update() {
-                $.getJSON(url, function (values) {
-                    $scope.nisht = values;
-                });
-            }
+            $http.get(url).success(function (data, status, headers, config) {
+
+                    $scope.nisht = data;
+
+                //$scope.nisht = values;
+            });
+
         }
     </script>
 
 </head>
 <body ng-controller="NishtCntrl">
-    <ul>
-       
-        <li ng-repeat="n in nisht">
-            <img src="{{n.Im}}" />
-            
-        </li>
-    </ul>
+    
+    {{test}}
+    <p ng-repeat="n in nisht">
+
+        <span>{{n.Im}}</span>
+
+    </p>
+
+
+</body>
 
 </html>

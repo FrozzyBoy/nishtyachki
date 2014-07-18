@@ -22,7 +22,7 @@ namespace AdminApp.Nishtiachki
          {
              this.State = state;
              this.Name = name;
-             this.Im = @"\Resources\_70299025";
+             this.Im = @"\Resources\_70299025.jpg";
          }
          public override bool Equals(Object obj)
          {
