@@ -12,7 +12,7 @@
     <script type='text/javascript' src='http://www.google.com/jsapi'></script>
     <script type='text/javascript'>
 
-
+        var url = "http://localhost:60540/api/chartValues";
         update();
 
         function update() {
@@ -23,14 +23,20 @@
         function drawChart() {
             var data = new google.visualization.DataTable();
             data.addColumn('date', 'Date');
-            data.addColumn('number', 'my number');
+            data.addColumn('number', 'number');
             
-            console.log("drawchart run");
-            
-            //load data            
-            $.getJSON("api/chartValues").success(function (values) {
-                console.log("json load");
-                data.addRows(values);
+            $.getJSON(url, function (values) {
+
+                for (var i = 0; i < values.length; i++) {
+
+                    data.addRow(
+                        [
+                            new Date(values[i][1], values[i][2], values[i][3]),
+                            values[i][0]
+                        ]);
+
+                }
+
 
                 var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
 
@@ -39,10 +45,8 @@
                 };
 
                 chart.draw(data, options);
+            });
 
-                console.log("end drawchart");
-
-            });            
         }
     </script>
 </head>

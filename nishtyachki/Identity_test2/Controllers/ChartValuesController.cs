@@ -13,20 +13,27 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]
-        public IEnumerable<object[]> Get()
+        public IEnumerable<int[]> Get()
         {
             Random rnd = new Random();
-            int length = 10000;
+            int length = 1000;
 
             int count = int.MaxValue;
 
-            object[][] arr = new object[length][];
+            int[][] arr = new int[length][];
 
+            DateTime dt = DateTime.Now;
+            int startCount = 0;
             for (int i = 0; i < length; i++)
             {
-                arr[i] = new object[2];
-                arr[i][0] = new DateTime(rnd.Next(count));
-                arr[i][1] = rnd.Next(0, count);
+                arr[i] = new int[4];
+                arr[i][0] = rnd.Next(count);
+
+                dt = dt.AddDays(rnd.Next(1,3)); //new DateTime(rnd.Next(1, count));
+
+                arr[i][1] = dt.Year;
+                arr[i][2] = dt.Month;
+                arr[i][3] = dt.Day;
             }
 
             return arr;
