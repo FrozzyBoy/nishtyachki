@@ -42,6 +42,7 @@ namespace AdminApp.Queue
            lock (LockObj)
            {               
                UserInfo.CheckUser(user.ID);
+               user.State = UserState.InQueue;
                _queue.Add(user);
                QueueArgs args = new QueueArgs(TypeOfChanges.add);
               OnQueueChanged(user,args);
@@ -53,10 +54,11 @@ namespace AdminApp.Queue
            return _queue.Find(m => m.ID == id);
        }
 
-        public  void DeleteFromTheQueue(User user)
+        public  void DeleteFromTheQueueByAdmin(User user)
         {
             lock (LockObj)
-            {                
+            {
+                user.State = UserState.Offline;
                 _queue.Remove(user);
                 QueueArgs args = new QueueArgs(TypeOfChanges.add);
                 OnQueueChanged(user, args);
@@ -86,19 +88,46 @@ namespace AdminApp.Queue
             }
             
         }
+        static void DeleteUser(User user)
+        {
+            user.State = UserState.Offline;
+            _queue.Remove(user);
+            UsersQueue.AlertQueue();
+        }
         //оповещение пользователей
-        public  void AlertQueue()
+       static void AlertQueue()
         {
             try
             {
-                _queue[0].TellToUse();
-                _queue[1].TellPossition(2);
+                int i = 0;
+                for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
+                {
+                    if (_queue[i].State == UserState.InQueue)
+                    {
+                        _queue[i].TellToUse();
+                        _queue[i].State = UserState.WaitingForAccept;
+                    }
+                }
+               
+                _queue[i+1].TellPossition(i+1);
             }
+
             catch (IndexOutOfRangeException)
             {
             }
             
         }
+       public static void StartUseNishtiak(string id)
+       {
+            Nishtiachok.GetFreeNishtiachok().owner=UsersQueue.GetUser(id);
+            GetUser(id).State = UserState.UsingNishtiak;
+       }
+        public static void EndUseNishtiak(string id)
+       {
+           Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
+           GetUser(id).State = UserState.Offline;
+           DeleteUser(GetUser(id));
+       }
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue(int i,Role changedRole)
         {

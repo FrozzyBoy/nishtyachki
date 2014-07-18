@@ -21,8 +21,8 @@ namespace AdminApp.Queue
         {
             this.ID = id;
             this.TellToUse = tellToUse;
-            this.TellPossition = tellPossition;            
-         
+            this.TellPossition = tellPossition;
+            this.State = UserState.Offline;
           
 
         }
@@ -32,6 +32,7 @@ namespace AdminApp.Queue
         public string UserName { get; set; }
         public Stats Statistic { get; set; }
         public Role Role { get; set; }
+        public UserState State { get; set; } 
         public override bool Equals(Object obj)
         {
             User user = obj as User;
