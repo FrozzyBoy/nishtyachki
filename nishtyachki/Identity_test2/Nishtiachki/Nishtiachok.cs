@@ -12,7 +12,7 @@ namespace AdminApp.Nishtiachki
      public class Nishtiachok
      {
          static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
-         public event EventHandler EventChangeStateNisht;
+         public event EventHandler EventChangeNishtState;
          public Nishtiachok_State State { get; set; }
          public string Name { get; set; }
          public User owner { get; set; }
@@ -28,9 +28,9 @@ namespace AdminApp.Nishtiachki
 
         public void OnEventChangeStatNisht(Nishtiachok obj,ChangeNishtArg arg)
          {
-             if (EventChangeStateNisht != null)
+             if (EventChangeNishtState != null)
              {
-                 EventChangeStateNisht(obj, arg);
+                 EventChangeNishtState(obj, arg);
              }
          }
         
@@ -44,7 +44,7 @@ namespace AdminApp.Nishtiachki
           return Nishtiachki.Find(m => m.owner.ID == id);
 
        }
-       public static Nishtiachok GetNishtiachokBuNamme(string name)
+       public static Nishtiachok GetNishtiachokByNamme(string name)
        {
            return Nishtiachki.Find(m => m.Name == name);
        }
@@ -69,12 +69,16 @@ namespace AdminApp.Nishtiachki
         {
             Nishtiachok obj = new Nishtiachok(name);
             Nishtiachki.Add(obj);
+         ChangeNishtArg args=new ChangeNishtArg(TypeOfChanges.add);
+         obj.OnEventChangeStatNisht(obj, args);
           
         }
      public static void DeleteNishtiachok(string name)
         {
             Nishtiachok obj = new Nishtiachok(name);
             Nishtiachki.Remove(obj);
+            ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
+            obj.OnEventChangeStatNisht(obj, args);
            
         }
      public static void LockNishtiachok(string name)
@@ -84,7 +88,10 @@ namespace AdminApp.Nishtiachki
          {
              if (n.Name == name)
              {
-                 n.State = Nishtiachok_State.locked;                                
+                 n.State = Nishtiachok_State.locked;
+                 ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.change);
+                 n.OnEventChangeStatNisht(n, args);
+                 break;
              }
          }
 

@@ -22,14 +22,9 @@ namespace AdminApp.Models
         {
             lock (LockObj)
             {
-                if (_info.ContainsKey(key))
-                {
+                
                     return _info[key];
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
+                                
             }
         }
         public void AddPremium()

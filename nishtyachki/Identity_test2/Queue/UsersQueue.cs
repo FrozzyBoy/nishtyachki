@@ -6,12 +6,14 @@ using System.Web;
 using AdminApp.Services;
 using AdminApp.Nishtiachki;
 using AdminApp.Models;
+using System.Threading;
 namespace AdminApp.Queue
 {
     public  class UsersQueue
     {
        private static List<User> _queue= new List<User>();
        private static UsersQueue _instance ;
+       public static const TimeSpan TimeForAccept = new TimeSpan(0, 2, 0);
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
 
@@ -88,7 +90,7 @@ namespace AdminApp.Queue
             }
             
         }
-        static void DeleteUser(User user)
+      public  static void DeleteUser(User user)
         {
             user.State = UserState.Offline;
             _queue.Remove(user);
@@ -103,7 +105,11 @@ namespace AdminApp.Queue
                 for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
                 {
                     if (_queue[i].State == UserState.InQueue)
-                    {
+                    {                       
+                        
+                        _queue[i].WasNoticedAboutNishtiak = DateTime.Now;
+                        _queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
+                        _queue[i].ThreadForCheckAnswerTime.Start();
                         _queue[i].TellToUse();
                         _queue[i].State = UserState.WaitingForAccept;
                     }
@@ -114,6 +120,7 @@ namespace AdminApp.Queue
 
             catch (IndexOutOfRangeException)
             {
+                
             }
             
         }
@@ -162,5 +169,6 @@ namespace AdminApp.Queue
                  QueueChanged(obj, args);
              }
         }
+       
     }
 }

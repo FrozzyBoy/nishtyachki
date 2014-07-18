@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Threading;
 namespace AdminApp.Queue
 {
     public enum Role
@@ -32,8 +32,11 @@ namespace AdminApp.Queue
         public string UserName { get; set; }
         public Stats Statistic { get; set; }
         public Role Role { get; set; }
-        public UserState State { get; set; } 
+        public UserState State { get; set; }
+        public DateTime WasNoticedAboutNishtiak { get; set; }
+        public Thread ThreadForCheckAnswerTime { get; set; }
         public override bool Equals(Object obj)
+
         {
             User user = obj as User;
             if (this.ID == user.ID)
@@ -50,5 +53,13 @@ namespace AdminApp.Queue
         {
             return this.ID.GetHashCode();
         }
+        internal void CheckTimeForAcess()
+         {
+            while(DateTime.Now.Subtract(WasNoticedAboutNishtiak)<UsersQueue.TimeForAccept)
+            {
+
+            }
+            UsersQueue.DeleteUser(this);
+         }
     }
 }
