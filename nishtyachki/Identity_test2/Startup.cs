@@ -1,5 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Web.Http;
+
 
 [assembly: OwinStartupAttribute(typeof(AdminApp.Startup))]
 namespace AdminApp
@@ -9,6 +11,13 @@ namespace AdminApp
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
+            var config = new HttpConfiguration();
+            WebApiConfig.RegisterRoutes(config);
+            config.MapHttpAttributeRoutes();
+
+            app.MapSignalR();
+            app.UseWebApi(config);
         }
     }
 }
