@@ -7,7 +7,7 @@ namespace AdminApp.Nishtiachki
 {
    static public class NishtiachkiContainer
     {
-        static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
+       public static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
         static public event EventHandler EventChangeStatNisht;
 
      

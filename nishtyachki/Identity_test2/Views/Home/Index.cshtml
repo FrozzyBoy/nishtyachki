@@ -1,16 +1,33 @@
-﻿<!DOCTYPE html>
-<html ng-app="myApp">
+﻿<html ng-app="myApp">
 <head lang="en">
-    <meta charset="utf-8">
-    <title>Queue</title>
     <link href="~/Scripts/css/ng-grid.min.css" rel="stylesheet" />
     <link href="~/Scripts/css/style.css" rel="stylesheet" />
     <script src="~/Scripts/js/jquery-1.10.1.min.js"></script>
     <script src="~/Scripts/js/angular.min.js"></script>
     <script src="~/Scripts/js/ng-grid.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
+
+    <script type='text/javascript'>
+        function NishtCntrl($scope) {
+            var url = "http://localhost:60540/api/nisht";
+            update();
+
+            function update() {
+                $.getJSON(url, function (values) {
+                    $scope.nisht = values;
+                });
+            }
+        }
+    </script>
+
 </head>
-<body ng-controller="MyCtrl">
-    <div class="gridStyle" ng-grid="gridOptions"></div>
-</body>
+<body ng-controller="NishtCntrl">
+    <ul>
+       
+        <li ng-repeat="n in nisht">
+            <img src="{{n.Im}}" />
+            
+        </li>
+    </ul>
+
 </html>

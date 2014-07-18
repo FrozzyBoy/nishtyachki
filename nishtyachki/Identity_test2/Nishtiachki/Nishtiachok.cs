@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AdminApp.Queue;
+
 namespace AdminApp.Nishtiachki
 {
     public enum Nishtiachok_State
@@ -14,13 +15,14 @@ namespace AdminApp.Nishtiachki
          public Nishtiachok_State State { get; set; }
          public string Name { get; set; }
          public User owner { get; set; }
-        
+         public string Im { get; set; }
          
 
          public Nishtiachok(Nishtiachok_State state, string name)
          {
              this.State = state;
              this.Name = name;
+             this.Im = @"\Resources\_70299025";
          }
          public override bool Equals(Object obj)
          {
