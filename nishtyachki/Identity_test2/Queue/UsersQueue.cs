@@ -13,7 +13,16 @@ namespace AdminApp.Queue
     {
        private static List<User> _queue= new List<User>();
        private static UsersQueue _instance ;
-       public static const TimeSpan TimeForAccept = new TimeSpan(0, 2, 0);
+
+       public static TimeSpan TimeForAccept
+       {
+           get
+           {
+               return new TimeSpan(0, 2, 0);
+           }
+       }
+
+
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
 
