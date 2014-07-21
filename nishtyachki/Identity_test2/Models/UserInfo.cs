@@ -51,7 +51,11 @@ namespace AdminApp.Models
                _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
                if (!_info[key].IsPrime)
                {
-                   UsersQueue.GetUser(key).Role = Role.standart;
+                   var user = UsersQueue.GetUser(key);
+                   if (user != null)
+                   {
+                       UsersQueue.GetUser(key).Role = Role.standart;
+                   }
                }
 
            }
