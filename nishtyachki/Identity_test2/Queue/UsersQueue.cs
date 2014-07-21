@@ -48,6 +48,7 @@ namespace AdminApp.Queue
                _queue.Add(user);
                QueueArgs args = new QueueArgs(TypeOfChanges.add);
               OnQueueChanged(user,args);
+              AlertQueue();
            }
 
        }
@@ -126,6 +127,8 @@ namespace AdminApp.Queue
         }
        public static void StartUseNishtiak(string id)
        {
+
+           GetUser(id).ThreadForCheckAnswerTime.Abort();
             Nishtiachok.GetFreeNishtiachok().owner=UsersQueue.GetUser(id);
             GetUser(id).State = UserState.UsingNishtiak;
        }
