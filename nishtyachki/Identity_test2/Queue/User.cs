@@ -23,7 +23,7 @@ namespace AdminApp.Queue
             this.TellToUse = tellToUse;
             this.TellPossition = tellPossition;
             this.State = UserState.Offline;
-          
+            this.Role = Queue.Role.standart;
 
         }
         public Action TellToUse { get; private set; }

@@ -29,7 +29,6 @@ namespace AdminApp.Services
                     {
                         User user = new User(_key, this.SayUserUseObj, this.SayUserHisPosition);
                         UsersQueue.Instance.AddUserInQueue(user);
-                        //res.StandInQueue(UsersQueue.Instance.GetCount);
                     }
 
                 }).Start();

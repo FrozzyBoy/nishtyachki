@@ -31,8 +31,8 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://epbymogw0162.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://epbymogw0162.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IWcfService_InitUser_InputMessage">
@@ -183,7 +183,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost/AdminApp/Services/WcfService.svc</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Spn>host/EPBYMOGW0160.minsk.epam.com</Spn>
+          <Spn>host/EPBYMOGW0162.minsk.epam.com</Spn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

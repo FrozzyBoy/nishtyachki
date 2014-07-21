@@ -48,7 +48,7 @@ namespace AdminApp.Models
        {
            if(_info.ContainsKey(key))
            {
-               _info[key].UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
+               _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
                if (!_info[key].IsPrime)
                {
                    UsersQueue.GetUser(key).Role = Role.standart;
@@ -58,7 +58,7 @@ namespace AdminApp.Models
            else
            {            
                _info.TryAdd(key, new UserInfo());
-               _info[key].UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
+               _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
               
            }
        }

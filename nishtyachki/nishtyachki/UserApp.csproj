@@ -124,17 +124,18 @@
     <EmbeddedResource Include="Resources\AllStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AllStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\AdminApp\WcfService.wsdl" />
-    <None Include="Service References\AdminApp\WcfService.xsd">
+    <None Include="Service References\AdminApp\WcfService1.wsdl" />
+    <None Include="Service References\AdminApp\WcfService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AdminApp\WcfService1.xsd">
+    <None Include="Service References\AdminApp\WcfService21.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -150,9 +151,6 @@
     <WCFMetadataStorage Include="Service References\AdminApp\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\AdminApp\WcfService.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\AdminApp\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +161,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AdminApp\WcfService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

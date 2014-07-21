@@ -15,12 +15,7 @@ namespace AdminApp.Models
 
         public Stats()
         {
-            TimeOfBeginToStayInQuee = new DateTime();
-            TimeOfStayingInQuee = new TimeSpan();
-            TimeOfBeginToUseResource = new DateTime();
-            TimeOfResourceUsing = new TimeSpan();
-            
-
+          
         }
       internal  void UpdateInfo(TypeOfUpdate type)
         {

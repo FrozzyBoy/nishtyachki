@@ -11,14 +11,15 @@ namespace AdminApp.Nishtiachki
     }
      public class Nishtiachok
      {
-         static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
+        public static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
+         
          public event EventHandler EventChangeNishtState;
          public Nishtiachok_State State { get; set; }
          public string Name { get; set; }
          public User owner { get; set; }
 
 
-         private Nishtiachok(string name)
+         public Nishtiachok(string name)
          {
              this.State = Nishtiachok_State.free;
              this.Name = name;
@@ -65,13 +66,13 @@ namespace AdminApp.Nishtiachki
              return n;
          }
 
-     public static void AddNistiachok(string name)
+     public static void AddNistiachokByAdmin(string name)
         {
             Nishtiachok obj = new Nishtiachok(name);
             Nishtiachki.Add(obj);
          ChangeNishtArg args=new ChangeNishtArg(TypeOfChanges.add);
          obj.OnEventChangeStatNisht(obj, args);
-          
+         UsersQueue.AlertQueue();
         }
      public static void DeleteNishtiachok(string name)
         {
