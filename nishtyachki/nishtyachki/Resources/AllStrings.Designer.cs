@@ -124,11 +124,11 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is {0} people in queue. Wait For {0} seconds, please..
+        ///   Looks up a localized string similar to You are {0} in queue..
         /// </summary>
-        internal static string ShowNumberOfPeople {
+        internal static string NotifyUserPosition {
             get {
-                return ResourceManager.GetString("ShowNumberOfPeople", resourceCulture);
+                return ResourceManager.GetString("NotifyUserPosition", resourceCulture);
             }
         }
     }

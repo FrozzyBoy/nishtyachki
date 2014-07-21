@@ -30,16 +30,28 @@ namespace nishtyachki
         private IRepository _repo;
         private TreyIcon _treyIcon;
 
+        private NotifyWindow _notifyToUse;
+
         public MainWindow()
         {
             InitializeComponent();
+                        
             _treyIcon = new TreyIcon(this);
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
+            this.EnqueueEnter += MainWindow_EnqueueEnter;
 
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
             
-            _repo = new Repository(this);
+            _notifyToUse = new NotifyWindow();
+            _notifyToUse.Hide();
+
+            _repo = new Repository(this, _notifyToUse);
+        }
+
+        void MainWindow_EnqueueEnter()
+        {
+            _notifyToUse.Show();
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
@@ -104,7 +116,6 @@ namespace nishtyachki
             this.WindowState = System.Windows.WindowState.Normal;
         }
 
-
         public void NotifyServerReady()
         {
             this.btnEnqueue.Content = AllStrings.BtnTextReady;
@@ -117,9 +128,9 @@ namespace nishtyachki
             SwitchButtonStatus(AllStrings.MsgUserUseObj, true, AllStrings.BtnTextReady);
         }
 
-        public void StandInQueue(int numberPeopleInfront)
+        public void StandInQueue()
         {
-            string msg = string.Format(AllStrings.MsgUserInQueue, numberPeopleInfront);
+            string msg = string.Format(AllStrings.MsgUserInQueue);
             SwitchButtonStatus(msg, false, AllStrings.BtnTextInqueue);
         }
 

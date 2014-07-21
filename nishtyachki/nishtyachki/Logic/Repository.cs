@@ -12,9 +12,9 @@ namespace nishtyachki.Logic
     {
         private AdminApp.IWcfService _service;
 
-        public Repository(IClientWindow window)
+        public Repository(IClientWindow window, INotifyWindow notify)
         {
-            AdminApp.IWcfServiceCallback callback = new CallBackClass(window);
+            AdminApp.IWcfServiceCallback callback = new CallBackClass(window, notify);
             InstanceContext ic = new InstanceContext(callback);
             _service = new AdminApp.WcfServiceClient(ic);
             _service.InitUserAsync();
@@ -23,6 +23,7 @@ namespace nishtyachki.Logic
         public void StayInQueue()
         {
             _service.TryStandInQueueAsync();
+        
         }
 
         ~Repository()

@@ -138,7 +138,7 @@
   <data name="MsgUserUseObj" xml:space="preserve">
     <value>You can use nishtiak!</value>
   </data>
-  <data name="ShowNumberOfPeople" xml:space="preserve">
-    <value>There is {0} people in queue. Wait For {0} seconds, please.</value>
+  <data name="NotifyUserPosition" xml:space="preserve">
+    <value>You are {0} in queue.</value>
   </data>
 </root>

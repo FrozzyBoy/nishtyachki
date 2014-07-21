@@ -61,11 +61,9 @@
     <Compile Include="Logic\CallBackClass.cs" />
     <Compile Include="Logic\Infrastructure\IClientWindow.cs" />
     <Compile Include="Logic\Infrastructure\IHideable.cs" />
+    <Compile Include="Logic\Infrastructure\INotifyWindow.cs" />
     <Compile Include="Logic\Infrastructure\IRepository.cs" />
     <Compile Include="Logic\Repository.cs" />
-    <Compile Include="Logic\Service\IWcfService.cs" />
-    <Compile Include="Logic\Service\Registration.cs" />
-    <Compile Include="Logic\Service\WcfService.cs" />
     <Compile Include="Logic\TreyIcon.cs" />
     <Compile Include="Logic\TreyPos.cs" />
     <Compile Include="NotifyWindow.xaml.cs">

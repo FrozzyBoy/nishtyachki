@@ -14,8 +14,12 @@ namespace AdminApp.Services
         [OperationContract(IsOneWay = true)]
         void ShowMessage(string text);
         [OperationContract(IsOneWay = true)]
-        void NotifyToUseObj(string text);
+        void NotifyToUseObj();
         [OperationContract(IsOneWay = true)]
-        void StandInQueue(int numberPeopleInfront);
+        void StandInQueue();
+        [OperationContract(IsOneWay = true)]
+        void ShowPosition(int position);
+        [OperationContract(IsOneWay = false)]
+        bool SuggestToUseObject();
     }
 }

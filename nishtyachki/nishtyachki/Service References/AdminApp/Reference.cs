@@ -44,10 +44,16 @@ namespace nishtyachki.AdminApp {
         void ShowMessage(string text);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/NotifyToUseObj")]
-        void NotifyToUseObj(string text);
+        void NotifyToUseObj();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/StandInQueue")]
-        void StandInQueue(int numberPeopleInfront);
+        void StandInQueue();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowPosition")]
+        void ShowPosition(int position);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/SuggestToUseObject", ReplyAction="http://tempuri.org/IWcfService/SuggestToUseObjectResponse")]
+        bool SuggestToUseObject();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

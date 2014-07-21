@@ -14,11 +14,12 @@ namespace AdminApp.Services
     public class WcfService : IWcfService
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
-        private string _key;        
+        private string _key;
+        private readonly TimeSpan DelayToKickUser = new TimeSpan(0, 10, 0);
+
+
         public bool TryStandInQueue()
         {
-            bool operationOk = false;
-
             if (_key != null)
             {
                 new Thread(() =>
@@ -28,30 +29,23 @@ namespace AdminApp.Services
                     {
                         User user = new User(_key, this.SayUserUseObj, this.SayUserHisPosition);
                         UsersQueue.Instance.AddUserInQueue(user);
-                        res.StandInQueue(UsersQueue.Instance.GetCount);
-                        //Thread.Sleep(5000);           
-
-                        operationOk = true;                        
+                        //res.StandInQueue(UsersQueue.Instance.GetCount);
                     }
 
                 }).Start();
             }
 
-            return operationOk;
+            return true;
         }
 
-
-     
         private void SayUserUseObj()
         {
-            _clients[_key].NotifyToUseObj("use it");
+            _clients[_key].NotifyToUseObj();
         }
-
     
         private void SayUserHisPosition(int pos)
         {
-            string msg = string.Format("you are {0}", pos);
-            _clients[_key].ShowMessage(msg);
+            _clients[_key].ShowPosition(pos);
         }
 
         public void LeaveQueue()
