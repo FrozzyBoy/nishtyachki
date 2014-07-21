@@ -22,8 +22,7 @@ namespace nishtyachki.Logic
 
         public void StayInQueue()
         {
-            _service.TryStandInQueueAsync();
-        
+            _service.TryStandInQueueAsync();        
         }
 
         ~Repository()

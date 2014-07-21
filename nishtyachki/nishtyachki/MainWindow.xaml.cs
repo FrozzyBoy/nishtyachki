@@ -67,23 +67,23 @@ namespace nishtyachki
                         
         protected override void OnStateChanged(EventArgs e)
         {
-            switch (WindowState)
-            {
-                case WindowState.Maximized:
-                    break;
-                case WindowState.Minimized:
-                    _treyIcon.IsVicible = true;
-                    break;
-                case WindowState.Normal:
-                    _treyIcon.IsVicible = false;
-                    break;
-                default:
-                    break;
-            }
+                switch (WindowState)
+                {
+                    case WindowState.Maximized:
+                        break;
+                    case WindowState.Minimized:
+                        _treyIcon.IsVicible = true;
+                        break;
+                    case WindowState.Normal:
+                        _treyIcon.IsVicible = false;
+                        break;
+                    default:
+                        break;
+                }
 
-            base.OnStateChanged(e);
+                base.OnStateChanged(e);
+            
         }
-
         private void Enqueue_Click(object sender, RoutedEventArgs e)
         {
             OnEnqueueEnter();
@@ -122,10 +122,13 @@ namespace nishtyachki
             btnEnqueue.IsEnabled = true;
         }
 
+
+
         public void NotifyToUseObj()
         {
             btnEnqueue.IsEnabled = true;
             SwitchButtonStatus(AllStrings.MsgUserUseObj, true, AllStrings.BtnTextReady);
+            _notifyToUse.NotifyToUseObj();
         }
 
         public void StandInQueue()
@@ -137,9 +140,7 @@ namespace nishtyachki
         private void SwitchButtonStatus(string msg, bool isAnabled, string btnContent)
         {
             this.btnEnqueue.IsEnabled = isAnabled;
-            this.btnEnqueue.Content = btnContent;
-            ShowMessage(msg);
+            this.btnEnqueue.Content = btnContent;            
         }
-
     }
 }

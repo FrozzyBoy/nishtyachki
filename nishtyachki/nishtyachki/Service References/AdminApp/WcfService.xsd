@@ -61,16 +61,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SuggestToUseObject">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SuggestToUseObjectResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="SuggestToUseObjectResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>

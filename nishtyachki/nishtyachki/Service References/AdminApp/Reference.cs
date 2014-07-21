@@ -51,9 +51,6 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowPosition")]
         void ShowPosition(int position);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/SuggestToUseObject", ReplyAction="http://tempuri.org/IWcfService/SuggestToUseObjectResponse")]
-        bool SuggestToUseObject();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

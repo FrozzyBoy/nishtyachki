@@ -29,8 +29,8 @@ namespace nishtyachki
 
         public NotifyWindow()
         {
-            InitializeComponent();            
-            
+            InitializeComponent();
+
             this.Result = NotifyResult.Nothing;
             this.lblNotification.Content = "Wait.";
 
@@ -40,6 +40,7 @@ namespace nishtyachki
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             Result = NotifyResult.Ok;
+            this.Hide();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -50,18 +51,17 @@ namespace nishtyachki
 
         public void ShowPosition(int pos)
         {
-             string msg = string.Format(
-                 AllStrings.NotifyUserPosition,
-                 pos);
+            string msg = string.Format(
+                AllStrings.NotifyUserPosition,
+                pos);
 
-             lblNotification.Content = msg;
+            lblNotification.Content = msg;
         }
 
-        public void SuggestToUseObject()
+        public void NotifyToUseObj()
         {
             this.btnOk.IsEnabled = true;
             lblNotification.Content = AllStrings.MsgUserUseObj;
         }
-
     }
 }

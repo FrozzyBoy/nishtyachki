@@ -31,7 +31,7 @@ namespace nishtyachki.Logic
 
         public void NotifyToUseObj()
         {
-            Application.Current.Dispatcher.Invoke(() =>_window.NotifyToUseObj());
+            Application.Current.Dispatcher.Invoke(() => _window.NotifyToUseObj());
         }
         
         public void StandInQueue()
@@ -42,16 +42,6 @@ namespace nishtyachki.Logic
         public void ShowPosition(int position)
         {
             Application.Current.Dispatcher.Invoke(() => _notify.ShowPosition(position));
-        }
-        
-        public bool SuggestToUseObject()
-        {
-            Application.Current.Dispatcher.Invoke(() => 
-            {
-                _notify.SuggestToUseObject(); 
-            });
-
-            return _notify.Result == NotifyResult.Ok;
         }
     }
 }

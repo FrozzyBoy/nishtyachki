@@ -19,7 +19,5 @@ namespace AdminApp.Services
         void StandInQueue();
         [OperationContract(IsOneWay = true)]
         void ShowPosition(int position);
-        [OperationContract(IsOneWay = false)]
-        bool SuggestToUseObject();
     }
 }

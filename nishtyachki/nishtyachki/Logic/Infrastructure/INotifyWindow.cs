@@ -14,7 +14,7 @@ namespace nishtyachki.Logic.Infrastructure
     public interface INotifyWindow
     {
         void ShowPosition(int pos);
-        void SuggestToUseObject();
+        void NotifyToUseObj();
         NotifyResult Result { get; }
     }
 }
