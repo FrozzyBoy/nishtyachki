@@ -14,6 +14,9 @@ namespace nishtyachki.Logic
     {
         private TreyNotifyWindow _tnw;
 
+        public event Action HideWindow;
+        public event Action ShowWindow;
+
         public bool IsVicible
         {
             get
@@ -22,6 +25,18 @@ namespace nishtyachki.Logic
             }
             set
             {
+                if (this._icon.Visible != value)
+                {
+                    if (value)
+                    {
+                        OnHideWindow();
+                    }
+                    else
+                    {
+                        OnShowWindow();
+                    }
+                }
+
                 this._icon.Visible = value;
                 if (value)
                 {
@@ -39,7 +54,7 @@ namespace nishtyachki.Logic
         }
 
         private NotifyIcon _icon;
-        private IHideable    _window;
+        private IHideable _window;
 
         public TreyIcon(IHideable window)
         {
@@ -53,10 +68,27 @@ namespace nishtyachki.Logic
             _icon.MouseDoubleClick += _icon_MouseDoubleClick;
         }
 
-        void _icon_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void OnHideWindow()
+        {
+            if (HideWindow != null)
+            {
+                HideWindow();
+            }
+        }
+
+        private void OnShowWindow()
+        {
+            if (ShowWindow != null)
+            {
+                ShowWindow();
+            }
+        }
+
+        private void _icon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             IsVicible = false;
         }
+
 
     }
 }

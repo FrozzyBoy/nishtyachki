@@ -74,7 +74,7 @@ namespace AdminApp.Queue
             {
                 user.State = UserState.Offline;
                 _queue.Remove(user);
-                QueueArgs args = new QueueArgs(TypeOfChanges.add);
+                QueueArgs args = new QueueArgs(TypeOfChanges.delete);
                 OnQueueChanged(user, args);
                 AlertQueue();
             }
