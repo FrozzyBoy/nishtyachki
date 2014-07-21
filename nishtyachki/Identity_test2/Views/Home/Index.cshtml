@@ -12,15 +12,12 @@
 
     <script type='text/javascript'>
         function NishtCntrl($scope, $http) {
-            var url = "http://localhost:60540/api/nisht";
-            $scope.nisht = [{Im: 'test1'}];
-            $scope.test = "test";
+            var url = "http://localhost/AdminApp/api/nisht";
+            $scope.nisht = [];
 
             $http.get(url).success(function (data, status, headers, config) {
 
                     $scope.nisht = data;
-
-                //$scope.nisht = values;
             });
 
         }
@@ -28,14 +25,10 @@
 
 </head>
 <body ng-controller="NishtCntrl">
-    
-    {{test}}
+        
     <p ng-repeat="n in nisht">
-
         <span>{{n.Im}}</span>
-
     </p>
-
 
 </body>
 

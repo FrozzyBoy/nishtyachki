@@ -23,7 +23,6 @@ namespace AdminApp.Controllers
             int[][] arr = new int[length][];
 
             DateTime dt = DateTime.Now;
-            int startCount = 0;
             for (int i = 0; i < length; i++)
             {
                 arr[i] = new int[4];
