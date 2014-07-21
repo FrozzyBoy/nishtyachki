@@ -54,9 +54,9 @@ namespace AdminApp.Queue
            lock (LockObj)
            {
                Nishtiachok.Nishtiachki.Add(new Nishtiachok("111"));
+               _queue.Add(user);
                UserInfo.CheckUser(user.ID);
                user.State = UserState.InQueue;
-               _queue.Add(user);
                QueueArgs args = new QueueArgs(TypeOfChanges.add);
               OnQueueChanged(user,args);
               AlertQueue();
