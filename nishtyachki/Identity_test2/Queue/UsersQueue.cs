@@ -7,6 +7,7 @@ using AdminApp.Services;
 using AdminApp.Nishtiachki;
 using AdminApp.Models;
 using System.Threading;
+using AdminApp.Nishtiachki;
 namespace AdminApp.Queue
 {
     public  class UsersQueue
@@ -51,7 +52,8 @@ namespace AdminApp.Queue
        public  void AddUserInQueue(User user)
        {
            lock (LockObj)
-           {               
+           {
+               Nishtiachok.Nishtiachki.Add(new Nishtiachok("111"));
                UserInfo.CheckUser(user.ID);
                user.State = UserState.InQueue;
                _queue.Add(user);
@@ -102,12 +104,13 @@ namespace AdminApp.Queue
         }
       public  static void DeleteUser(User user)
         {
+
             user.State = UserState.Offline;
             _queue.Remove(user);
             UsersQueue.AlertQueue();
         }
         //оповещение пользователей
-       static void AlertQueue()
+       static public void AlertQueue()
         {
             try
             {
@@ -124,11 +127,13 @@ namespace AdminApp.Queue
                         _queue[i].State = UserState.WaitingForAccept;
                     }
                 }
-               
-                _queue[i+1].TellPossition(i+1);
+                if (_queue[i+1].State == UserState.InQueue)
+                {
+                    _queue[i + 1].TellPossition(i + 1);
+                }
             }
 
-            catch (IndexOutOfRangeException)
+            catch (Exception)
             {
                 
             }
