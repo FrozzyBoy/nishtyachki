@@ -26,9 +26,15 @@ namespace AdminApp.Queue
           
 
         }
+
+        public User()
+        {
+            this.ID = "1";
+            this.Role = Role.premium;
+        }
         public Action TellToUse { get; private set; }
         public Action<int> TellPossition   { get; private set; }
-        public string ID { get; private set; }
+        public string ID { get; set; }
         public string UserName { get; set; }
         public Stats Statistic { get; set; }
         public Role Role { get; set; }

@@ -16,8 +16,51 @@ namespace AdminApp.Controllers
         [AllowAnonymous]
         public IEnumerable<Nishtiachok> Get()
         {
-            NishtiachkiContainer.AddNistiachok(new Nishtiachok(Nishtiachok_State.free, "1"));
             return NishtiachkiContainer.Nishtiachki;            
         }
+
+        [Route("add/{id}")]
+        public void Post(int id)
+        {
+            Nishtiachok nisht = new Nishtiachok(Nishtiachok_State.free);
+            nisht.ID = id;
+            NishtiachkiContainer.AddNistiachok(nisht);
+        }
+
+        [Route("delete/{id}")]
+        public void Delete(int id)
+        {
+            Nishtiachok nisht = new Nishtiachok(Nishtiachok_State.free);
+
+            for (int i = 0; i < NishtiachkiContainer.Nishtiachki.Count; i++)
+            {
+                if (NishtiachkiContainer.Nishtiachki[i].ID == id)
+                {
+                    nisht = NishtiachkiContainer.Nishtiachki[i];
+                    break;
+                }
+            }
+
+            NishtiachkiContainer.DeleteNishtiachok(nisht);
+        }
+
+        [Route("change/{id}/state/{state}")]
+        public void DeleteSettings(int id, int state)
+        {
+            Nishtiachok nisht = new Nishtiachok(Nishtiachok_State.free);
+
+            for (int i = 0; i < NishtiachkiContainer.Nishtiachki.Count; i++)
+            {
+                if (NishtiachkiContainer.Nishtiachki[i].ID == id)
+                {
+                    nisht = NishtiachkiContainer.Nishtiachki[i];
+                    break;
+                }
+            }
+
+            NishtiachkiContainer.ChangeStatNishtiachok(nisht, (Nishtiachok_State)state);
+        }
+         
+
     }
 }

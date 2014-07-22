@@ -1,42 +1,35 @@
-﻿<html ng-app="myApp">
-<head lang="en">
+﻿@using AdminApp.Nishtiachki;
 
-    <title></title>
+<html ng-app="myApp">
+<head>
+    <link rel="stylesheet" type="text/css" href="http://angular-ui.github.com/ng-grid/css/ng-grid.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+    <script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
+    <script src="~/Scripts/AppScripts/App.js"></script>
+    <script src="~/Scripts/AppScripts/DataService.js"></script>
+    <script src="~/Scripts/AppScripts/Controller.js"></script>
+    <script src="~/Scripts/AppScripts/QueueCnrl.js"></script>
+    <script src="~/Scripts/AppScripts/QueueDataService.js"></script>
+    </head>
+<body>
 
-    <link href="~/Scripts/css/ng-grid.min.css" rel="stylesheet" />
-    <link href="~/Scripts/css/style.css" rel="stylesheet" />
-    <script src="~/Scripts/js/jquery-1.10.1.min.js"></script>
-    <script src="~/Scripts/js/angular.min.js"></script>
-    <script src="~/Scripts/js/ng-grid.min.js"></script>
-    <script src="~/Scripts/js/main.js"></script>
+    <div ng-controller="MyCtrl">
+        <p ng-repeat="n in nisht">
+            <img src="{{n.Im}}">
+            <button ng-click="deleteNisht(n)">Delete</button>
+            <select ng-model="myState[$index]" ng-options="state.name for state in states" ng-change="changeStatNisht(n,myState[$index])"></select>
+        </p>
+        <button ng-click="addNisht()">Add</button>
+    </div>
 
-    <script type='text/javascript'>
-        function NishtCntrl($scope, $http) {
-            var url = "http://localhost:60540/api/nisht";
-            $scope.nisht = [{Im: 'test1'}];
-            $scope.test = "test";
-
-            $http.get(url).success(function (data, status, headers, config) {
-
-                    $scope.nisht = data;
-
-                //$scope.nisht = values;
-            });
-
-        }
-    </script>
-
-</head>
-<body ng-controller="NishtCntrl">
-    
-    {{test}}
-    <p ng-repeat="n in nisht">
-
-        <span>{{n.Im}}</span>
-
-    </p>
-
-
+    <div ng-controller="QueueCntrl">
+        <p ng-repeat="q in queue">
+            <img src="{{q.ID}}">
+            <button ng-click="deleteUser(n)">Delete</button>
+            <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(n,myRole[$index])"></select>
+        </p>
+    </div>
 </body>
 
 </html>

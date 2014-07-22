@@ -10,7 +10,7 @@ namespace AdminApp.Queue
 {
     public  class UsersQueue
     {
-       private static List<User> _queue= new List<User>();
+       public static List<User> _queue= new List<User>();
        private static UsersQueue _instance ;
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
@@ -48,7 +48,7 @@ namespace AdminApp.Queue
            }
 
        }
-       public static User GetUser(string id)
+       public User GetUser(string id)
        {
            return _queue.Find(m => m.ID == id);
        }

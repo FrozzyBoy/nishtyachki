@@ -13,21 +13,20 @@ namespace AdminApp.Nishtiachki
      public class Nishtiachok
      {
          public Nishtiachok_State State { get; set; }
-         public string Name { get; set; }
          public User owner { get; set; }
          public string Im { get; set; }
-         
+         public int ID { get; set; }
 
-         public Nishtiachok(Nishtiachok_State state, string name)
+
+         public Nishtiachok(Nishtiachok_State state)
          {
              this.State = state;
-             this.Name = name;
-             this.Im = @"\Resources\_70299025.jpg";
+             this.Im = @"/Resources/70299025.jpg";
          }
          public override bool Equals(Object obj)
          {
              Nishtiachok nisht = obj as Nishtiachok;
-             if ((this.Name == nisht.Name) && (this.owner.Equals(nisht.owner)) && (this.State == nisht.State))
+             if ((this.ID == nisht.ID))
              {
                  return true;
              }
@@ -41,8 +40,6 @@ namespace AdminApp.Nishtiachki
          {
              return base.GetHashCode();
          }
-       
-         
 
      }
 }

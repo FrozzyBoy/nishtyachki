@@ -26,6 +26,12 @@ namespace AdminApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Scripts/js").Include(
+                "~/Scripts/Appscripts/App.js", "~/Scripts/AppScripts/Controller.js", 
+            "~/Scripts/AppScripts/DataService.js", "~/Scripts/AppScripts/Directive.js"
+                ));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
