@@ -20,7 +20,7 @@ namespace AdminApp.Services
         {
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
-            
+
             _clients[_key] = client;
 
             client.NotifyServerReady();
@@ -28,20 +28,30 @@ namespace AdminApp.Services
 
         public bool TryStandInQueue()
         {
-            //стать в очередь и вернуть, стал ли он в одном потоке
+            var client =_clients[_key];
+
             User usr = new User(_key, _clients[_key]);
-            return UsersQueue.Instance.AddUserInQueue(usr);
+
+            bool stay = UsersQueue.Instance.AddUserInQueue(usr);
+
+            if (stay)
+            {
+                client.StandInQueue(); 
+            }
+
+            return stay;
         }
 
         public void LeaveQueue()
         {
+            User usr = new User(_key, _clients[_key]);
             UsersQueue.Instance.DeleteFromTheQueue(usr);
         }
 
         public void AnswerForOfferToUse(bool willUse)
         {
-              User usr = new User(_key, _clients[_key]);
-            if(willUse)
+            User usr = new User(_key, _clients[_key]);
+            if (willUse)
             {
                 UsersQueue.StartUseNishtiak(_key);
             }
@@ -53,6 +63,7 @@ namespace AdminApp.Services
 
         public void StopUseObj()
         {
-            UsersQueue.EndUseNishtiak(_key);        }
+            UsersQueue.EndUseNishtiak(_key);
+        }
     }
 }

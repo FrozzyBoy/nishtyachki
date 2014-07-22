@@ -32,8 +32,8 @@ namespace nishtyachki
 
             _window = window;
 
-            this.btnOk.Click += btn_Click;
-            this.btnCancel.Click += btn_Click;
+            this.btnOk.Click += btn_ClickOffered;
+            this.btnCancel.Click += btn_ClickInQueue;
         }
         
         public void ShowPosition(int pos)
@@ -43,6 +43,17 @@ namespace nishtyachki
                 pos);
 
             lblNotification.Content = msg;
+        }
+
+        public void ShowOffer()
+        {
+ 
+        }
+
+        public void ShowNotify()
+        {
+            this.btnCancel.Click -= btn_ClickInQueue;
+            this.btnCancel.Click += btn_ClickOffered;
         }
 
         public void NotifyToUseObj()
@@ -56,18 +67,23 @@ namespace nishtyachki
             lblNotification.Content = AllStrings.MsgUserCanUseObj;
         }
 
-        void btn_Click(object sender, RoutedEventArgs e)
+        void btn_ClickInQueue(object sender, RoutedEventArgs e)
+        {
+            _window.LeaveQueue();
+        }
+        
+        void btn_ClickOffered(object sender, RoutedEventArgs e)
         {
             Button but = sender as Button;
-
             bool ok = but.Content == btnOk.Content;
 
-            if (!ok)
-            {
-                this.Hide();
-            }
             _window.AnswerForOffer(ok);
+            if (ok)
+            {
+                btnOk.IsEnabled = false;
+            }
         }
+
 
     }
 }

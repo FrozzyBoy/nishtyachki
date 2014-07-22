@@ -88,8 +88,8 @@ namespace nishtyachki
                 }
 
                 base.OnStateChanged(e);
-            
         }
+
         private void Enqueue_Click(object sender, RoutedEventArgs e)
         {
             _repo.StayInQueue();
@@ -115,7 +115,8 @@ namespace nishtyachki
 
         public void NotifyToUseObj()
         {
-            _useStatus = CurrentObjUseStatus.Use;            
+            _useStatus = CurrentObjUseStatus.Use;
+            _notifyToUse.Show();
         }
 
         public void StandInQueue()
@@ -145,13 +146,18 @@ namespace nishtyachki
                     _repo.AnswerForOfferToUse(willUse);
                     break;
                 case CurrentObjUseStatus.InQueue:
-                    _repo.LeaveQueue();
+                    LeaveQueue();
                     break;
                 case CurrentObjUseStatus.Use:
                     break;
                 default:
                     break;
             }
+        }
+
+        public void LeaveQueue()
+        {
+            _repo.LeaveQueue();
         }
     }
 }
