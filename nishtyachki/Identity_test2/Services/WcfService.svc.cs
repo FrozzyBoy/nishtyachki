@@ -16,8 +16,6 @@ namespace AdminApp.Services
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
         private string _key;
 
-        System.Timers.Timer t = new System.Timers.Timer(50);
-        
         public void InitUser()
         {
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
@@ -31,45 +29,30 @@ namespace AdminApp.Services
         public bool TryStandInQueue()
         {
             //стать в очередь и вернуть, стал ли он в одном потоке
-            //throw new NotImplementedException();
-            var client = _clients[_key];
-
-            client.StandInQueue();
-
-            new Thread(()=>
-                {                    
-                    Thread.Sleep(1500);
-                    client.OfferToUseObj();
-                }
-                ).Start();
-            
-            return true;
-
+            User usr = new User(_key, _clients[_key]);
+            return UsersQueue.Instance.AddUserInQueue(usr);
         }
 
         public void LeaveQueue()
         {
-            var client = _clients[_key];
-            client.ShowMessage("u can`t leave it!");
+            UsersQueue.Instance.DeleteFromTheQueue(usr);
         }
 
         public void AnswerForOfferToUse(bool willUse)
         {
-            //true если пользователь согласен
-            if (willUse)
+              User usr = new User(_key, _clients[_key]);
+            if(willUse)
             {
-                var client = _clients[_key];
-                lock (client)
-                {
-                    client.NotifyToUseObj();                
-                }
+                UsersQueue.StartUseNishtiak(_key);
+            }
+            else
+            {
+                UsersQueue.Instance.DeleteFromTheQueue(usr);
             }
         }
 
         public void StopUseObj()
         {
-            var client = _clients[_key];
-            client.ShowMessage("u can`t stop it!");
-        }
+            UsersQueue.EndUseNishtiak(_key);        }
     }
 }

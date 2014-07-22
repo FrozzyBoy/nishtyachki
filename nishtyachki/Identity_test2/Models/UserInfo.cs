@@ -9,7 +9,7 @@ namespace AdminApp.Models
 {
     public enum TypeOfUpdate
     {
-        standInQueue,leftQueue,beganToUseNishtyak,endedToUseNishtyak
+        standInQueue,leftQueueBeforeUsedNishtyak,beganToUseNishtyak,endedToUseNishtyak
     }
     public class UserInfo:IUserInfo
     {

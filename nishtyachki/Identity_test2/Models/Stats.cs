@@ -24,10 +24,11 @@ namespace AdminApp.Models
                 case TypeOfUpdate.standInQueue:
                     TimeOfBeginToStayInQuee = DateTime.Now;
                     break;
-                case TypeOfUpdate.leftQueue:
+                case TypeOfUpdate.leftQueueBeforeUsedNishtyak:
                     TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
                     break;
                 case TypeOfUpdate.beganToUseNishtyak:
+                    TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
                     TimeOfBeginToUseResource = DateTime.Now;
                     break;
                 case TypeOfUpdate.endedToUseNishtyak:
