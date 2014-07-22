@@ -106,7 +106,16 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are in queue, there is {0} people infront of you.
+        ///   Looks up a localized string similar to You can use nishtiak!.
+        /// </summary>
+        internal static string MsgUserCanUseObj {
+            get {
+                return ResourceManager.GetString("MsgUserCanUseObj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are in queue.
         /// </summary>
         internal static string MsgUserInQueue {
             get {
@@ -115,7 +124,7 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can use nishtiak!.
+        ///   Looks up a localized string similar to U are using nishtiak!.
         /// </summary>
         internal static string MsgUserUseObj {
             get {

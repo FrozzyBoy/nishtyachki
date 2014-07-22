@@ -132,11 +132,14 @@
   <data name="MainIco" xml:space="preserve">
     <value>main.ico</value>
   </data>
+  <data name="MsgUserCanUseObj" xml:space="preserve">
+    <value>You can use nishtiak!</value>
+  </data>
   <data name="MsgUserInQueue" xml:space="preserve">
-    <value>You are in queue, there is {0} people infront of you</value>
+    <value>You are in queue</value>
   </data>
   <data name="MsgUserUseObj" xml:space="preserve">
-    <value>You can use nishtiak!</value>
+    <value>U are using nishtiak!</value>
   </data>
   <data name="NotifyUserPosition" xml:space="preserve">
     <value>You are {0} in queue.</value>

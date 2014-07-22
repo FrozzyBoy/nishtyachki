@@ -32,6 +32,18 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/LeaveQueue", ReplyAction="http://tempuri.org/IWcfService/LeaveQueueResponse")]
         System.Threading.Tasks.Task LeaveQueueAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/AnswerForOfferToUse", ReplyAction="http://tempuri.org/IWcfService/AnswerForOfferToUseResponse")]
+        void AnswerForOfferToUse(bool willUse);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/AnswerForOfferToUse", ReplyAction="http://tempuri.org/IWcfService/AnswerForOfferToUseResponse")]
+        System.Threading.Tasks.Task AnswerForOfferToUseAsync(bool willUse);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StopUseObj", ReplyAction="http://tempuri.org/IWcfService/StopUseObjResponse")]
+        void StopUseObj();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StopUseObj", ReplyAction="http://tempuri.org/IWcfService/StopUseObjResponse")]
+        System.Threading.Tasks.Task StopUseObjAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -43,14 +55,17 @@ namespace nishtyachki.AdminApp {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowMessage")]
         void ShowMessage(string text);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/NotifyToUseObj")]
-        void NotifyToUseObj();
-        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/StandInQueue")]
         void StandInQueue();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/ShowPosition")]
         void ShowPosition(int position);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/OfferToUseObj", ReplyAction="http://tempuri.org/IWcfService/OfferToUseObjResponse")]
+        void OfferToUseObj();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/NotifyToUseObj", ReplyAction="http://tempuri.org/IWcfService/NotifyToUseObjResponse")]
+        void NotifyToUseObj();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -103,6 +118,22 @@ namespace nishtyachki.AdminApp {
         
         public System.Threading.Tasks.Task LeaveQueueAsync() {
             return base.Channel.LeaveQueueAsync();
+        }
+        
+        public void AnswerForOfferToUse(bool willUse) {
+            base.Channel.AnswerForOfferToUse(willUse);
+        }
+        
+        public System.Threading.Tasks.Task AnswerForOfferToUseAsync(bool willUse) {
+            return base.Channel.AnswerForOfferToUseAsync(willUse);
+        }
+        
+        public void StopUseObj() {
+            base.Channel.StopUseObj();
+        }
+        
+        public System.Threading.Tasks.Task StopUseObjAsync() {
+            return base.Channel.StopUseObjAsync();
         }
     }
 }

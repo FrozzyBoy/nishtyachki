@@ -26,22 +26,27 @@ namespace nishtyachki.Logic
 
         public void ShowMessage(string text)
         {
-            Application.Current.Dispatcher.Invoke(() =>_window.ShowMessage(text));
+            Application.Current.Dispatcher.Invoke(() => _window.ShowMessage(text));
+        }
+
+        public void ShowPosition(int position)
+        {
+            Application.Current.Dispatcher.Invoke(() => _notify.ShowPosition(position));
+        }
+
+        public void OfferToUseObj()
+        {
+            Application.Current.Dispatcher.Invoke(() => _window.OfferToUseObj());
         }
 
         public void NotifyToUseObj()
         {
             Application.Current.Dispatcher.Invoke(() => _window.NotifyToUseObj());
         }
-        
+
         public void StandInQueue()
         {
             Application.Current.Dispatcher.Invoke(() => _window.StandInQueue());
-        }
-
-        public void ShowPosition(int position)
-        {
-            Application.Current.Dispatcher.Invoke(() => _notify.ShowPosition(position));
         }
     }
 }

@@ -24,26 +24,32 @@ namespace nishtyachki
     /// </summary>
     public partial class MainWindow : Window, IClientWindow, IHideable
     {
-        public event Action EnqueueEnter;
-        public event Action EnqueueError;
+
+        private enum CurrentObjUseStatus
+        {
+            UnUse,
+            Offered,            
+            InQueue,
+            Use
+        }
 
         private IRepository _repo;
         private TreyIcon _treyIcon;
 
         private NotifyWindow _notifyToUse;
 
+        private CurrentObjUseStatus _useStatus = CurrentObjUseStatus.UnUse;
+
         public MainWindow()
         {
             InitializeComponent();
                         
             _treyIcon = new TreyIcon(this);
-            this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
-            this.EnqueueEnter += MainWindow_EnqueueEnter;
 
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
             
-            _notifyToUse = new NotifyWindow();
+            _notifyToUse = new NotifyWindow(this);
             _notifyToUse.Hide();
 
             _repo = new Repository(this, _notifyToUse);
@@ -57,7 +63,6 @@ namespace nishtyachki
         private void MainWindow_EnqueueEnter_HideWindow()
         {
             _treyIcon.IsVicible = true;
-            _treyIcon.CanChangeWindow = false;
             _repo.StayInQueue();
         }
 
@@ -87,23 +92,7 @@ namespace nishtyachki
         }
         private void Enqueue_Click(object sender, RoutedEventArgs e)
         {
-            OnEnqueueEnter();
-        }
-
-        public void OnEnqueueEnter()
-        {
-            if (EnqueueEnter != null)
-            {
-                EnqueueEnter();
-            } 
-        }
-
-        public void OnEnqueueError()
-        {
-            if (EnqueueError != null)
-            {
-                EnqueueError();
-            }
+            _repo.StayInQueue();
         }
 
         public void ShowMessage(string msg)
@@ -119,30 +108,50 @@ namespace nishtyachki
 
         public void NotifyServerReady()
         {
+            _useStatus = CurrentObjUseStatus.UnUse;
             this.btnEnqueue.Content = AllStrings.BtnTextReady;
             btnEnqueue.IsEnabled = true;
-            _treyIcon.CanChangeWindow = true;
         }
-
-
 
         public void NotifyToUseObj()
         {
-            btnEnqueue.IsEnabled = true;
-            SwitchButtonStatus(AllStrings.MsgUserUseObj, true, AllStrings.BtnTextReady);
-            _notifyToUse.NotifyToUseObj();
+            _useStatus = CurrentObjUseStatus.Use;            
         }
 
         public void StandInQueue()
         {
-            string msg = string.Format(AllStrings.MsgUserInQueue);
-            SwitchButtonStatus(msg, false, AllStrings.BtnTextInqueue);
+            _useStatus = CurrentObjUseStatus.InQueue;
+            string msg = AllStrings.MsgUserInQueue;
+            ShowMessage(msg);
+            _treyIcon.IsVicible = true;
+            btnEnqueue.IsEnabled = false;
         }
 
-        private void SwitchButtonStatus(string msg, bool isAnabled, string btnContent)
+        public void OfferToUseObj()
         {
-            this.btnEnqueue.IsEnabled = isAnabled;
-            this.btnEnqueue.Content = btnContent;            
+            _useStatus = CurrentObjUseStatus.Offered;
+            _notifyToUse.Show();
+            _notifyToUse.OfferToUseObj();
+
+        }
+
+        public void AnswerForOffer(bool willUse)
+        {
+            switch (_useStatus)
+            {
+                case CurrentObjUseStatus.UnUse:
+                    break;
+                case CurrentObjUseStatus.Offered:
+                    _repo.AnswerForOfferToUse(willUse);
+                    break;
+                case CurrentObjUseStatus.InQueue:
+                    _repo.LeaveQueue();
+                    break;
+                case CurrentObjUseStatus.Use:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

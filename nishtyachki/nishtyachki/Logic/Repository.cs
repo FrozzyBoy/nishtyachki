@@ -25,7 +25,21 @@ namespace nishtyachki.Logic
             _service.TryStandInQueueAsync();        
         }
 
+        public void AnswerForOfferToUse(bool willUse)
+        {
+            _service.AnswerForOfferToUseAsync(willUse);
+        }
+
         ~Repository()
+        {
+            try
+            {
+                LeaveQueue();
+            }
+            catch { }
+        }
+
+        public void LeaveQueue()
         {
             _service.LeaveQueueAsync();
         }

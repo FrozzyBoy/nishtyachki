@@ -32,6 +32,28 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="AnswerForOfferToUse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="willUse" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnswerForOfferToUseResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopUseObj">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopUseObjResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="NotifyServerReady">
     <xs:complexType>
       <xs:sequence />
@@ -44,11 +66,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="NotifyToUseObj">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="StandInQueue">
     <xs:complexType>
       <xs:sequence />
@@ -59,6 +76,26 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="position" type="xs:int" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OfferToUseObj">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OfferToUseObjResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyToUseObj">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyToUseObjResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

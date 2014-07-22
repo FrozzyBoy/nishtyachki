@@ -11,5 +11,7 @@ namespace nishtyachki.Logic.Infrastructure
         void NotifyServerReady();
         void NotifyToUseObj();
         void StandInQueue();
+        void OfferToUseObj();
+        void AnswerForOffer(bool willUse);
     }
 }

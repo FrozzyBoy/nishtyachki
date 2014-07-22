@@ -21,34 +21,21 @@ namespace nishtyachki
     /// </summary>
     public partial class NotifyWindow : Window, INotifyWindow
     {
-        public NotifyResult Result
-        {
-            get;
-            private set;
-        }
-
-        public NotifyWindow()
+        IClientWindow _window;
+        public NotifyWindow(IClientWindow window)
         {
             InitializeComponent();
 
-            this.Result = NotifyResult.Nothing;
             this.lblNotification.Content = "Wait.";
 
             this.btnOk.IsEnabled = false;
-        }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Result = NotifyResult.Ok;
-            this.Hide();
-        }
+            _window = window;
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Result = NotifyResult.Cancel;
-            this.Hide();
+            this.btnOk.Click += btn_Click;
+            this.btnCancel.Click += btn_Click;
         }
-
+        
         public void ShowPosition(int pos)
         {
             string msg = string.Format(
@@ -60,8 +47,27 @@ namespace nishtyachki
 
         public void NotifyToUseObj()
         {
-            this.btnOk.IsEnabled = true;
             lblNotification.Content = AllStrings.MsgUserUseObj;
         }
+
+        public void OfferToUseObj()
+        {
+            this.btnOk.IsEnabled = true;
+            lblNotification.Content = AllStrings.MsgUserCanUseObj;
+        }
+
+        void btn_Click(object sender, RoutedEventArgs e)
+        {
+            Button but = sender as Button;
+
+            bool ok = but.Content == btnOk.Content;
+
+            if (!ok)
+            {
+                this.Hide();
+            }
+            _window.AnswerForOffer(ok);
+        }
+
     }
 }

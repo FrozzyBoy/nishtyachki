@@ -15,6 +15,6 @@ namespace nishtyachki.Logic.Infrastructure
     {
         void ShowPosition(int pos);
         void NotifyToUseObj();
-        NotifyResult Result { get; }
+        void OfferToUseObj();
     }
 }
