@@ -24,21 +24,10 @@ namespace nishtyachki
     /// </summary>
     public partial class MainWindow : Window, IClientWindow, IHideable
     {
-
-        private enum CurrentObjUseStatus
-        {
-            UnUse,
-            Offered,            
-            InQueue,
-            Use
-        }
-
         private IRepository _repo;
         private TreyIcon _treyIcon;
 
         private NotifyWindow _notifyToUse;
-
-        private CurrentObjUseStatus _useStatus = CurrentObjUseStatus.UnUse;
 
         public MainWindow()
         {
@@ -108,20 +97,17 @@ namespace nishtyachki
 
         public void NotifyServerReady()
         {
-            _useStatus = CurrentObjUseStatus.UnUse;
             this.btnEnqueue.Content = AllStrings.BtnTextReady;
             btnEnqueue.IsEnabled = true;
         }
 
         public void NotifyToUseObj()
         {
-            _useStatus = CurrentObjUseStatus.Use;
             _notifyToUse.Show();
         }
 
         public void StandInQueue()
         {
-            _useStatus = CurrentObjUseStatus.InQueue;
             string msg = AllStrings.MsgUserInQueue;
             ShowMessage(msg);
             _treyIcon.IsVicible = true;
@@ -130,29 +116,13 @@ namespace nishtyachki
 
         public void OfferToUseObj()
         {
-            _useStatus = CurrentObjUseStatus.Offered;
             _notifyToUse.Show();
             _notifyToUse.OfferToUseObj();
-
         }
 
         public void AnswerForOffer(bool willUse)
         {
-            switch (_useStatus)
-            {
-                case CurrentObjUseStatus.UnUse:
-                    break;
-                case CurrentObjUseStatus.Offered:
-                    _repo.AnswerForOfferToUse(willUse);
-                    break;
-                case CurrentObjUseStatus.InQueue:
-                    LeaveQueue();
-                    break;
-                case CurrentObjUseStatus.Use:
-                    break;
-                default:
-                    break;
-            }
+            _repo.AnswerForOfferToUse(willUse);
         }
 
         public void LeaveQueue()

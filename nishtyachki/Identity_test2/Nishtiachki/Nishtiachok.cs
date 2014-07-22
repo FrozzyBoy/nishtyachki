@@ -61,6 +61,7 @@ namespace AdminApp.Nishtiachki
         public static int GetNumOfFreeResources()
         {
             int n = 0;
+
             for (int i = 0; i < Nishtiachki.Count; i++)
             {
                 if (Nishtiachki[i].State == Nishtiachok_State.free)

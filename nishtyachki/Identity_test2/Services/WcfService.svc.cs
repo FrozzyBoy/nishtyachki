@@ -34,11 +34,6 @@ namespace AdminApp.Services
 
             bool stay = UsersQueue.Instance.AddUserInQueue(usr);
 
-            if (stay)
-            {
-                client.StandInQueue(); 
-            }
-
             return stay;
         }
 

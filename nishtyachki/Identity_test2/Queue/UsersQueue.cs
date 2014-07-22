@@ -29,20 +29,19 @@ namespace AdminApp.Queue
        }
         public static void Lock_Unlock_Queue()
          {
-            if(_instance._QueueState==QueueState.locked)
+             if (Instance._QueueState == QueueState.locked)
             {
-                _instance._QueueState = QueueState.opened;
+                Instance._QueueState = QueueState.opened;
             }
             else
             {
-                _instance._QueueState = QueueState.locked;
+                Instance._QueueState = QueueState.locked;
             }
          }
          public static UsersQueue Instance
          {
              get
-             {
-                 
+             {                 
                  lock (LockObj)
                  {
                     
@@ -62,11 +61,12 @@ namespace AdminApp.Queue
            {
                if (Instance._QueueState==QueueState.opened)
                {
+                   user.iClient.StandInQueue();
                    _queue.Add(user);
                    UserInfo.CheckUser(user.ID);
                    user.State = UserState.InQueue;
                    QueueArgs args = new QueueArgs(TypeOfChanges.add);
-                   OnQueueChanged(user, args);
+                   OnQueueChanged(user, args);                   
                    AlertQueue();
                    return true;
                }
@@ -81,8 +81,6 @@ namespace AdminApp.Queue
        {
            return _queue.Find(m => m.ID == id);
        }
-
-       
 
        public  void DeleteFromTheQueue(User user)
         {
@@ -143,7 +141,7 @@ namespace AdminApp.Queue
                     {                                                                       
                         _queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
                         _queue[i].ThreadForCheckAnswerTime.Start();
-                        _queue[i].iClient.NotifyToUseObj();
+                        _queue[i].iClient.OfferToUseObj();
                         _queue[i].State = UserState.WaitingForAccept;
                     }
                 }
@@ -153,7 +151,7 @@ namespace AdminApp.Queue
                 }
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 
             }
@@ -161,6 +159,7 @@ namespace AdminApp.Queue
         }
        public static void StartUseNishtiak(string id)
        {
+           GetUser(id).iClient.NotifyToUseObj();
            UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
            GetUser(id).ThreadForCheckAnswerTime.Abort();
            GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(GetUser(id).CheckTimeForUsing));
@@ -170,6 +169,7 @@ namespace AdminApp.Queue
        }
         public static void EndUseNishtiak(string id)
        {
+           GetUser(id).iClient.ShowMessage("Пока мудак");
            UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
            GetUser(id).ThreadForCheckUsingTime.Abort();
            Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
