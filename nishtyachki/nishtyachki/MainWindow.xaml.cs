@@ -57,6 +57,7 @@ namespace nishtyachki
         private void MainWindow_EnqueueEnter_HideWindow()
         {
             _treyIcon.IsVicible = true;
+            _treyIcon.CanChangeWindow = false;
             _repo.StayInQueue();
         }
 
@@ -120,6 +121,7 @@ namespace nishtyachki
         {
             this.btnEnqueue.Content = AllStrings.BtnTextReady;
             btnEnqueue.IsEnabled = true;
+            _treyIcon.CanChangeWindow = true;
         }
 
 

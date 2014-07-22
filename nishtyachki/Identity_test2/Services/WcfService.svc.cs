@@ -15,43 +15,6 @@ namespace AdminApp.Services
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
         private string _key;
-        private readonly TimeSpan DelayToKickUser = new TimeSpan(0, 10, 0);
-
-
-        public bool TryStandInQueue()
-        {
-            if (_key != null)
-            {
-                new Thread(() =>
-                {
-                    IClient res;
-                    if (_clients.TryGetValue(_key, out res))
-                    {
-                        User user = new User(_key, this.SayUserUseObj, this.SayUserHisPosition);
-                        UsersQueue.Instance.AddUserInQueue(user);
-                    }
-
-                }).Start();
-            }
-
-            return true;
-        }
-
-        private void SayUserUseObj()
-        {
-            _clients[_key].NotifyToUseObj();
-        }
-    
-        private void SayUserHisPosition(int pos)
-        {
-            _clients[_key].ShowPosition(pos);
-        }
-
-        public void LeaveQueue()
-        {
-            IClient client;
-            _clients.TryRemove(_key, out client);
-        }
 
         public void InitUser()
         {
@@ -63,5 +26,26 @@ namespace AdminApp.Services
             client.NotifyServerReady();
         }
 
+        public bool TryStandInQueue()
+        {
+            //стать в очередь и вернуть, стал ли он в одном потоке
+            throw new NotImplementedException();
+        }
+
+        public void LeaveQueue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AnsweForOfferToUse(bool willUse)
+        {
+            //true если пользователь согласен
+            throw new NotImplementedException();
+        }
+
+        public void StopUseObj()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
