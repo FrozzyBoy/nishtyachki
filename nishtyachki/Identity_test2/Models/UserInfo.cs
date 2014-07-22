@@ -9,7 +9,7 @@ namespace AdminApp.Models
 {
     public enum TypeOfUpdate
     {
-        standInQueue,leftQueue,beganToUseNishtyak,endedToUseNishtyak
+        standInQueue,leftQueueBeforeUsedNishtyak,beganToUseNishtyak,endedToUseNishtyak
     }
     public class UserInfo:IUserInfo
     {
@@ -22,14 +22,9 @@ namespace AdminApp.Models
         {
             lock (LockObj)
             {
-                if (_info.ContainsKey(key))
-                {
+                
                     return _info[key];
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
+                                
             }
         }
         public void AddPremium()
@@ -53,17 +48,21 @@ namespace AdminApp.Models
        {
            if(_info.ContainsKey(key))
            {
-               _info[key].UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
+               _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
                if (!_info[key].IsPrime)
                {
-                   UsersQueue.GetUser(key).Role = Role.standart;
+                   var user = UsersQueue.GetUser(key);
+                   if (user != null)
+                   {
+                       UsersQueue.GetUser(key).Role = Role.standart;
+                   }
                }
 
            }
            else
            {            
                _info.TryAdd(key, new UserInfo());
-               _info[key].UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
+               _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
               
            }
        }

@@ -16,7 +16,7 @@
     <AssemblyName>Identity_test2</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -188,7 +188,6 @@
     <Compile Include="Models\Infrastructure\IUserInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
-    <Compile Include="Nishtiachki\Nishtiachki.cs" />
     <Compile Include="Nishtiachki\Nishtiachok.cs" />
     <Compile Include="Queue\Interfaces\IChangeRole.cs" />
     <Compile Include="Queue\Interfaces\IDeleteFromTheQueue.cs" />
@@ -638,7 +637,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60540</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60540/</IISUrl>
+          <IISUrl>http://localhost/AdminApp</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

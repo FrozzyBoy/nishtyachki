@@ -65,6 +65,9 @@
   <wsdl:message name="IWcfService_StandInQueue_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:StandInQueue" />
   </wsdl:message>
+  <wsdl:message name="IWcfService_ShowPosition_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ShowPosition" />
+  </wsdl:message>
   <wsdl:portType name="IWcfService">
     <wsdl:operation name="InitUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/InitUser" message="tns:IWcfService_InitUser_InputMessage" />
@@ -89,6 +92,9 @@
     </wsdl:operation>
     <wsdl:operation name="StandInQueue">
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/StandInQueue" message="tns:IWcfService_StandInQueue_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowPosition">
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/ShowPosition" message="tns:IWcfService_ShowPosition_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IWcfService" type="tns:IWcfService">
@@ -141,6 +147,12 @@
     </wsdl:operation>
     <wsdl:operation name="StandInQueue">
       <soap12:operation soapAction="http://tempuri.org/IWcfService/StandInQueue" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowPosition">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/ShowPosition" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

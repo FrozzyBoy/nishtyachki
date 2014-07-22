@@ -30,21 +30,34 @@ namespace nishtyachki
         private IRepository _repo;
         private TreyIcon _treyIcon;
 
+        private NotifyWindow _notifyToUse;
+
         public MainWindow()
         {
             InitializeComponent();
+                        
             _treyIcon = new TreyIcon(this);
             this.EnqueueEnter += MainWindow_EnqueueEnter_HideWindow;
+            this.EnqueueEnter += MainWindow_EnqueueEnter;
 
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
             
-            _repo = new Repository(this);
+            _notifyToUse = new NotifyWindow();
+            _notifyToUse.Hide();
+
+            _repo = new Repository(this, _notifyToUse);
+        }
+
+        void MainWindow_EnqueueEnter()
+        {
+            _notifyToUse.Show();
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
         {
             _treyIcon.IsVicible = true;
+            _treyIcon.CanChangeWindow = false;
             _repo.StayInQueue();
         }
 
@@ -55,23 +68,23 @@ namespace nishtyachki
                         
         protected override void OnStateChanged(EventArgs e)
         {
-            switch (WindowState)
-            {
-                case WindowState.Maximized:
-                    break;
-                case WindowState.Minimized:
-                    _treyIcon.IsVicible = true;
-                    break;
-                case WindowState.Normal:
-                    _treyIcon.IsVicible = false;
-                    break;
-                default:
-                    break;
-            }
+                switch (WindowState)
+                {
+                    case WindowState.Maximized:
+                        break;
+                    case WindowState.Minimized:
+                        _treyIcon.IsVicible = true;
+                        break;
+                    case WindowState.Normal:
+                        _treyIcon.IsVicible = false;
+                        break;
+                    default:
+                        break;
+                }
 
-            base.OnStateChanged(e);
+                base.OnStateChanged(e);
+            
         }
-
         private void Enqueue_Click(object sender, RoutedEventArgs e)
         {
             OnEnqueueEnter();
@@ -104,31 +117,32 @@ namespace nishtyachki
             this.WindowState = System.Windows.WindowState.Normal;
         }
 
-
         public void NotifyServerReady()
         {
             this.btnEnqueue.Content = AllStrings.BtnTextReady;
             btnEnqueue.IsEnabled = true;
+            _treyIcon.CanChangeWindow = true;
         }
+
+
 
         public void NotifyToUseObj()
         {
             btnEnqueue.IsEnabled = true;
             SwitchButtonStatus(AllStrings.MsgUserUseObj, true, AllStrings.BtnTextReady);
+            _notifyToUse.NotifyToUseObj();
         }
 
-        public void StandInQueue(int numberPeopleInfront)
+        public void StandInQueue()
         {
-            string msg = string.Format(AllStrings.MsgUserInQueue, numberPeopleInfront);
+            string msg = string.Format(AllStrings.MsgUserInQueue);
             SwitchButtonStatus(msg, false, AllStrings.BtnTextInqueue);
         }
 
         private void SwitchButtonStatus(string msg, bool isAnabled, string btnContent)
         {
             this.btnEnqueue.IsEnabled = isAnabled;
-            this.btnEnqueue.Content = btnContent;
-            ShowMessage(msg);
+            this.btnEnqueue.Content = btnContent;            
         }
-
     }
 }
