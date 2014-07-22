@@ -26,7 +26,7 @@ namespace AdminApp.Models
             {
                 if (_instance == null)
                 {
-                    lock (_instance)
+                    lock (LockObj)
                     {
                         if (_instance == null)
                         {
@@ -73,7 +73,7 @@ namespace AdminApp.Models
                     var user = UsersQueue.Instance.GetUser(key);
                     if (user != null)
                     {
-                        UsersQueue.Instance.GetUser(key).Role = Role.standart;
+                        user.Role = Role.standart;
                     }
                 }
 

@@ -41,13 +41,15 @@ namespace AdminApp.Queue
         {
             get
             {
-                lock (LockObj)
+                if (_instance == null)
                 {
-
-                    if (_instance == null)
+                    lock (LockObj)
                     {
-                        _instance = new UsersQueue();
+                        if (_instance == null)
+                        {
+                            _instance = new UsersQueue();
 
+                        }
                     }
                 }
                 return _instance;
@@ -90,7 +92,7 @@ namespace AdminApp.Queue
 
         public void AddUser(User user)
         {
-            var oldUser = GetUser(user.ID);
+            var oldUser = Instance.GetUser(user.ID);
 
             if (oldUser == null)
             {
@@ -189,19 +191,19 @@ namespace AdminApp.Queue
         {
             try
             {
-                GetUser(id).iClient.NotifyToUseObj();
+                Instance.GetUser(id).iClient.NotifyToUseObj();
             }
             catch (Exception ex)
             {
-                GetUser(id).iClient.ShowMessage("callback exception notify to use: " + ex.Message);
+                Instance.GetUser(id).iClient.ShowMessage("callback exception notify to use: " + ex.Message);
             }
 
             UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
-            GetUser(id).ThreadForCheckAnswerTime.Abort();
-            GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(GetUser(id).CheckTimeForUsing));
-            GetUser(id).ThreadForCheckUsingTime.Start();
+            Instance.GetUser(id).ThreadForCheckAnswerTime.Abort();
+            Instance.GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(Instance.GetUser(id).CheckTimeForUsing));
+            Instance.GetUser(id).ThreadForCheckUsingTime.Start();
             Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
-            GetUser(id).State = UserState.UsingNishtiak;
+            Instance.GetUser(id).State = UserState.UsingNishtiak;
         }
         public void EndUseNishtiak(string id)
         {

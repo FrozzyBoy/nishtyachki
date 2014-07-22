@@ -61,5 +61,24 @@ namespace AdminApp.Services
         {
             UsersQueue.Instance.EndUseNishtiak(_key);
         }
+
+        ~WcfService()
+        {
+            try
+            {
+                LeaveQueue();
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                StopUseObj();
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }
