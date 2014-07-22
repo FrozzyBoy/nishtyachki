@@ -138,6 +138,9 @@
   <data name="MsgUserInQueue" xml:space="preserve">
     <value>You are in queue</value>
   </data>
+  <data name="MsgUserOfferedToUse" xml:space="preserve">
+    <value>Would u use nishtiak!?</value>
+  </data>
   <data name="MsgUserUseObj" xml:space="preserve">
     <value>U are using nishtiak!</value>
   </data>

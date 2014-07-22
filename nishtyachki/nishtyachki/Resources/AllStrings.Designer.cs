@@ -124,6 +124,15 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would u use nishtiak!?.
+        /// </summary>
+        internal static string MsgUserOfferedToUse {
+            get {
+                return ResourceManager.GetString("MsgUserOfferedToUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to U are using nishtiak!.
         /// </summary>
         internal static string MsgUserUseObj {

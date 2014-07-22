@@ -6,5 +6,6 @@ namespace nishtyachki.Logic.Infrastructure
         void StayInQueue();
         void LeaveQueue();
         void AnswerForOfferToUse(bool willUse);
+        void StopUse();
     }
 }

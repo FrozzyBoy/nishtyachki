@@ -13,7 +13,7 @@ namespace nishtyachki.Logic.Infrastructure
         void StandInQueue();
         void OfferToUseObj();
         void AnswerForOffer(bool willUse);
-
         void LeaveQueue();
+        void StopUse();
     }
 }

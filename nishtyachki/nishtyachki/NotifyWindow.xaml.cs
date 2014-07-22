@@ -35,7 +35,25 @@ namespace nishtyachki
             this.btnOk.Click += btn_ClickOffered;
             this.btnCancel.Click += btn_ClickInQueue;
         }
-        
+
+        #region indata
+        public void NotifyToUseObj()
+        {
+            lblNotification.Content = AllStrings.MsgUserUseObj;
+
+            this.btnCancel.Click -= btn_ClickInQueue;
+            this.btnCancel.Click += btn_ClickOffered;
+        }
+
+        public void OfferToUseObj()
+        {
+            this.btnOk.IsEnabled = true;
+            lblNotification.Content = AllStrings.MsgUserOfferedToUse;
+
+            this.btnCancel.Click -= btn_ClickOffered;
+            this.btnCancel.Click += btn_ClickStopUse;
+        }
+
         public void ShowPosition(int pos)
         {
             string msg = string.Format(
@@ -44,27 +62,13 @@ namespace nishtyachki
 
             lblNotification.Content = msg;
         }
+        #endregion indata
 
-        public void ShowOffer()
+        #region outdata
+        private void btn_ClickStopUse(object sender, RoutedEventArgs e)
         {
- 
-        }
-
-        public void ShowNotify()
-        {
-            this.btnCancel.Click -= btn_ClickInQueue;
-            this.btnCancel.Click += btn_ClickOffered;
-        }
-
-        public void NotifyToUseObj()
-        {
-            lblNotification.Content = AllStrings.MsgUserUseObj;
-        }
-
-        public void OfferToUseObj()
-        {
-            this.btnOk.IsEnabled = true;
-            lblNotification.Content = AllStrings.MsgUserCanUseObj;
+            _window.StopUse();
+            this.Hide();
         }
 
         void btn_ClickInQueue(object sender, RoutedEventArgs e)
@@ -84,7 +88,6 @@ namespace nishtyachki
 
             _window.AnswerForOffer(ok);            
         }
-
-
+        #endregion outdata
     }
 }

@@ -32,12 +32,17 @@ namespace nishtyachki
         public MainWindow()
         {
             InitializeComponent();
-                        
+
             _treyIcon = new TreyIcon(this);
 
+            Restart();
+        }
+
+        private void Restart()
+        {
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
-            
+
             _notifyToUse = new NotifyWindow(this);
             _notifyToUse.Hide();
 
@@ -57,26 +62,26 @@ namespace nishtyachki
 
         public void HideWindow()
         {
-            this.Hide();            
+            this.Hide();
         }
-                        
+
         protected override void OnStateChanged(EventArgs e)
         {
-                switch (WindowState)
-                {
-                    case WindowState.Maximized:
-                        break;
-                    case WindowState.Minimized:
-                        _treyIcon.IsVicible = true;
-                        break;
-                    case WindowState.Normal:
-                        _treyIcon.IsVicible = false;
-                        break;
-                    default:
-                        break;
-                }
+            switch (WindowState)
+            {
+                case WindowState.Maximized:
+                    break;
+                case WindowState.Minimized:
+                    _treyIcon.IsVicible = true;
+                    break;
+                case WindowState.Normal:
+                    _treyIcon.IsVicible = false;
+                    break;
+                default:
+                    break;
+            }
 
-                base.OnStateChanged(e);
+            base.OnStateChanged(e);
         }
 
         private void Enqueue_Click(object sender, RoutedEventArgs e)
@@ -104,6 +109,7 @@ namespace nishtyachki
         public void NotifyToUseObj()
         {
             _notifyToUse.Show();
+            _notifyToUse.NotifyToUseObj();
         }
 
         public void StandInQueue()
@@ -133,6 +139,11 @@ namespace nishtyachki
         public void LeaveQueue()
         {
             _repo.LeaveQueue();
+        }
+
+        public void StopUse()
+        {
+            _repo.StopUse();
         }
     }
 }

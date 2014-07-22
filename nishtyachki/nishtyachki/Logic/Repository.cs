@@ -43,5 +43,10 @@ namespace nishtyachki.Logic
         {
             _service.LeaveQueueAsync();
         }
+
+        public void StopUse()
+        {
+            _service.StopUseObjAsync();
+        }
     }
 }
