@@ -17,5 +17,9 @@ namespace AdminApp.Services
         bool TryStandInQueue();
         [OperationContract]
         void LeaveQueue();
+        [OperationContract]
+        void AnsweForOfferToUse(bool willUse);
+        [OperationContract]
+        void StopUseObj();
     }
 }

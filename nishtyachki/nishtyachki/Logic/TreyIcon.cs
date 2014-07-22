@@ -13,9 +13,7 @@ namespace nishtyachki.Logic
     public class TreyIcon
     {
         private TreyNotifyWindow _tnw;
-
-        public event Action HideWindow;
-        public event Action ShowWindow;
+        public bool CanChangeWindow { get; set; }
 
         public bool IsVicible
         {
@@ -25,30 +23,21 @@ namespace nishtyachki.Logic
             }
             set
             {
-                if (this._icon.Visible != value)
+                if (CanChangeWindow)
                 {
+                    this._icon.Visible = value;
                     if (value)
                     {
-                        OnHideWindow();
+                        this._tnw = new TreyNotifyWindow();
+                        this._tnw.ShowMessage(AllStrings.HideWinMsg);
+                        this._window.HideWindow();
                     }
                     else
                     {
-                        OnShowWindow();
+                        this._window.ShowWindow();
+                        if (_tnw != null)
+                            this._tnw.Close();
                     }
-                }
-
-                this._icon.Visible = value;
-                if (value)
-                {
-                    this._tnw = new TreyNotifyWindow();
-                    this._tnw.ShowMessage(AllStrings.HideWinMsg);
-                    this._window.HideWindow();
-                }
-                else
-                {
-                    this._window.ShowWindow();
-                    if (_tnw != null)
-                        this._tnw.Close();
                 }
             }
         }
@@ -58,6 +47,8 @@ namespace nishtyachki.Logic
 
         public TreyIcon(IHideable window)
         {
+            CanChangeWindow = true;
+
             this._icon = new NotifyIcon();
             this._icon.Icon = new System.Drawing.Icon(AllStrings.MainIco);
 
@@ -65,30 +56,13 @@ namespace nishtyachki.Logic
 
             IsVicible = false;
 
-            _icon.MouseDoubleClick += _icon_MouseDoubleClick;
+            _icon.MouseDoubleClick += _icon_MouseDoubleClick;            
         }
-
-        private void OnHideWindow()
-        {
-            if (HideWindow != null)
-            {
-                HideWindow();
-            }
-        }
-
-        private void OnShowWindow()
-        {
-            if (ShowWindow != null)
-            {
-                ShowWindow();
-            }
-        }
-
+        
         private void _icon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             IsVicible = false;
         }
-
 
     }
 }
