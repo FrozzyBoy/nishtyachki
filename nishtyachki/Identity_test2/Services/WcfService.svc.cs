@@ -29,23 +29,33 @@ namespace AdminApp.Services
         public bool TryStandInQueue()
         {
             //стать в очередь и вернуть, стал ли он в одном потоке
-            throw new NotImplementedException();
+            User usr = new User(_key, _clients[_key]);
+            return UsersQueue.Instance.AddUserInQueue(usr);
         }
 
         public void LeaveQueue()
         {
-            throw new NotImplementedException();
+            User usr = new User(_key, _clients[_key]);
+            UsersQueue.Instance.DeleteFromTheQueue(usr);
+            
         }
 
         public void AnsweForOfferToUse(bool willUse)
         {
-            //true если пользователь согласен
-            throw new NotImplementedException();
+              User usr = new User(_key, _clients[_key]);
+            if(willUse)
+            {
+                UsersQueue.StartUseNishtiak(_key);
+            }
+            else
+            {
+                UsersQueue.Instance.DeleteFromTheQueue(usr);
+            }
         }
 
         public void StopUseObj()
         {
-            throw new NotImplementedException();
+            UsersQueue.EndUseNishtiak(_key);
         }
     }
 }

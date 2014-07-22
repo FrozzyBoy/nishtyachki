@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Threading;
 using System.Timers;
+using AdminApp.Services;
 namespace AdminApp.Queue
 {
     public enum Role
@@ -18,15 +19,17 @@ namespace AdminApp.Queue
     }
     public class User
     {
-        public User(string id, Action tellToUse, Action<int> tellPossition)
+        public User(string id,IClient IClient )
         {
             this.ID = id;
-            this.TellToUse = tellToUse;
-            this.TellPossition = tellPossition;
+            //this.TellToUse = tellToUse;
+            //this.TellPossition = tellPossition;
             this.State = UserState.Offline;
             this.Role = Queue.Role.standart;
-
+            this.iClient = IClient;
+            
         }
+        public IClient iClient { get; set; }
         public Action TellToUse { get; private set; }
         public Action<int> TellPossition { get; private set; }
         public string ID { get; private set; }

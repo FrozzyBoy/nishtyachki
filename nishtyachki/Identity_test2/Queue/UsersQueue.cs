@@ -7,10 +7,10 @@ using AdminApp.Services;
 using AdminApp.Nishtiachki;
 using AdminApp.Models;
 using System.Threading;
-using AdminApp.Nishtiachki;
+
 namespace AdminApp.Queue
 {
-    enum QueueState
+   public enum QueueState
     {
         opened,locked
     }
@@ -21,6 +21,7 @@ namespace AdminApp.Queue
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
        public QueueState _QueueState {get;private set;} 
+        
 
          private UsersQueue()
        {
@@ -55,7 +56,7 @@ namespace AdminApp.Queue
              }
          }
 
-       public  void AddUserInQueue(User user)
+       public  bool AddUserInQueue(User user)
        {
            lock (LockObj)
            {
@@ -67,10 +68,11 @@ namespace AdminApp.Queue
                    QueueArgs args = new QueueArgs(TypeOfChanges.add);
                    OnQueueChanged(user, args);
                    AlertQueue();
+                   return true;
                }
                else
                {
-
+                   return false;
                }
            }
 
@@ -141,13 +143,13 @@ namespace AdminApp.Queue
                     {                                                                       
                         _queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
                         _queue[i].ThreadForCheckAnswerTime.Start();
-                        _queue[i].TellToUse();
+                        _queue[i].iClient.NotifyToUseObj();
                         _queue[i].State = UserState.WaitingForAccept;
                     }
                 }
                 if (_queue[i+1].State == UserState.InQueue)
                 {
-                    _queue[i + 1].TellPossition(i + 1);
+                    _queue[i + 1].iClient.ShowMessage("You'r next to USE");
                 }
             }
 
@@ -171,6 +173,7 @@ namespace AdminApp.Queue
            UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
            GetUser(id).ThreadForCheckUsingTime.Abort();
            Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
+           Nishtiachok.GetNishtiakByUserId(id).owner = null;
            GetUser(id).State = UserState.Offline;
            Instance.DeleteFromTheQueue(GetUser(id));
        }
