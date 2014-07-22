@@ -10,19 +10,33 @@ using System.Threading;
 using AdminApp.Nishtiachki;
 namespace AdminApp.Queue
 {
-
+    enum QueueState
+    {
+        opened,locked
+    }
     public  class UsersQueue
     {
        private static List<User> _queue= new List<User>();
        private static UsersQueue _instance ;
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
-
+       public QueueState _QueueState {get;private set;} 
 
          private UsersQueue()
        {
-
+           _QueueState = QueueState.opened;
        }
+        public static void Lock_Unlock_Queue()
+         {
+            if(_instance._QueueState==QueueState.locked)
+            {
+                _instance._QueueState = QueueState.opened;
+            }
+            else
+            {
+                _instance._QueueState = QueueState.locked;
+            }
+         }
          public static UsersQueue Instance
          {
              get
@@ -45,13 +59,19 @@ namespace AdminApp.Queue
        {
            lock (LockObj)
            {
-               Nishtiachok.Nishtiachki.Add(new Nishtiachok("111"));
-               _queue.Add(user);
-               UserInfo.CheckUser(user.ID);
-               user.State = UserState.InQueue;
-               QueueArgs args = new QueueArgs(TypeOfChanges.add);
-              OnQueueChanged(user,args);
-              AlertQueue();
+               if (Instance._QueueState==QueueState.opened)
+               {
+                   _queue.Add(user);
+                   UserInfo.CheckUser(user.ID);
+                   user.State = UserState.InQueue;
+                   QueueArgs args = new QueueArgs(TypeOfChanges.add);
+                   OnQueueChanged(user, args);
+                   AlertQueue();
+               }
+               else
+               {
+
+               }
            }
 
        }
@@ -66,6 +86,18 @@ namespace AdminApp.Queue
         {
             lock (LockObj)
             {
+                switch (user.State)
+                {
+                    case UserState.InQueue:
+                        UserInfo.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
+                        break;
+                    case UserState.WaitingForAccept:
+                        UserInfo.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
+                        break;
+                    case UserState.UsingNishtiak:
+                        UserInfo.GetUser(user.ID).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
+                        break; 
+                }
                 user.State = UserState.Offline;
                 _queue.Remove(user);
                 QueueArgs args = new QueueArgs(TypeOfChanges.delete);
