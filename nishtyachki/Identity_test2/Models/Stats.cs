@@ -28,6 +28,7 @@ namespace AdminApp.Models
                     TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
                     break;
                 case TypeOfUpdate.beganToUseNishtyak:
+                    TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
                     TimeOfBeginToUseResource = DateTime.Now;
                     break;
                 case TypeOfUpdate.endedToUseNishtyak:

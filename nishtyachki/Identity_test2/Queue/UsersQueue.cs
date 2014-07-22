@@ -10,26 +10,18 @@ using System.Threading;
 using AdminApp.Nishtiachki;
 namespace AdminApp.Queue
 {
+
     public  class UsersQueue
     {
        private static List<User> _queue= new List<User>();
        private static UsersQueue _instance ;
-
-       public static TimeSpan TimeForAccept
-       {
-           get
-           {
-               return new TimeSpan(0, 2, 0);
-           }
-       }
-
-
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
 
 
          private UsersQueue()
        {
+
        }
          public static UsersQueue Instance
          {
@@ -68,7 +60,9 @@ namespace AdminApp.Queue
            return _queue.Find(m => m.ID == id);
        }
 
-        public  void DeleteFromTheQueueByAdmin(User user)
+       
+
+       public  void DeleteFromTheQueue(User user)
         {
             lock (LockObj)
             {
@@ -102,13 +96,7 @@ namespace AdminApp.Queue
             }
             
         }
-      public  static void DeleteUser(User user)
-        {
-
-            user.State = UserState.Offline;
-            _queue.Remove(user);
-            UsersQueue.AlertQueue();
-        }
+    
         //оповещение пользователей
        static public void AlertQueue()
         {
@@ -118,9 +106,7 @@ namespace AdminApp.Queue
                 for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
                 {
                     if (_queue[i].State == UserState.InQueue)
-                    {                       
-                        
-                        _queue[i].WasNoticedAboutNishtiak = DateTime.Now;
+                    {                                                                       
                         _queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
                         _queue[i].ThreadForCheckAnswerTime.Start();
                         _queue[i].TellToUse();
@@ -141,16 +127,20 @@ namespace AdminApp.Queue
         }
        public static void StartUseNishtiak(string id)
        {
-
+           UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
            GetUser(id).ThreadForCheckAnswerTime.Abort();
-            Nishtiachok.GetFreeNishtiachok().owner=UsersQueue.GetUser(id);
+           GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(GetUser(id).CheckTimeForUsing));
+           GetUser(id).ThreadForCheckUsingTime.Start();
+           Nishtiachok.GetFreeNishtiachok().owner=UsersQueue.GetUser(id);
             GetUser(id).State = UserState.UsingNishtiak;
        }
         public static void EndUseNishtiak(string id)
        {
+           UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
+           GetUser(id).ThreadForCheckUsingTime.Abort();
            Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
            GetUser(id).State = UserState.Offline;
-           DeleteUser(GetUser(id));
+           Instance.DeleteFromTheQueue(GetUser(id));
        }
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue(int i,Role changedRole)
