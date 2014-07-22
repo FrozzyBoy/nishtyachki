@@ -61,7 +61,14 @@ namespace AdminApp.Queue
            {
                if (Instance._QueueState==QueueState.opened)
                {
-                   user.iClient.StandInQueue();
+                   try
+                   {
+                       user.iClient.StandInQueue();
+                   }
+                   catch (Exception ex)
+                   {
+                       user.iClient.ShowMessage("callback exception stand in queue: " + ex.Message);                       
+                   }
                    _queue.Add(user);
                    UserInfo.CheckUser(user.ID);
                    user.State = UserState.InQueue;
@@ -141,7 +148,16 @@ namespace AdminApp.Queue
                     {                                                                       
                         _queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
                         _queue[i].ThreadForCheckAnswerTime.Start();
-                        _queue[i].iClient.OfferToUseObj();
+                        
+                        try
+                        {
+                            _queue[i].iClient.OfferToUseObj();
+                        }
+                        catch (Exception ex)
+                        {
+                            _queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
+                        }
+
                         _queue[i].State = UserState.WaitingForAccept;
                     }
                 }
@@ -150,16 +166,23 @@ namespace AdminApp.Queue
                     _queue[i + 1].iClient.ShowMessage("You'r next to USE");
                 }
             }
-
             catch (Exception ex)
             {
-                
+                _queue[0].iClient.ShowMessage("lol: " + Environment.NewLine + ex.Message);                                
             }
             
         }
        public static void StartUseNishtiak(string id)
        {
+           try
+           { 
            GetUser(id).iClient.NotifyToUseObj();
+           }
+           catch (Exception ex)
+           {
+               GetUser(id).iClient.ShowMessage("callback exception notify to use: " + ex.Message);
+           }
+
            UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
            GetUser(id).ThreadForCheckAnswerTime.Abort();
            GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(GetUser(id).CheckTimeForUsing));

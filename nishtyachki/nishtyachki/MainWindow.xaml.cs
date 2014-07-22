@@ -122,6 +122,11 @@ namespace nishtyachki
 
         public void AnswerForOffer(bool willUse)
         {
+            if (!willUse)
+            {
+                _notifyToUse.Hide();
+                _treyIcon.IsVicible = false;
+            }
             _repo.AnswerForOfferToUse(willUse);
         }
 

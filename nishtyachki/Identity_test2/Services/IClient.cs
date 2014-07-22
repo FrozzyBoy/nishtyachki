@@ -10,16 +10,16 @@ namespace AdminApp.Services
     public interface IClient
     {
         [OperationContract(IsOneWay = true)]
-        void NotifyServerReady();
+        Task NotifyServerReady();
         [OperationContract(IsOneWay = true)]
-        void ShowMessage(string text);
+        Task ShowMessage(string text);
         [OperationContract(IsOneWay = true)]
-        void StandInQueue();
+        Task StandInQueue();
         [OperationContract(IsOneWay = true)]
-        void ShowPosition(int position);
+        Task ShowPosition(int position);
         [OperationContract]
-        void OfferToUseObj();
+        Task OfferToUseObj();
         [OperationContract]
-        void NotifyToUseObj();
+        Task NotifyToUseObj();
     }
 }

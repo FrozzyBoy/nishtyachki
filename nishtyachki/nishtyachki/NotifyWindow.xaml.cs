@@ -77,11 +77,12 @@ namespace nishtyachki
             Button but = sender as Button;
             bool ok = but.Content == btnOk.Content;
 
-            _window.AnswerForOffer(ok);
             if (ok)
             {
                 btnOk.IsEnabled = false;
             }
+
+            _window.AnswerForOffer(ok);            
         }
 
 

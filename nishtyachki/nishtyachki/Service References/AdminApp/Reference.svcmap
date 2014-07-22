@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b79fbd6e-4e1e-45da-9a9d-f174e3d03551" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2f10d554-4556-4219-adbb-633b89408b70" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,10 +22,10 @@
     <MetadataSource Address="http://localhost/AdminApp/Services/WcfService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WcfService.xsd" MetadataType="Schema" ID="bbaaf31f-36a2-4982-b191-9d8abfcaa600" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd0" />
-    <MetadataFile FileName="WcfService.wsdl" MetadataType="Wsdl" ID="599d09c6-b7d5-4650-89ba-c33348a827b6" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?wsdl" />
-    <MetadataFile FileName="WcfService.disco" MetadataType="Disco" ID="cd9d4e3f-6771-47f0-aeeb-5a69e7cd5c28" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?disco" />
-    <MetadataFile FileName="WcfService1.xsd" MetadataType="Schema" ID="494a7fd9-3bee-4061-af76-2a7757d70dc3" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WcfService.xsd" MetadataType="Schema" ID="affe2a3f-5b7c-4f61-9f88-6ce52de6f188" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd0" />
+    <MetadataFile FileName="WcfService.wsdl" MetadataType="Wsdl" ID="967bd0a3-209a-4d51-a4f3-502f0f066113" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?wsdl" />
+    <MetadataFile FileName="WcfService.disco" MetadataType="Disco" ID="50b98af8-922f-41b1-960b-13eedb2d7c36" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?disco" />
+    <MetadataFile FileName="WcfService1.xsd" MetadataType="Schema" ID="f7a9d6d8-f904-44d5-9df4-98b74748b767" SourceId="1" SourceUrl="http://epbymogw0160.minsk.epam.com/AdminApp/Services/WcfService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
