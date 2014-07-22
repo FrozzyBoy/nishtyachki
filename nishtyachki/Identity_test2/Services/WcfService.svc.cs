@@ -49,7 +49,7 @@ namespace AdminApp.Services
             User usr = new User(_key, _clients[_key]);
             if (willUse)
             {
-                UsersQueue.StartUseNishtiak(_key);
+                UsersQueue.Instance.StartUseNishtiak(_key);
             }
             else
             {
@@ -59,7 +59,7 @@ namespace AdminApp.Services
 
         public void StopUseObj()
         {
-            UsersQueue.EndUseNishtiak(_key);
+            UsersQueue.Instance.EndUseNishtiak(_key);
         }
     }
 }

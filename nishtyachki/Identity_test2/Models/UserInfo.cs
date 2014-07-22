@@ -9,27 +9,46 @@ namespace AdminApp.Models
 {
     public enum TypeOfUpdate
     {
-        standInQueue,leftQueueBeforeUsedNishtyak,beganToUseNishtyak,endedToUseNishtyak
+        standInQueue, leftQueueBeforeUsedNishtyak, beganToUseNishtyak, endedToUseNishtyak
     }
-    public class UserInfo:IUserInfo
+    public class UserInfo : IUserInfo
     {
-        static ConcurrentDictionary<string,UserInfo> _info = new ConcurrentDictionary<string,UserInfo>();       
-        static Object LockObj = new Object();
-        DateTime _premiumEndDate;
-        UserStat _statistic;       
-      //getter for user
-       public static UserInfo GetUser(string key)
+        private static ConcurrentDictionary<string, UserInfo> _info = new ConcurrentDictionary<string, UserInfo>();
+        private static Object LockObj = new Object();
+        private DateTime _premiumEndDate;
+        private UserStat _statistic;
+
+        private static UserInfo _instance;
+
+        public static UserInfo Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_instance)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new UserInfo();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        //getter for user
+        public UserInfo GetUser(string key)
         {
             lock (LockObj)
             {
-                
-                    return _info[key];
-                                
+                return _info[key];
             }
         }
         public void AddPremium()
         {
-            _premiumEndDate=DateTime.Now.AddDays(3);
+            _premiumEndDate = DateTime.Now.AddDays(3);
         }
         private UserInfo()
         {
@@ -44,32 +63,32 @@ namespace AdminApp.Models
         {
             get { return DateTime.Now < _premiumEndDate; }
         }
-          public static void CheckUser(string key)
-       {
-           if(_info.ContainsKey(key))
-           {
-               _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
-               if (!_info[key].IsPrime)
-               {
-                   var user = UsersQueue.GetUser(key);
-                   if (user != null)
-                   {
-                       UsersQueue.GetUser(key).Role = Role.standart;
-                   }
-               }
+        public void CheckUser(string key)
+        {
+            if (_info.ContainsKey(key))
+            {
+                _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
+                if (!_info[key].IsPrime)
+                {
+                    var user = UsersQueue.Instance.GetUser(key);
+                    if (user != null)
+                    {
+                        UsersQueue.Instance.GetUser(key).Role = Role.standart;
+                    }
+                }
 
-           }
-           else
-           {            
-               _info.TryAdd(key, new UserInfo());
-               _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
-              
-           }
-       }
-       public  void UpdateInfo(TypeOfUpdate type)
-          {
-              _statistic.UpdateInfo(type);
-          }
-        
+            }
+            else
+            {
+                _info.TryAdd(key, new UserInfo());
+                _info[key].UpdateInfo(TypeOfUpdate.standInQueue);
+
+            }
+        }
+        public void UpdateInfo(TypeOfUpdate type)
+        {
+            _statistic.UpdateInfo(type);
+        }
+
     }
 }

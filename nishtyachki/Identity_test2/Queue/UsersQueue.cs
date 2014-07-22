@@ -22,7 +22,6 @@ namespace AdminApp.Queue
         static Object LockObj = new Object();
         public QueueState _QueueState { get; private set; }
 
-
         private UsersQueue()
         {
             _QueueState = QueueState.opened;
@@ -70,7 +69,7 @@ namespace AdminApp.Queue
                         user.iClient.ShowMessage("callback exception stand in queue: " + ex.Message);
                     }
                     this.AddUser(user);
-                    UserInfo.CheckUser(user.ID);
+                    UserInfo.Instance.CheckUser(user.ID);
                     user.State = UserState.InQueue;
                     QueueArgs args = new QueueArgs(TypeOfChanges.add);
                     OnQueueChanged(user, args);
@@ -84,7 +83,7 @@ namespace AdminApp.Queue
             }
 
         }
-        public static User GetUser(string id)
+        public User GetUser(string id)
         {
             return _queue.Find(m => m.ID == id);
         }
@@ -110,13 +109,13 @@ namespace AdminApp.Queue
                 switch (user.State)
                 {
                     case UserState.InQueue:
-                        UserInfo.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
+                        UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
                         break;
                     case UserState.WaitingForAccept:
-                        UserInfo.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
+                        UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
                         break;
                     case UserState.UsingNishtiak:
-                        UserInfo.GetUser(user.ID).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
+                        UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
                         break;
                 }
                 user.State = UserState.Offline;
@@ -133,7 +132,7 @@ namespace AdminApp.Queue
             {
                 //если роль юзера изменилась на премиум, то надо добавить ему 3 дня
                 if (needed_role == Role.premium)
-                { UserInfo.GetUser(user.ID).AddPremium(); }
+                { UserInfo.Instance.GetUser(user.ID).AddPremium(); }
 
                 for (int i = 0; i < _queue.Count; i++)
                 {
@@ -186,7 +185,7 @@ namespace AdminApp.Queue
             }
 
         }
-        public static void StartUseNishtiak(string id)
+        public void StartUseNishtiak(string id)
         {
             try
             {
@@ -197,22 +196,23 @@ namespace AdminApp.Queue
                 GetUser(id).iClient.ShowMessage("callback exception notify to use: " + ex.Message);
             }
 
-            UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
+            UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
             GetUser(id).ThreadForCheckAnswerTime.Abort();
             GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(GetUser(id).CheckTimeForUsing));
             GetUser(id).ThreadForCheckUsingTime.Start();
-            Nishtiachok.GetFreeNishtiachok().owner = UsersQueue.GetUser(id);
+            Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
             GetUser(id).State = UserState.UsingNishtiak;
         }
-        public static void EndUseNishtiak(string id)
+        public void EndUseNishtiak(string id)
         {
-            GetUser(id).iClient.ShowMessage("Пока мудак");
-            UserInfo.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
-            GetUser(id).ThreadForCheckUsingTime.Abort();
+            //Instance.GetUser(id).iClient.ShowMessage("Пока мудак");
+            Instance.GetUser(id).iClient.ShowMessage("EndUseNishtiak for user");
+            UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
+            Instance.GetUser(id).ThreadForCheckUsingTime.Abort();
             Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
             Nishtiachok.GetNishtiakByUserId(id).owner = null;
-            GetUser(id).State = UserState.Offline;
-            Instance.DeleteFromTheQueue(GetUser(id));
+            Instance.GetUser(id).State = UserState.Offline;
+            Instance.DeleteFromTheQueue(Instance.GetUser(id));
         }
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue(int i, Role changedRole)
