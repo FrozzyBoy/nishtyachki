@@ -104,7 +104,12 @@ namespace AdminApp.Queue
                 _queue.Add(user);
             }
         }
+        public void DeleteUserByAdmin(User user)
+        {
+            user.iClient.DroppedByServer("you're dropped by Admin");
+            DeleteFromTheQueue(user);
 
+        }
         public void DeleteFromTheQueue(User user)
         {
             lock (LockObj)
