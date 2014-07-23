@@ -17,8 +17,12 @@ namespace AdminApp.Services
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
         private string _key;
 
+        private bool _isDisconected;
+
         public void InitUser()
         {
+            _isDisconected = false;
+            
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
 
@@ -65,20 +69,31 @@ namespace AdminApp.Services
 
         ~WcfService()
         {
-            try
-            {
-                LeaveQueue();
-            }
-            catch (Exception)
-            {
-            }
+            Disconect();
+        }
 
-            try
+        public void Disconect()
+        {
+            if (_isDisconected)            
             {
-                StopUseObj();
-            }
-            catch (Exception)
-            {
+                _isDisconected = true;
+
+                try
+                {
+                    LeaveQueue();
+                }
+                catch (Exception)
+                {
+                }
+
+                try
+                {
+                    StopUseObj();
+                }
+                catch (Exception)
+                {
+                }
+
             }
         }
     }

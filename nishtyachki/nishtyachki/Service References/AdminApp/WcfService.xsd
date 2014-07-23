@@ -49,6 +49,16 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="Disconect">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DisconectResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="NotifyServerReady">
     <xs:complexType>
       <xs:sequence />
@@ -89,6 +99,18 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyToUseObjResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DroppedByServer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="text" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DroppedByServerResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

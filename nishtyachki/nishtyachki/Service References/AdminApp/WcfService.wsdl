@@ -62,6 +62,12 @@
   <wsdl:message name="IWcfService_StopUseObj_OutputMessage">
     <wsdl:part name="parameters" element="tns:StopUseObjResponse" />
   </wsdl:message>
+  <wsdl:message name="IWcfService_Disconect_InputMessage">
+    <wsdl:part name="parameters" element="tns:Disconect" />
+  </wsdl:message>
+  <wsdl:message name="IWcfService_Disconect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisconectResponse" />
+  </wsdl:message>
   <wsdl:message name="IWcfService_NotifyServerReady_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyServerReady" />
   </wsdl:message>
@@ -86,6 +92,12 @@
   <wsdl:message name="IWcfService_NotifyToUseObj_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyToUseObjResponse" />
   </wsdl:message>
+  <wsdl:message name="IWcfService_DroppedByServer_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DroppedByServer" />
+  </wsdl:message>
+  <wsdl:message name="IWcfService_DroppedByServer_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DroppedByServerResponse" />
+  </wsdl:message>
   <wsdl:portType name="IWcfService">
     <wsdl:operation name="InitUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/InitUser" message="tns:IWcfService_InitUser_InputMessage" />
@@ -106,6 +118,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/StopUseObj" message="tns:IWcfService_StopUseObj_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/StopUseObjResponse" message="tns:IWcfService_StopUseObj_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Disconect">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/Disconect" message="tns:IWcfService_Disconect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/DisconectResponse" message="tns:IWcfService_Disconect_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyServerReady">
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/NotifyServerReady" message="tns:IWcfService_NotifyServerReady_OutputCallbackMessage" />
     </wsdl:operation>
@@ -125,6 +141,10 @@
     <wsdl:operation name="NotifyToUseObj">
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/NotifyToUseObj" message="tns:IWcfService_NotifyToUseObj_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/NotifyToUseObjResponse" message="tns:IWcfService_NotifyToUseObj_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DroppedByServer">
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/DroppedByServer" message="tns:IWcfService_DroppedByServer_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/DroppedByServerResponse" message="tns:IWcfService_DroppedByServer_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IWcfService" type="tns:IWcfService">
@@ -172,6 +192,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Disconect">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/Disconect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyServerReady">
       <soap12:operation soapAction="http://tempuri.org/IWcfService/NotifyServerReady" style="document" />
       <wsdl:output>
@@ -207,6 +236,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyToUseObj">
       <soap12:operation soapAction="http://tempuri.org/IWcfService/NotifyToUseObj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DroppedByServer">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/DroppedByServer" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -21,5 +21,7 @@ namespace AdminApp.Services
         void AnswerForOfferToUse(bool willUse);
         [OperationContract]
         void StopUseObj();
+        [OperationContract(IsTerminating = false)]
+        void Disconect();
     }
 }
