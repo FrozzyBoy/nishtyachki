@@ -16,7 +16,7 @@ namespace AdminApp.Queue
     }
     public class UsersQueue
     {
-        private static List<User> _queue = new List<User>();
+        private  List<User> _queue = new List<User>();
         private static UsersQueue _instance;
         public event EventHandler QueueChanged;
         static Object LockObj = new Object();
@@ -164,28 +164,28 @@ namespace AdminApp.Queue
                 int i = 0;
                 for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
                 {
-                    if (i < _queue.Count)
+                    if (i < _instance._queue.Count)
                     {
-                        if ((_queue[i].State == UserState.InQueue))
+                        if ((_instance._queue[i].State == UserState.InQueue))
                         {
-                            _queue[i].CheckTimeForAcess();
+                            _instance._queue[i].CheckTimeForAcess();
 
                             try
                             {
-                                _queue[i].iClient.OfferToUseObj();
+                                _instance._queue[i].iClient.OfferToUseObj();
                             }
                             catch (Exception ex)
                             {
-                                _queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
+                                _instance._queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
                             }
 
-                            _queue[i].State = UserState.WaitingForAccept;
+                           _instance._queue[i].State = UserState.WaitingForAccept;
                         }
                     }
                 }
-                if (i + 1 < _queue.Count && (_queue[i + 1].State == UserState.InQueue))
+                if (i + 1 < _instance._queue.Count && (_instance._queue[i + 1].State == UserState.InQueue))
                 {
-                    _queue[i + 1].iClient.ShowMessage("You'r next to USE");
+                    _instance._queue[i + 1].iClient.ShowMessage("You'r next to USE");
                 }                     
 
         }
@@ -223,11 +223,11 @@ namespace AdminApp.Queue
             {
                 try
                 {
-                    while (_queue[i - 1].Role != Role.premium)
+                    while (_instance._queue[i - 1].Role != Role.premium)
                     {
-                        User temp = _queue[i];
-                        _queue[i] = _queue[i - 1];
-                        _queue[i - 1] = temp;
+                        User temp = _instance._queue[i];
+                        _instance._queue[i] = _instance._queue[i - 1];
+                        _instance._queue[i - 1] = temp;
                         i--;
                     }
 
@@ -240,7 +240,7 @@ namespace AdminApp.Queue
         }
         public int GetCount
         {
-            get { return _queue.Count; }
+            get { return _instance._queue.Count; }
         }
 
         void OnQueueChanged(object obj, QueueArgs args)
@@ -250,7 +250,8 @@ namespace AdminApp.Queue
                 QueueChanged(obj, args);
             }
         }
-        static public List<User> Queue
+
+        public List<User> Queue
         {
             get
             {

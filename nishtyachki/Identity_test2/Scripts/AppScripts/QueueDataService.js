@@ -12,4 +12,8 @@
         var url = "http://localhost/AdminApp/api/queue/change";
         $http.delete(url + "/" + data + "/role/" + role);
     }
+    this.blockUnblock = function () {
+        var url = "http://localhost/AdminApp/api/queue/block";
+        $http.put(url);
+    }
 });

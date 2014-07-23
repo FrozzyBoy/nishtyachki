@@ -21,14 +21,17 @@
     </div>
 
     <div ng-controller="QueueCtrl">
-        <p ng-repeat="q in queue">
-            {{q.ID}}
+        <p ng-repeat="q in queue.Queue">
+            <a href="http://localhost/AdminApp/UserInfo/User/id={{q.ID}}">{{q.ID}}</a>
             <button ng-click="deleteUser(q)">Delete</button>
             <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
         </p>
+        <button ng-click="block(queue)"><img src="{{blockButton.Im}}" width="150" height="100" /></button>
+        <p>
+            {{blockButton.Message}}
+        </p>
+        <a href="http://localhost/AdminApp/UserInfo/User/5">Перейти</a>
     </div>
-
-    
 </body>
 
 </html>
