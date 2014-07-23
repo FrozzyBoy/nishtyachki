@@ -30,13 +30,9 @@ namespace nishtyachki.Logic
             _service.AnswerForOfferToUseAsync(willUse);
         }
 
-        ~Repository()
+        public void Disconnect()
         {
-            try
-            {
-                LeaveQueue();
-            }
-            catch { }
+            _service.DisconnectAsync();
         }
 
         public void LeaveQueue()
@@ -47,6 +43,11 @@ namespace nishtyachki.Logic
         public void StopUse()
         {
             _service.StopUseObjAsync();
+        }
+
+        ~Repository()
+        {
+            Disconnect();
         }
     }
 }

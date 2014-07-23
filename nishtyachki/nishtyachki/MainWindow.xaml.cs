@@ -113,11 +113,11 @@ namespace nishtyachki
         }
 
         public void StandInQueue()
-        {
-            string msg = AllStrings.MsgUserInQueue;
-            ShowMessage(msg);
+        {            
             _treyIcon.IsVicible = true;
             btnEnqueue.IsEnabled = false;
+            string msg = AllStrings.MsgUserInQueue;
+            ShowMessage(msg);
         }
 
         public void OfferToUseObj()

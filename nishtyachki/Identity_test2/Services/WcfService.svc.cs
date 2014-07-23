@@ -65,20 +65,32 @@ namespace AdminApp.Services
 
         ~WcfService()
         {
-            try
-            {
-                LeaveQueue();
-            }
-            catch (Exception)
-            {
-            }
+            Disconnect();
+        }
 
-            try
+        private bool _isDisconnected = false;
+
+        public void Disconnect()
+        {
+            if (_isDisconnected)
             {
-                StopUseObj();
-            }
-            catch (Exception)
-            {
+                _isDisconnected = true;
+
+                try
+                {
+                    LeaveQueue();
+                }
+                catch (Exception)
+                {
+                }
+
+                try
+                {
+                    StopUseObj();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }

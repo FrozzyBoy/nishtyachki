@@ -62,6 +62,12 @@
   <wsdl:message name="IWcfService_StopUseObj_OutputMessage">
     <wsdl:part name="parameters" element="tns:StopUseObjResponse" />
   </wsdl:message>
+  <wsdl:message name="IWcfService_Disconnect_InputMessage">
+    <wsdl:part name="parameters" element="tns:Disconnect" />
+  </wsdl:message>
+  <wsdl:message name="IWcfService_Disconnect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisconnectResponse" />
+  </wsdl:message>
   <wsdl:message name="IWcfService_NotifyServerReady_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyServerReady" />
   </wsdl:message>
@@ -105,6 +111,10 @@
     <wsdl:operation name="StopUseObj">
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/StopUseObj" message="tns:IWcfService_StopUseObj_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/StopUseObjResponse" message="tns:IWcfService_StopUseObj_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Disconnect">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/Disconnect" message="tns:IWcfService_Disconnect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/DisconnectResponse" message="tns:IWcfService_Disconnect_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyServerReady">
       <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/NotifyServerReady" message="tns:IWcfService_NotifyServerReady_OutputCallbackMessage" />
@@ -165,6 +175,15 @@
     </wsdl:operation>
     <wsdl:operation name="StopUseObj">
       <soap12:operation soapAction="http://tempuri.org/IWcfService/StopUseObj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Disconnect">
+      <soap12:operation soapAction="http://tempuri.org/IWcfService/Disconnect" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

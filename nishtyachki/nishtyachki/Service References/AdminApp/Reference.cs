@@ -44,6 +44,12 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StopUseObj", ReplyAction="http://tempuri.org/IWcfService/StopUseObjResponse")]
         System.Threading.Tasks.Task StopUseObjAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/Disconnect", ReplyAction="http://tempuri.org/IWcfService/DisconnectResponse")]
+        void Disconnect();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/Disconnect", ReplyAction="http://tempuri.org/IWcfService/DisconnectResponse")]
+        System.Threading.Tasks.Task DisconnectAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -134,6 +140,14 @@ namespace nishtyachki.AdminApp {
         
         public System.Threading.Tasks.Task StopUseObjAsync() {
             return base.Channel.StopUseObjAsync();
+        }
+        
+        public void Disconnect() {
+            base.Channel.Disconnect();
+        }
+        
+        public System.Threading.Tasks.Task DisconnectAsync() {
+            return base.Channel.DisconnectAsync();
         }
     }
 }
