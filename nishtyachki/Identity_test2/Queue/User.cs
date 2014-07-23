@@ -62,8 +62,6 @@ namespace AdminApp.Queue
 
         internal void CheckTimeForAcess()
         {
-            
-
             _t = new System.Timers.Timer(120000);
             _t.Elapsed += t_Elapsed;
             _t.Start();

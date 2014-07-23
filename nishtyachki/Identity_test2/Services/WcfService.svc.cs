@@ -11,7 +11,7 @@ namespace AdminApp.Services
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "WcfService" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select WcfService.svc or WcfService.svc.cs at the Solution Explorer and start debugging.
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class WcfService : IWcfService
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
@@ -47,6 +47,9 @@ namespace AdminApp.Services
         public void AnswerForOfferToUse(bool willUse)
         {
             User usr = new User(_key, _clients[_key]);
+
+            usr.iClient.ShowMessage("u answer " + willUse);
+
             if (willUse)
             {
                 UsersQueue.Instance.StartUseNishtiak(_key);

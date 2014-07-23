@@ -74,6 +74,7 @@ namespace nishtyachki
         void btn_ClickInQueue(object sender, RoutedEventArgs e)
         {
             _window.LeaveQueue();
+            this.Hide();
         }
         
         void btn_ClickOffered(object sender, RoutedEventArgs e)

@@ -56,9 +56,6 @@
   <wsdl:message name="IWcfService_AnswerForOfferToUse_InputMessage">
     <wsdl:part name="parameters" element="tns:AnswerForOfferToUse" />
   </wsdl:message>
-  <wsdl:message name="IWcfService_AnswerForOfferToUse_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AnswerForOfferToUseResponse" />
-  </wsdl:message>
   <wsdl:message name="IWcfService_StopUseObj_InputMessage">
     <wsdl:part name="parameters" element="tns:StopUseObj" />
   </wsdl:message>
@@ -104,7 +101,6 @@
     </wsdl:operation>
     <wsdl:operation name="AnswerForOfferToUse">
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/AnswerForOfferToUse" message="tns:IWcfService_AnswerForOfferToUse_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWcfService/AnswerForOfferToUseResponse" message="tns:IWcfService_AnswerForOfferToUse_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="StopUseObj">
       <wsdl:input wsaw:Action="http://tempuri.org/IWcfService/StopUseObj" message="tns:IWcfService_StopUseObj_InputMessage" />
@@ -166,9 +162,6 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="StopUseObj">
       <soap12:operation soapAction="http://tempuri.org/IWcfService/StopUseObj" style="document" />

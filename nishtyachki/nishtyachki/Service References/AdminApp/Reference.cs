@@ -33,10 +33,10 @@ namespace nishtyachki.AdminApp {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/LeaveQueue", ReplyAction="http://tempuri.org/IWcfService/LeaveQueueResponse")]
         System.Threading.Tasks.Task LeaveQueueAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/AnswerForOfferToUse", ReplyAction="http://tempuri.org/IWcfService/AnswerForOfferToUseResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/AnswerForOfferToUse")]
         void AnswerForOfferToUse(bool willUse);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/AnswerForOfferToUse", ReplyAction="http://tempuri.org/IWcfService/AnswerForOfferToUseResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IWcfService/AnswerForOfferToUse")]
         System.Threading.Tasks.Task AnswerForOfferToUseAsync(bool willUse);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/StopUseObj", ReplyAction="http://tempuri.org/IWcfService/StopUseObjResponse")]

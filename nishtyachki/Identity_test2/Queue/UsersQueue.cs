@@ -100,7 +100,8 @@ namespace AdminApp.Queue
             }
             else
             {
-                oldUser.iClient = user.iClient;
+                _queue.Remove(oldUser);
+                _queue.Add(user);
             }
         }
 
@@ -154,15 +155,13 @@ namespace AdminApp.Queue
         //оповещение пользователей
         static public void AlertQueue()
         {
-            try
-            {
                 int i = 0;
                 for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
                 {
-                    if (_queue[i].State == UserState.InQueue)
+                    if ((_queue[i].State == UserState.InQueue)&(i<_queue.Count))
                     {
-                        _queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
-                        _queue[i].ThreadForCheckAnswerTime.Start();
+                        //_queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
+                        //_queue[i].ThreadForCheckAnswerTime.Start();
 
                         try
                         {
@@ -176,15 +175,10 @@ namespace AdminApp.Queue
                         _queue[i].State = UserState.WaitingForAccept;
                     }
                 }
-                if (_queue[i + 1].State == UserState.InQueue)
+                if (i + 1 < _queue.Count && (_queue[i + 1].State == UserState.InQueue))
                 {
                     _queue[i + 1].iClient.ShowMessage("You'r next to USE");
-                }
-            }
-            catch (Exception ex)
-            {
-                _queue[0].iClient.ShowMessage("lol: " + Environment.NewLine + ex.Message);
-            }
+                }                     
 
         }
         public void StartUseNishtiak(string id)
@@ -199,9 +193,9 @@ namespace AdminApp.Queue
             }
 
             UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
-            Instance.GetUser(id).ThreadForCheckAnswerTime.Abort();
-            Instance.GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(Instance.GetUser(id).CheckTimeForUsing));
-            Instance.GetUser(id).ThreadForCheckUsingTime.Start();
+            //Instance.GetUser(id).ThreadForCheckAnswerTime.Abort();
+            //Instance.GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(Instance.GetUser(id).CheckTimeForUsing));
+            //Instance.GetUser(id).ThreadForCheckUsingTime.Start();
             Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
             Instance.GetUser(id).State = UserState.UsingNishtiak;
         }
