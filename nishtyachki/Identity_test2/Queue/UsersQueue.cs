@@ -104,7 +104,12 @@ namespace AdminApp.Queue
                 _queue.Add(user);
             }
         }
+        public void DeleteUserByAdmin(User user)
+        {
+            user.iClient.DroppedByServer("you're dropped by Admin");
+            DeleteFromTheQueue(user);
 
+        }
         public void DeleteFromTheQueue(User user)
         {
             lock (LockObj)
@@ -119,6 +124,7 @@ namespace AdminApp.Queue
                         break;
                     case UserState.UsingNishtiak:
                         UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
+                        user.Abort();
                         break;
                 }
                 user.State = UserState.Offline;
@@ -158,21 +164,23 @@ namespace AdminApp.Queue
                 int i = 0;
                 for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
                 {
-                    if ((_queue[i].State == UserState.InQueue)&(i<_queue.Count))
+                    if (i < _queue.Count)
                     {
-                        //_queue[i].ThreadForCheckAnswerTime = new Thread(new ThreadStart(_queue[i].CheckTimeForAcess));
-                        //_queue[i].ThreadForCheckAnswerTime.Start();
-
-                        try
+                        if ((_queue[i].State == UserState.InQueue))
                         {
-                            _queue[i].iClient.OfferToUseObj();
-                        }
-                        catch (Exception ex)
-                        {
-                            _queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
-                        }
+                            _queue[i].CheckTimeForAcess();
 
-                        _queue[i].State = UserState.WaitingForAccept;
+                            try
+                            {
+                                _queue[i].iClient.OfferToUseObj();
+                            }
+                            catch (Exception ex)
+                            {
+                                _queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
+                            }
+
+                            _queue[i].State = UserState.WaitingForAccept;
+                        }
                     }
                 }
                 if (i + 1 < _queue.Count && (_queue[i + 1].State == UserState.InQueue))
@@ -193,18 +201,16 @@ namespace AdminApp.Queue
             }
 
             UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
-            //Instance.GetUser(id).ThreadForCheckAnswerTime.Abort();
-            //Instance.GetUser(id).ThreadForCheckUsingTime = new Thread(new ThreadStart(Instance.GetUser(id).CheckTimeForUsing));
-            //Instance.GetUser(id).ThreadForCheckUsingTime.Start();
+            Instance.GetUser(id).Abort();
+            Instance.GetUser(id).CheckTimeForUsing();
             Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
             Instance.GetUser(id).State = UserState.UsingNishtiak;
         }
         public void EndUseNishtiak(string id)
         {
-            //Instance.GetUser(id).iClient.ShowMessage("Пока мудак");
+            Instance.GetUser(id).Abort();
             Instance.GetUser(id).iClient.ShowMessage("EndUseNishtiak for user");
-            UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
-            Instance.GetUser(id).ThreadForCheckUsingTime.Abort();
+            UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);          
             Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
             Nishtiachok.GetNishtiakByUserId(id).owner = null;
             Instance.GetUser(id).State = UserState.Offline;
@@ -242,6 +248,13 @@ namespace AdminApp.Queue
             if (QueueChanged != null)
             {
                 QueueChanged(obj, args);
+            }
+        }
+        static public List<User> Queue
+        {
+            get
+            {
+                return _queue;
             }
         }
 

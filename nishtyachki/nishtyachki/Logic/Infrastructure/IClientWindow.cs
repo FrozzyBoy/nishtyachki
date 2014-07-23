@@ -15,5 +15,6 @@ namespace nishtyachki.Logic.Infrastructure
         void AnswerForOffer(bool willUse);
         void LeaveQueue();
         void StopUse();
+        void DroppedByServer(string text);
     }
 }

@@ -49,5 +49,10 @@ namespace nishtyachki.Logic
         {
             Application.Current.Dispatcher.Invoke(() => _window.StandInQueue());
         }
+
+        async public void DroppedByServer(string text)
+        {
+            Application.Current.Dispatcher.Invoke(() => _window.DroppedByServer(text));
+        }
     }
 }

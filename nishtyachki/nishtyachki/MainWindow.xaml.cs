@@ -40,6 +40,11 @@ namespace nishtyachki
 
         private void Restart()
         {
+            if (_notifyToUse != null)
+            {
+                _notifyToUse.Close();
+            }
+
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
 
@@ -47,6 +52,8 @@ namespace nishtyachki
             _notifyToUse.Hide();
 
             _repo = new Repository(this, _notifyToUse);
+
+            _treyIcon = new TreyIcon(this);
         }
 
         void MainWindow_EnqueueEnter()
@@ -132,6 +139,7 @@ namespace nishtyachki
             {
                 _notifyToUse.Hide();
                 _treyIcon.IsVicible = false;
+                Restart();
             }
             _repo.AnswerForOfferToUse(willUse);
         }
@@ -145,6 +153,12 @@ namespace nishtyachki
         public void StopUse()
         {
             _repo.StopUse();
+            Restart();
+        }
+
+        public void DroppedByServer(string text)
+        {
+            ShowMessage(text);
             Restart();
         }
     }

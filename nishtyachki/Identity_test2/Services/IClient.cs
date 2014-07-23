@@ -21,5 +21,7 @@ namespace AdminApp.Services
         Task OfferToUseObj();
         [OperationContract]
         Task NotifyToUseObj();
+        [OperationContract]
+        Task DroppedByServer(string text);
     }
 }

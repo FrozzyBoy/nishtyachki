@@ -72,6 +72,9 @@ namespace nishtyachki.AdminApp {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/NotifyToUseObj", ReplyAction="http://tempuri.org/IWcfService/NotifyToUseObjResponse")]
         void NotifyToUseObj();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWcfService/DroppedByServer", ReplyAction="http://tempuri.org/IWcfService/DroppedByServerResponse")]
+        void DroppedByServer(string text);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
