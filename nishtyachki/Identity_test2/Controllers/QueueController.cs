@@ -14,9 +14,9 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]
-        public IEnumerable<User> Get()
+        public UsersQueue Get()
         {
-            return UsersQueue.Queue;
+            return UsersQueue.Instance;
         }
        
 
@@ -31,7 +31,11 @@ namespace AdminApp.Controllers
         {
             UsersQueue.Instance.ChangeRoleByAdmin(UsersQueue.Instance.GetUser(id), (Role)role);
         }
-         
+        [Route("block")]
+        public void Put()
+        {
+            UsersQueue.Lock_Unlock_Queue();
+        }
 
     }
 }

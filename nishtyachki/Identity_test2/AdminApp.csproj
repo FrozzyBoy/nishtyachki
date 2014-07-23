@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ChartValuesController.cs" />
     <Compile Include="Controllers\NishtController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Hubs\ChartHub.cs" />
     <Compile Include="Models\Infrastructure\IUserInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
@@ -234,6 +235,8 @@
     <None Include="Resources\Untitled.png" />
     <None Include="Resources\70299025_block.jpg" />
     <None Include="Resources\70299025_in_using.jpg" />
+    <None Include="Resources\green_button.png" />
+    <None Include="Resources\red_button.jpg" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -607,6 +610,8 @@
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\UserInfo\Index.cshtml" />
+    <Content Include="Views\UserInfo\User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\App_Data\" />
