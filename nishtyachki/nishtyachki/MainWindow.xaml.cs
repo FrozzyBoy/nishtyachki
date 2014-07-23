@@ -40,6 +40,8 @@ namespace nishtyachki
 
         private void Restart()
         {
+            _treyIcon.IsVicible = false;
+
             if (_notifyToUse != null)
             {
                 _notifyToUse.Close();
@@ -53,7 +55,6 @@ namespace nishtyachki
 
             _repo = new Repository(this, _notifyToUse);
 
-            _treyIcon = new TreyIcon(this);
         }
 
         void MainWindow_EnqueueEnter()
