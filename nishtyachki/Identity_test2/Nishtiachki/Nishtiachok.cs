@@ -11,22 +11,23 @@ namespace AdminApp.Nishtiachki
     }
      public class Nishtiachok
      {
+         static private int _count = 0;
         public static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
          
          public event EventHandler EventChangeNishtState;
          public Nishtiachok_State State { get; set; }
-         public string Name { get; set; }
+         public string ID { get; set; }
          public User owner { get; set; }
+         public string Im { get; set; }
 
 
-         public Nishtiachok(string name)
+        private Nishtiachok(string id)
          {
              this.State = Nishtiachok_State.free;
-             this.Name = name;
+             this.ID = id;
+             this.Im = @"/AdminApp/Resources/70299025.jpg";
          }
-
-
-
+        
         public void OnEventChangeStatNisht(Nishtiachok obj,ChangeNishtArg arg)
          {
              if (EventChangeNishtState != null)
@@ -36,18 +37,33 @@ namespace AdminApp.Nishtiachki
          }
         
         
-       public void ChangeNisht()
+       public void ChangeNisht(Nishtiachok_State state)
         {
+            this.State = state;
+           if (state == Nishtiachok_State.free)
+           {
+               this.Im = @"/AdminApp/Resources/70299025.jpg";
 
+           }
+           if(state == Nishtiachok_State.locked)
+           {
+               this.Im = @"/AdminApp/Resources/70299025_block.jpg";
+           }
+           if(state == Nishtiachok_State.in_using)
+           {
+               this.Im = @"/AdminApp/Resources/70299025_in_using.jpg";
+           }
+            ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.change, state);
+            OnEventChangeStatNisht(this, arg);
         }
          public static Nishtiachok GetNishtiakByUserId(string id)
        {
           return Nishtiachki.Find(m => m.owner.ID == id);
 
        }
-       public static Nishtiachok GetNishtiachokByNamme(string name)
+       public static Nishtiachok GetNishtiachokByNamme(string id)
        {
-           return Nishtiachki.Find(m => m.Name == name);
+           return Nishtiachki.Find(m => m.ID == id);
        }
          public static Nishtiachok GetFreeNishtiachok()
          {
@@ -66,28 +82,28 @@ namespace AdminApp.Nishtiachki
              return n;
          }
 
-     public static void AddNistiachokByAdmin(string name)
+     public static void AddNistiachokByAdmin(string id)
         {
-            Nishtiachok obj = new Nishtiachok(name);
+            Nishtiachok obj = new Nishtiachok(id);
             Nishtiachki.Add(obj);
-         ChangeNishtArg args=new ChangeNishtArg(TypeOfChanges.add);
-         obj.OnEventChangeStatNisht(obj, args);
-         UsersQueue.AlertQueue();
+            ChangeNishtArg args=new ChangeNishtArg(TypeOfChanges.add);
+            obj.OnEventChangeStatNisht(obj, args);
+            UsersQueue.AlertQueue();
         }
-     public static void DeleteNishtiachok(string name)
+     public static void DeleteNishtiachok(string id)
         {
-            Nishtiachok obj = new Nishtiachok(name);
+            Nishtiachok obj = new Nishtiachok(id);
             Nishtiachki.Remove(obj);
             ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
             obj.OnEventChangeStatNisht(obj, args);
            
         }
-     public static void LockNishtiachok(string name)
+     public static void LockNishtiachok(string id)
      {
 
          foreach (Nishtiachok n in Nishtiachki)
          {
-             if (n.Name == name)
+             if (n.ID == id)
              {
                  n.State = Nishtiachok_State.locked;
                  ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.change);
@@ -98,24 +114,11 @@ namespace AdminApp.Nishtiachki
 
 
      }
-         
-    
-
-
-
-
-
-
-
-
-
-
-
         
          public override bool Equals(Object obj)
          {
              Nishtiachok nisht = obj as Nishtiachok;
-             if ((this.Name == nisht.Name) && (this.owner.Equals(nisht.owner)) && (this.State == nisht.State))
+             if ((this.ID == nisht.ID))
              {
                  return true;
              }

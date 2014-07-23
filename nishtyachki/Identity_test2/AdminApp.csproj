@@ -232,6 +232,8 @@
     <Content Include="Content\Site.css" />
     <None Include="Resources\70299025.jpg" />
     <None Include="Resources\Untitled.png" />
+    <None Include="Resources\70299025_block.jpg" />
+    <None Include="Resources\70299025_in_using.jpg" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -259,7 +261,7 @@
     <Content Include="Scripts\AppScripts\Controller.js" />
     <Content Include="Scripts\AppScripts\DataService.js" />
     <Content Include="Scripts\AppScripts\Directives.js" />
-    <Content Include="Scripts\AppScripts\QueueCnrl.js" />
+    <Content Include="Scripts\AppScripts\QueueCtrl.js" />
     <Content Include="Scripts\AppScripts\QueueDataService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -27,8 +27,9 @@ namespace AdminApp
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Scripts/js").Include(
-                "~/Scripts/Appscripts/App.js", "~/Scripts/AppScripts/Controller.js", 
-            "~/Scripts/AppScripts/DataService.js", "~/Scripts/AppScripts/Directive.js"
+                "~/Scripts/AppScripts/App.js", "~/Scripts/AppScripts/DataService.js",
+                "~/Scripts/AppScripts/Controller.js",  
+                "~/Scripts/AppScripts/QueueDataService.js", "~/Scripts/AppScripts/QueueCtrl.js"
                 ));
 
             BundleTable.EnableOptimizations = true;

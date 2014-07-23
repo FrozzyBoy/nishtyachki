@@ -16,49 +16,25 @@ namespace AdminApp.Controllers
         [AllowAnonymous]
         public IEnumerable<Nishtiachok> Get()
         {
-            return NishtiachkiContainer.Nishtiachki;            
+            return Nishtiachok.Nishtiachki;           
         }
 
         [Route("add/{id}")]
-        public void Post(int id)
+        public void Post(string id)
         {
-            Nishtiachok nisht = new Nishtiachok(Nishtiachok_State.free);
-            nisht.ID = id;
-            NishtiachkiContainer.AddNistiachok(nisht);
+            Nishtiachok.AddNistiachokByAdmin(id);
         }
 
         [Route("delete/{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
-            Nishtiachok nisht = new Nishtiachok(Nishtiachok_State.free);
-
-            for (int i = 0; i < NishtiachkiContainer.Nishtiachki.Count; i++)
-            {
-                if (NishtiachkiContainer.Nishtiachki[i].ID == id)
-                {
-                    nisht = NishtiachkiContainer.Nishtiachki[i];
-                    break;
-                }
-            }
-
-            NishtiachkiContainer.DeleteNishtiachok(nisht);
+            Nishtiachok.DeleteNishtiachok(id);
         }
 
         [Route("change/{id}/state/{state}")]
-        public void DeleteSettings(int id, int state)
+        public void DeleteSettings(string id, int state)
         {
-            Nishtiachok nisht = new Nishtiachok(Nishtiachok_State.free);
-
-            for (int i = 0; i < NishtiachkiContainer.Nishtiachki.Count; i++)
-            {
-                if (NishtiachkiContainer.Nishtiachki[i].ID == id)
-                {
-                    nisht = NishtiachkiContainer.Nishtiachki[i];
-                    break;
-                }
-            }
-
-            NishtiachkiContainer.ChangeStatNishtiachok(nisht, (Nishtiachok_State)state);
+            Nishtiachok.GetNishtiachokByNamme(id).ChangeNisht((Nishtiachok_State)state);
         }
          
 

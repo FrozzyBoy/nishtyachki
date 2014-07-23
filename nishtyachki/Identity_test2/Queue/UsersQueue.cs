@@ -21,7 +21,6 @@ namespace AdminApp.Queue
        public  event EventHandler QueueChanged;
        static Object LockObj = new Object();
        public QueueState _QueueState {get;private set;} 
-        
 
          private UsersQueue()
        {
@@ -77,7 +76,7 @@ namespace AdminApp.Queue
            }
 
        }
-       public User GetUser(string id)
+       public static User GetUser(string id)
        {
            return _queue.Find(m => m.ID == id);
        }

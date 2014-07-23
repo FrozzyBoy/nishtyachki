@@ -23,35 +23,13 @@ namespace AdminApp.Controllers
         [Route("delete/{id}")]
         public void Delete(string id)
         {
-            User user = new User();
-
-            for (int i = 0; i < UsersQueue._queue.Count; i++)
-            {
-                if (UsersQueue._queue[i].ID == id)
-                {
-                    user = UsersQueue._queue[i];
-                    break;
-                }
-            }
-
-            UsersQueue.DeleteFromTheQueue(user);
+            UsersQueue.Instance.DeleteFromTheQueue(UsersQueue.GetUser(id));
         }
 
-        [Route("change/{id}/srole/{role}")]
+        [Route("change/{id}/role/{role}")]
         public void DeleteSettings(string id, int role)
         {
-            User user = new User();
-
-            for (int i = 0; i < UsersQueue._queue.Count; i++)
-            {
-                if (UsersQueue._queue[i].ID == id)
-                {
-                    user = UsersQueue._queue[i];
-                    break;
-                }
-            }
-
-            UsersQueue.ChangeRoleByAdmin(user, (Role)role);
+            UsersQueue.Instance.ChangeRoleByAdmin(UsersQueue.GetUser(id), (Role)role);
         }
          
 
