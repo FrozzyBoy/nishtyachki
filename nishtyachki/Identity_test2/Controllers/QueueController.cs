@@ -16,20 +16,20 @@ namespace AdminApp.Controllers
         [AllowAnonymous]
         public IEnumerable<User> Get()
         {
-            return UsersQueue._queue;
+            return UsersQueue.Queue;
         }
        
 
         [Route("delete/{id}")]
         public void Delete(string id)
         {
-            UsersQueue.Instance.DeleteFromTheQueue(UsersQueue.GetUser(id));
+            UsersQueue.Instance.DeleteFromTheQueue(UsersQueue.Instance.GetUser(id));
         }
 
         [Route("change/{id}/role/{role}")]
         public void DeleteSettings(string id, int role)
         {
-            UsersQueue.Instance.ChangeRoleByAdmin(UsersQueue.GetUser(id), (Role)role);
+            UsersQueue.Instance.ChangeRoleByAdmin(UsersQueue.Instance.GetUser(id), (Role)role);
         }
          
 

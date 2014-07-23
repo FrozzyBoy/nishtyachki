@@ -244,6 +244,13 @@ namespace AdminApp.Queue
                 QueueChanged(obj, args);
             }
         }
+        static public List<User> Queue
+        {
+            get
+            {
+                return _queue;
+            }
+        }
 
     }
 }
