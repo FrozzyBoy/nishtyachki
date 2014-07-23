@@ -164,20 +164,23 @@ namespace AdminApp.Queue
                 int i = 0;
                 for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
                 {
-                    if ((_queue[i].State == UserState.InQueue)&(i<_queue.Count))
+                    if (i < _queue.Count)
                     {
-                        _queue[i].CheckTimeForAcess();
-
-                        try
+                        if ((_queue[i].State == UserState.InQueue))
                         {
-                            _queue[i].iClient.OfferToUseObj();
-                        }
-                        catch (Exception ex)
-                        {
-                            _queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
-                        }
+                            _queue[i].CheckTimeForAcess();
 
-                        _queue[i].State = UserState.WaitingForAccept;
+                            try
+                            {
+                                _queue[i].iClient.OfferToUseObj();
+                            }
+                            catch (Exception ex)
+                            {
+                                _queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
+                            }
+
+                            _queue[i].State = UserState.WaitingForAccept;
+                        }
                     }
                 }
                 if (i + 1 < _queue.Count && (_queue[i + 1].State == UserState.InQueue))
@@ -245,6 +248,13 @@ namespace AdminApp.Queue
             if (QueueChanged != null)
             {
                 QueueChanged(obj, args);
+            }
+        }
+        static public List<User> Queue
+        {
+            get
+            {
+                return _queue;
             }
         }
 

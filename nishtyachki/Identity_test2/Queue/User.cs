@@ -10,8 +10,7 @@ namespace AdminApp.Queue
 {
     public enum Role
     {
-        premium,
-        standart
+        standart,premium
     }
     public enum UserState
     {
@@ -27,6 +26,7 @@ namespace AdminApp.Queue
             this.iClient = IClient;
             
         }
+       
         public IClient iClient { get; set; }
         public Action TellToUse { get; private set; }
         public Action<int> TellPossition { get; private set; }
