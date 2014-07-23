@@ -48,8 +48,6 @@ namespace AdminApp.Services
         {
             User usr = new User(_key, _clients[_key]);
 
-            usr.iClient.ShowMessage("u answer " + willUse);
-
             if (willUse)
             {
                 UsersQueue.Instance.StartUseNishtiak(_key);

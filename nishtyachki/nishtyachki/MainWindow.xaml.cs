@@ -51,7 +51,7 @@ namespace nishtyachki
 
         void MainWindow_EnqueueEnter()
         {
-            _notifyToUse.Show();
+            _notifyToUse.StandInQueue();
         }
 
         private void MainWindow_EnqueueEnter_HideWindow()
@@ -139,11 +139,13 @@ namespace nishtyachki
         public void LeaveQueue()
         {
             _repo.LeaveQueue();
+            Restart();
         }
 
         public void StopUse()
         {
             _repo.StopUse();
+            Restart();
         }
     }
 }
