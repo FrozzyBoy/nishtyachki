@@ -16,7 +16,7 @@ namespace nishtyachki.Logic
         {
             if (_service != null)
             {
-                _service.DisconectAsync();
+                _service.DisconnectAsync();
             }
 
             AdminApp.IWcfServiceCallback callback = new CallBackClass(window, notify);

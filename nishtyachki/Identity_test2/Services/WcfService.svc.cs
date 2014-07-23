@@ -76,11 +76,9 @@ namespace AdminApp.Services
 
         public void Disconnect()
         {
-            _
-
             if (_isDisconnected)
             {
-				isDisconnected = true;
+                _isDisconnected = true;
                 
                 try
                 {
@@ -100,5 +98,6 @@ namespace AdminApp.Services
             }
             
         }
+
     }
 }

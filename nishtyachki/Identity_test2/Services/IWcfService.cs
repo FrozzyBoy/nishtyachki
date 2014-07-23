@@ -22,6 +22,6 @@ namespace AdminApp.Services
         [OperationContract]
         void StopUseObj();
         [OperationContract(IsTerminating = false)]
-        void Disconect();
+        void Disconnect();
     }
 }

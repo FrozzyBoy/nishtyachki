@@ -11,8 +11,13 @@ namespace AdminApp.Nishtiachki
     }
      public class Nishtiachok
      {
-         static private int _count = 0;
-        public static List<Nishtiachok> Nishtiachki = new List<Nishtiachok>();
+         static Nishtiachok()
+         {
+             Nishtiachki = new List<Nishtiachok>();
+             Nishtiachki.Add(new Nishtiachok("default1"));
+         }
+
+         public static List<Nishtiachok> Nishtiachki;
          
          public event EventHandler EventChangeNishtState;
          public Nishtiachok_State State { get; set; }
