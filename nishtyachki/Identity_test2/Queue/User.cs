@@ -37,8 +37,7 @@ namespace AdminApp.Queue
         public Stats Statistic { get; set; }
         public Role Role { get; set; }
         public UserState State { get; set; }      
-        public Thread ThreadForCheckAnswerTime { get; set; }
-        public Thread ThreadForCheckUsingTime { get; set; }
+       
         private System.Timers.Timer _t;
         public override bool Equals(Object obj)
         {
@@ -71,13 +70,18 @@ namespace AdminApp.Queue
         {
 
 
-            _t = new System.Timers.Timer(6000000);
+            _t = new System.Timers.Timer(600000);
             _t.Elapsed += t_Elapsed;
             _t.Start();
 
         }    
+        internal void Abort()
+        {
+            _t.Stop();
+        }
         void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            iClient.DroppedByServer("you are dropepd");
             UsersQueue.Instance.DeleteFromTheQueue(this);
             _t.Stop();
         }
