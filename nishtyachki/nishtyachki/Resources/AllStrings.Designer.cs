@@ -61,6 +61,15 @@ namespace nishtyachki.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your app is allredy run!.
+        /// </summary>
+        internal static string AppIsRun {
+            get {
+                return ResourceManager.GetString("AppIsRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         internal static string BtnTextInit {

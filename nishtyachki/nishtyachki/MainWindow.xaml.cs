@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using nishtyachki.Resources;
 using nishtyachki.Logic.Infrastructure;
 using nishtyachki.Logic;
-using System.ServiceModel;
+using System.Threading;
+
 
 namespace nishtyachki
 {
@@ -29,9 +18,20 @@ namespace nishtyachki
 
         private NotifyWindow _notifyToUse;
 
+        private static Mutex mutex;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            bool isUnique;            
+            mutex = new Mutex(true, "uniqe_app_mutex", out isUnique);
+            if (!isUnique)
+            {
+                MessageBox.Show(AllStrings.AppIsRun);
+                Environment.Exit(0);
+            }
+            GC.KeepAlive(mutex);
 
             _treyIcon = new TreyIcon(this);
 
