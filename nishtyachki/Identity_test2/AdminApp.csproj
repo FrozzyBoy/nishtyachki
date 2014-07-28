@@ -186,6 +186,7 @@
     <Compile Include="Controllers\QueueController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Hubs\ChartHub.cs" />
+    <Compile Include="Hubs\UserQueueHub.cs" />
     <Compile Include="Models\Infrastructure\IUserInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
@@ -595,7 +596,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />

@@ -38,6 +38,12 @@ namespace AdminApp.Queue
         public override bool Equals(Object obj)
         {
             User user = obj as User;
+
+            if (user == null)
+            {
+                return false;
+            }
+
             if (this.ID == user.ID)
             {
                 return true;

@@ -1,20 +1,8 @@
-﻿<html ng-app="myApp">
-<head>
-    <title ="Main"></title>
+﻿@{
+    ViewBag.Title = "Index";
+}
 
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.1.0.js"></script>
-    <script type="text/javascript" src="/signalr/hubs"></script>
-    <script src="~/Scripts/jquery-ui-1.10.4.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppScripts/App.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppScripts/SignalR.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppScripts/DataService.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppScripts/Controller.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppScripts/QueueDataService.js"></script>
-    <script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
-
-</head>
+<html ng-app="myApp">
 <body>
     <div id="Nisht" ng-controller="MyCtrl">
         <p ng-repeat="n in nisht">
@@ -45,3 +33,28 @@
 </body>
 
 </html>
+
+@section scripts{
+        
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.signalR-2.1.0.js"></script>
+<script type="text/javascript" src="/signalr/hubs"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+<script type="text/javascript" src="~/Scripts/AppScripts/App.js"></script>
+<script type="text/javascript" src="~/Scripts/AppScripts/DataService.js"></script>
+<script type="text/javascript" src="~/Scripts/AppScripts/Controller.js"></script>
+<script type="text/javascript" src="~/Scripts/AppScripts/QueueDataService.js"></script>
+<script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
+<script src="~/signalr/hubs"></script>
+
+<script>
+    $(function () {
+        var queue = $.connection.queue;
+        queue.client.update = function () {
+            console.log('new user');
+        }
+    })
+</script>
+
+    }

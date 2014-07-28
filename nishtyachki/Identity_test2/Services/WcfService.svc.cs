@@ -15,8 +15,6 @@ namespace AdminApp.Services
     public class WcfService : IWcfService
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
-        public static event Action<> ConnectedUsersChange;
-        public static event Action<> QueueUsersChange;
 
         private string _key;
 

@@ -15,9 +15,9 @@ namespace AdminApp
             var config = new HttpConfiguration();
             WebApiConfig.RegisterRoutes(config);
             config.MapHttpAttributeRoutes();
+            app.UseWebApi(config);
 
             app.MapSignalR();
-            app.UseWebApi(config);
         }
     }
 }

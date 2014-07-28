@@ -1,57 +1,59 @@
-﻿
-@{
-    //ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
 <html>
-<head>
-    <title></title>
-    <script type='text/javascript' src='http://www.google.com/jsapi'></script>
-    <script type='text/javascript'>
-
-        var url = "http://localhost/AdminApp/api/chartValues";
-        update();
-
-        function update() {
-            google.load('visualization', '1.1', { 'packages': ['annotationchart'] });
-            google.setOnLoadCallback(drawChart);
-        }
-                
-        function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('date', 'Date');
-            data.addColumn('number', 'number');
-            
-            $.getJSON(url, function (values) {
-
-                for (var i = 0; i < values.length; i++) {
-
-                    data.addRow(
-                        [
-                            new Date(values[i][1], values[i][2], values[i][3]),
-                            values[i][0]
-                        ]);
-
-                }
-
-
-                var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
-
-                var options = {
-                    displayAnnotations: true,
-                };
-
-                chart.draw(data, options);
-            });
-
-        }
-    </script>
-</head>
 
 <body>
     <div id='chart_div' style='width: 900px; height: 500px;'></div>
 </body>
 </html>
+
+@section scripts {
+<script type='text/javascript' src='http://www.google.com/jsapi'></script>
+
+<script type='text/javascript'>
+
+    var url = "http://localhost/AdminApp/api/chartValues";
+    update();
+
+    function update() {
+        google.load('visualization', '1.1', { 'packages': ['annotationchart'] });
+        google.setOnLoadCallback(drawChart);
+    }
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'number');
+
+        $.getJSON(url, function (values) {
+
+            for (var i = 0; i < values.length; i++) {
+
+                data.addRow(
+                    [
+                        new Date(values[i][1], values[i][2], values[i][3]),
+                        values[i][0]
+                    ]);
+
+            }
+
+
+            var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+
+            var options = {
+                displayAnnotations: true,
+            };
+
+            chart.draw(data, options);
+        });
+
+    }
+</script>
+
+
+}

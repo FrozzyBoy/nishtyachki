@@ -123,6 +123,12 @@ namespace AdminApp.Nishtiachki
          public override bool Equals(Object obj)
          {
              Nishtiachok nisht = obj as Nishtiachok;
+
+             if (nisht == null)
+             {
+                 return false;
+             }
+
              if ((this.ID == nisht.ID))
              {
                  return true;
@@ -131,7 +137,7 @@ namespace AdminApp.Nishtiachki
              {
                  return false;
              }
-          
+
          }
          public override int GetHashCode()
          {
