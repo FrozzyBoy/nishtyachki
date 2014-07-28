@@ -28,8 +28,6 @@ namespace AdminApp.Queue
         }
        
         public IClient iClient { get; set; }
-        public Action TellToUse { get; private set; }
-        public Action<int> TellPossition { get; private set; }
         public string ID { get; private set; }
         public string UserName { get; set; }
         public Stats Statistic { get; set; }

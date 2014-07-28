@@ -15,6 +15,9 @@ namespace AdminApp.Services
     public class WcfService : IWcfService
     {
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
+        public static event Action<> ConnectedUsersChange;
+        public static event Action<> QueueUsersChange;
+
         private string _key;
 
         private bool _isDisconnected = false;
@@ -27,7 +30,7 @@ namespace AdminApp.Services
             _key = Thread.CurrentPrincipal.Identity.Name;
 
             _clients[_key] = client;
-            
+
             client.NotifyServerReady();
         }
 
@@ -66,7 +69,7 @@ namespace AdminApp.Services
         {
             UsersQueue.Instance.EndUseNishtiak(_key);
         }
-
+        
         ~WcfService()
         {
             Disconnect();

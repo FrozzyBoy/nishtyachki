@@ -5,15 +5,15 @@ using System.Web;
 using AdminApp.Nishtiachki;
 namespace AdminApp.Queue
 {
-    public class QueueArgs:EventArgs
+    public class QueueArgs : EventArgs
     {
-       
-            TypeOfChanges _typeOfChange;
-            Role _role;
-              public QueueArgs(TypeOfChanges typeOfChange, Role role)
+
+        TypeOfChanges _typeOfChange;
+        Role _role;
+        public QueueArgs(TypeOfChanges typeOfChange, Role role)
         {
             _typeOfChange = typeOfChange;
-            _role=role;
+            _role = role;
         }
         public QueueArgs(TypeOfChanges typeOfChange)
         {
@@ -27,6 +27,6 @@ namespace AdminApp.Queue
                 return _role;
             }
         }
-        
+
     }
 }
