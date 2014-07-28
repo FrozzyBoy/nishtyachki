@@ -17,17 +17,17 @@ namespace AdminApp.Services
         private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
         private string _key;
 
-        private bool _isDisconected;
+        private bool _isDisconnected = false;
 
         public void InitUser()
         {
-            _isDisconected = false;
+            _isDisconnected = false;
             
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
 
             _clients[_key] = client;
-
+            
             client.NotifyServerReady();
         }
 
@@ -71,9 +71,7 @@ namespace AdminApp.Services
         {
             Disconnect();
         }
-
-        private bool _isDisconnected = false;
-
+        
         public void Disconnect()
         {
             if (_isDisconnected)

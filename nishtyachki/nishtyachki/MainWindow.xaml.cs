@@ -35,7 +35,14 @@ namespace nishtyachki
 
             _treyIcon = new TreyIcon(this);
 
+            this.Closed += MainWindow_Closed;
+
             Restart();
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
 
         private void Restart()
