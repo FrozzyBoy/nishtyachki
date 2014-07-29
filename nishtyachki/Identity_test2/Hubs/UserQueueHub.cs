@@ -26,7 +26,7 @@ namespace AdminApp.Hubs
 
         void Instance_QueueChanged(object sender, EventArgs e)
         {
-            Clients.All.update();
+            Clients.All.updateTable();
         }
 
         public void Test()

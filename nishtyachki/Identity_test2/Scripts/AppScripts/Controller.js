@@ -31,14 +31,12 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
             else {
                 $scope.count = "1";
             }
-
-
         });
     }
 
     getData();
 
-    queue1.client.updateTable = function () {
+    queue.client.updateTable = function () {
         getData();
     }
 

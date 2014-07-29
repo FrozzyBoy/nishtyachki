@@ -10,19 +10,27 @@
     this.buttonGreen = str + resource + "green_button.png";
     this.buttonRed = str + resource + "red_button.jpg";
 
-    this.webApi = function () {
-        this.QueueDataService = function () {
-            this.getQueue = str + "api/queue";
-            this.delete = str + "api/queue/delete";
-            this.changeStat = str + "api/queue/change";
-            this.blockUnblock = str + "api/queue/block";
-        };
-        this.DataService = function () {
-            this.getNisht = str + "api/nisht";
-            this.update = str + "api/nisht/add";
-            this.delete = str + "api/nisht/delete";
-            this.changeStat = str + "api/nisht/change";
-        };
+    this.getQueue = function (control) {
+        return str + "api/" + control + "/queue";
     };
 
+    this.delete = function (control) {
+        return str + "api/" + control + "/delete";
+    };
+
+    this.changeStat = function (control) {
+        return str + "api/" + control + "/change";
+    };
+
+    this.blockUnblock = function (control) {
+        return str + "api/" + control + "/block";
+    };
+
+    this.getNisht = function (control) {
+        return str + "api/" + control;
+    };
+
+    this.update = function (control) {
+        return str + "api/" + control + "/add";
+    };
 }
