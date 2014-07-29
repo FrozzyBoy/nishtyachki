@@ -1,6 +1,8 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
+using System.Web.Routing;
 
 
 [assembly: OwinStartupAttribute(typeof(AdminApp.Startup))]
@@ -16,8 +18,7 @@ namespace AdminApp
             WebApiConfig.RegisterRoutes(config);
             config.MapHttpAttributeRoutes();
             app.UseWebApi(config);
-
             app.MapSignalR();
-        }
+        }                
     }
 }

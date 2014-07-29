@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>d:\projects\nishtyachki\nishtyachki\identity_test2\scripts\appscripts\controller.js</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\projects\nishtyachki\nishtyachki\identity_test2\views\home\index.cshtml</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\projects\nishtyachki\nishtyachki\identity_test2\hubs\userqueuehub.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\nishtyachki\Logic\Repository.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Startup.cs</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>

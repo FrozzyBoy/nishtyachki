@@ -8,14 +8,24 @@ namespace AdminApp.Controllers
 {
     public class HomeController : Controller
     {
+        private string BaseUrl
+        {
+            get
+            {
+                return Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + Url.Content("~");
+            }
+        }
+
         public ActionResult Index()
         {
+            ViewBag.Url = BaseUrl;
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            ViewBag.Url = BaseUrl;
 
             return View();
         }
@@ -23,6 +33,7 @@ namespace AdminApp.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+            ViewBag.Url = BaseUrl;
 
             return View();
         }

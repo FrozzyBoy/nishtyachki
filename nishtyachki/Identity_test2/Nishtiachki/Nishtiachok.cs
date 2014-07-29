@@ -30,7 +30,7 @@ namespace AdminApp.Nishtiachki
          {
              this.State = Nishtiachok_State.free;
              this.ID = id;
-             this.Im = @"/AdminApp/Resources/70299025.jpg";
+             //this.Im = @"/Resources/70299025.jpg";
          }
         
         public void OnEventChangeStatNisht(Nishtiachok obj,ChangeNishtArg arg)
@@ -47,16 +47,16 @@ namespace AdminApp.Nishtiachki
             this.State = state;
            if (state == Nishtiachok_State.free)
            {
-               this.Im = @"/AdminApp/Resources/70299025.jpg";
+               //this.Im = @"/Resources/70299025.jpg";
 
            }
            if(state == Nishtiachok_State.locked)
            {
-               this.Im = @"/AdminApp/Resources/70299025_block.jpg";
+               //this.Im = @"/Resources/70299025_block.jpg";
            }
            if(state == Nishtiachok_State.in_using)
            {
-               this.Im = @"/AdminApp/Resources/70299025_in_using.jpg";
+               //this.Im = @"/Resources/70299025_in_using.jpg";
            }
             ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.change, state);
             OnEventChangeStatNisht(this, arg);

@@ -1,21 +1,21 @@
 ﻿myApp.service("DataService", function ($http) {
 
     this.getNisht = function () {
-        var url = "http://localhost/AdminApp/api/nisht";
+        var url = urls.webApi().DataService().getNisht;
         return $http.get(url);
     };
 
     this.update = function (id) {
-        var url = "http://localhost/AdminApp/api/nisht/add";
-        $http.post(url+"/"+id);
+        var url = urls.webApi().DataService().update;
+        $http.post(url + "/" + id);
     };
 
     this.delete = function (data) {
-        var url = "http://localhost/AdminApp/api/nisht/delete";
-        $http.delete(url+"/"+data);
+        var url = urls.webApi().DataService().delete;
+        $http.delete(url + "/" + data);
     }
     this.changeStat = function (data, state) {
-        var url = "http://localhost/AdminApp/api/nisht/change";
-        $http.delete(url + "/" + data+"/state/"+state);
+        var url = urls.webApi().DataService().changeStat;
+        $http.delete(url + "/" + data + "/state/" + state);
     }
 });

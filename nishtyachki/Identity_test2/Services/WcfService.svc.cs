@@ -27,6 +27,7 @@ namespace AdminApp.Services
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
             _key = Thread.CurrentPrincipal.Identity.Name;
 
+            _key = _key.Replace('\\', '_');
             _clients[_key] = client;
 
             client.NotifyServerReady();

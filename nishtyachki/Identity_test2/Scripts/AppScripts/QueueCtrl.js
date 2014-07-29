@@ -1,4 +1,7 @@
 ﻿myApp.controller("QueueCtrl", function ($scope, QueueDataService) {
+    var blockedButton = { Im: urls.buttonRed, Message: "Qeueu is blocked!" };
+    var unblockedButton = { Im: urls.buttonGreen, Message: "Queue is available!" };
+
     $scope.roles = [{ value: 0, name: "standart" },
         { value: 1, name: "premium" },
     ];
@@ -17,10 +20,10 @@
         }
 
         if (data._QueueState == 0) {
-            $scope.blockButton = {Im:"/AdminApp/Resources/green_button.png", Message: "Queue is available!"};
+            $scope.blockButton = unblockedButton;
         }
         if (data._QueueState == 1) {
-            $scope.blockButton = { Im: "/AdminApp/Resources/red_button.jpg", Message:"Qeueu is blocked!"};
+            $scope.blockButton = blockedButton;
         }
     });
 
@@ -44,11 +47,11 @@
     }
     $scope.block = function (data) {
         if (data._QueueState == 1) {
-            $scope.blockButton = { Im: "/AdminApp/Resources/green_button.png", Message: "Queue is available!" };
+            $scope.blockButton = unblockedButton;
             $scope.queue._QueueState = 0;
         }
         else  {
-            $scope.blockButton = { Im: "/AdminApp/Resources/red_button.jpg", Message: "Queue is blocked!" };
+            $scope.blockButton = blockedButton;
             $scope.queue._QueueState = 1;
         }
         QueueDataService.blockUnblock();

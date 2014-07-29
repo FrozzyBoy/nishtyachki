@@ -70,6 +70,9 @@ namespace AdminApp.Queue
                     {
                         user.iClient.ShowMessage("callback exception stand in queue: " + ex.Message);
                     }
+
+                    user.iClient.ShowMessage("lol");
+
                     this.AddUser(user);
                     UserInfo.Instance.CheckUser(user.ID);
                     user.State = UserState.InQueue;
@@ -205,6 +208,8 @@ namespace AdminApp.Queue
             Instance.GetUser(id).CheckTimeForUsing();
             Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
             Instance.GetUser(id).State = UserState.UsingNishtiak;
+
+            //DeleteFromTheQueue(GetUser(id));
         }
         public void EndUseNishtiak(string id)
         {

@@ -1,19 +1,19 @@
 ﻿myApp.service("QueueDataService", function ($http) {
 
     this.getQueue = function () {
-        var url = "http://localhost/AdminApp/api/queue";
+        var url = urls.webApi().QueueDataService().getQueue;
         return $http.get(url);
     };
     this.delete = function (data) {
-        var url = "http://localhost/AdminApp/api/queue/delete";
+        var url = urls.webApi().QueueDataService().delete;
         $http.delete(url + "/" + data);
     }
     this.changeStat = function (data, role) {
-        var url = "http://localhost/AdminApp/api/queue/change";
+        var url = urls.webApi().QueueDataService().changeStat;
         $http.delete(url + "/" + data + "/role/" + role);
     }
     this.blockUnblock = function () {
-        var url = "http://localhost/AdminApp/api/queue/block";
+        var url = urls.webApi().QueueDataService().blockUnblock;
         $http.put(url);
     }
 });

@@ -2,12 +2,13 @@
     ViewBag.Title = "Index";
 }
 
-<html ng-app="myApp">
-<body>
+<div ng-app="myApp">
+
     <div id="Nisht" ng-controller="MyCtrl">
         <p ng-repeat="n in nisht">
             <br />
-            <img src="{{n.Im}}">
+            <img ng-src="{{n.Im}}">
+            <br />
             <button ng-click="deleteNisht(n)">Delete</button>
             <select ng-model="myState[$index]" ng-options="state.name for state in states" ng-change="changeStatNisht(n,myState[$index])"></select>
 
@@ -17,44 +18,40 @@
 
     <div id="Queue" ng-controller="QueueCtrl">
         <p ng-repeat="q in queue.Queue">
-            <a href="http://localhost/AdminApp/UserInfo/User/{{q.ID}}">{{q.ID}}</a>
+            <a ng-href="/UserInfo/User/{{q.ID}}">{{q.ID}}</a>
             <button ng-click="deleteUser(q)">Delete</button>
             <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
             Message:
             <input type="text" ng-model="mess" ng-model-options="{ getterSetter: true }" />
             <button ng-click="sendMessage(mess, q)">Send Message</button>
         </p>
-        <button ng-click="block(queue)"><img src="{{blockButton.Im}}" width="150" height="100" /></button>
+        <button ng-click="block(queue)"><img ng-src="{{blockButton.Im}}" width="150" height="100" /></button>
         <p>
             {{blockButton.Message}}
         </p>
-        <a href="http://localhost/AdminApp/UserInfo/User/5">Перейти</a>
+        <a href="/UserInfo/User/5">Перейти</a>
     </div>
-</body>
 
-</html>
+</div>
 
 @section scripts{
-        
-<script src="~/Scripts/angular.js"></script>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/AppScripts/stringFactory.js"></script>
+<script>
+    var appBaseUrl = '@ViewBag.Url';
+    var urls = new stringFactory(appBaseUrl);
+</script>
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.js"></script>
+<script type="text/javascript" src="~/Scripts/angular.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.signalR-2.1.0.js"></script>
-<script type="text/javascript" src="/signalr/hubs"></script>
-<script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+<script type="text/javascript" src="~/signalr/hubs"></script>
 <script type="text/javascript" src="~/Scripts/AppScripts/App.js"></script>
+
 <script type="text/javascript" src="~/Scripts/AppScripts/DataService.js"></script>
 <script type="text/javascript" src="~/Scripts/AppScripts/Controller.js"></script>
 <script type="text/javascript" src="~/Scripts/AppScripts/QueueDataService.js"></script>
 <script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
-<script src="~/signalr/hubs"></script>
 
-<script>
-    $(function () {
-        var queue = $.connection.queue;
-        queue.client.update = function () {
-            console.log('new user');
-        }
-    })
-</script>
-
-    }
+}
