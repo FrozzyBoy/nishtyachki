@@ -7,25 +7,34 @@
     ];
     $scope.myRole = [];
 
-    QueueDataService.getQueue().success(function (data) {
-        $scope.queue = data;
+    function updateQueue() {
+        QueueDataService.getQueue().success(function (data) {
+            $scope.queue = data;
 
-        for (var i = 0; i < $scope.queue.Queue.length; i++) {
-            for (var j = 0; j < $scope.roles.length; j++) {
-                if ($scope.queue.Queue[i].Role == $scope.roles[j].value) {
-                    $scope.myRole[i] = $scope.roles[j];
+            for (var i = 0; i < $scope.queue.Queue.length; i++) {
+                for (var j = 0; j < $scope.roles.length; j++) {
+                    if ($scope.queue.Queue[i].Role == $scope.roles[j].value) {
+                        $scope.myRole[i] = $scope.roles[j];
+                    }
                 }
+
             }
 
-        }
+            if (data._QueueState == 0) {
+                $scope.blockButton = unblockedButton;
+            }
+            if (data._QueueState == 1) {
+                $scope.blockButton = blockedButton;
+            }
+        });
+    };
 
-        if (data._QueueState == 0) {
-            $scope.blockButton = unblockedButton;
-        }
-        if (data._QueueState == 1) {
-            $scope.blockButton = blockedButton;
-        }
-    });
+    updateQueue();
+
+    queue.client.updateTable = function () {
+        updateQueue();
+        $scope.$apply();
+    }
 
     $scope.deleteUser = function (data) {
 

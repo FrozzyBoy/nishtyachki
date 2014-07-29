@@ -36,10 +36,6 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
 
     getData();
 
-    queue.client.updateTable = function () {
-        getData();
-    }
-
     $scope.addNisht = function () {
         $scope.nisht.push({ Im: urls.bucket, ID: $scope.count, State: $scope.states[0].name });
         $scope.myState.push($scope.states[0]);

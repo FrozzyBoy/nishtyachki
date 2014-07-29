@@ -29,9 +29,5 @@ namespace AdminApp.Hubs
             Clients.All.updateTable();
         }
 
-        public void Test()
-        {
-            Clients.All.update();
-        }
     }
 }
