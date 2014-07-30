@@ -10,6 +10,14 @@
     this.buttonGreen = str + resource + "green_button.png";
     this.buttonRed = str + resource + "red_button.jpg";
 
+    this.getImg = function (img) {
+        return str + resource + img;
+    }
+
+    this.getWebApiControll = function (api) {
+        return str + api;
+    }
+
     this.getQueue = function (control) {
         return str + "api/" + control + "/queue";
     };

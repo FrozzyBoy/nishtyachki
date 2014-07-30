@@ -12,7 +12,7 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
                 $scope.count = (parseInt(data[data.length - 1].ID) + 1).toString();
 
                 for (var i = 0; i < data.length; i++) {
-                    data[i].Im = urls.bucket;
+                    data[i].Im = urls.getImg("bucket.jpg");
                 }
 
                 for (var i = 0; i < $scope.nisht.length; i++) {
@@ -23,7 +23,7 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
                         }
                         if (j == ($scope.states.length - 1)) {
                             $scope.myState[i] = { value: 2, name: "in using" };
-                            $scope.nisht[i].Im = urls.bucketInUse;
+                            $scope.nisht[i].Im = urls.getImg("bucket_in_using.jpg");
                         }
                     }
                 }
@@ -37,7 +37,7 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
     getData();
 
     $scope.addNisht = function () {
-        $scope.nisht.push({ Im: urls.bucket, ID: $scope.count, State: $scope.states[0].name });
+        $scope.nisht.push({ Im: urls.getImg("bucket.jpg"), ID: $scope.count, State: $scope.states[0].name });
         $scope.myState.push($scope.states[0]);
         DataService.update($scope.count);
         $scope.count = (parseInt($scope.count) + 1).toString();
@@ -60,10 +60,10 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
             if ($scope.nisht[i].ID == data.ID) {
                 $scope.nisht[i].State = st;
                 if (st.value == 0) {
-                    $scope.nisht[i].Im = urls.bucket;
+                    $scope.nisht[i].Im = urls.getImg("bucket.jpg");
                 }
                 if (st.value == 1) {
-                    $scope.nisht[i].Im = urls.bucketBlock;
+                    $scope.nisht[i].Im = urls.getImg("bucket_block.jpg");
                 }
             }
         }

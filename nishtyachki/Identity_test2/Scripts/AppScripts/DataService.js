@@ -1,24 +1,22 @@
 ﻿myApp.service("DataService", function ($http) {
 
-    var control = "nisht";
-
     this.getNisht = function () {
-        var url = urls.getNisht(control);
+        var url = urls.getWebApiControll("api/nisht");
         return $http.get(url);
     };
 
     this.update = function (id) {
-        var url = urls.update(control);
+        var url = urls.getWebApiControll("api/nisht/add");
         $http.post(url + "/" + id);
     };
 
     this.delete = function (data) {
-        var url = urls.delete(control);
+        var url = urls.getWebApiControll("api/nisht/delete");
         $http.delete(url + "/" + data);
     }
 
     this.changeStat = function (data, state) {
-        var url = urls.changeStat(control);
+        var url = urls.getWebApiControll("api/nisht/change");
         $http.delete(url + "/" + data + "/state/" + state);
     }
 });

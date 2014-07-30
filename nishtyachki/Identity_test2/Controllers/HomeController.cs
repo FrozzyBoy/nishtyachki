@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,7 +12,17 @@ namespace AdminApp.Controllers
         {
             get
             {
-                return Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + Url.Content("~");
+                StringBuilder sb = new StringBuilder("");
+
+                sb.Append(Request.Url.Scheme);
+                sb.Append(System.Uri.SchemeDelimiter);
+                sb.Append(Request.Url.Host);
+                sb.Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+
+                string content = Url.Content("~");
+                sb.Append(content == "" ? "/" : content);
+
+                return sb.ToString();
             }
         }
 
