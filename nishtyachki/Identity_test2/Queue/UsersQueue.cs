@@ -48,7 +48,6 @@ namespace AdminApp.Queue
                         if (_instance == null)
                         {
                             _instance = new UsersQueue();
-
                         }
                     }
                 }
