@@ -58,35 +58,25 @@ namespace AdminApp.Queue
 
         public bool AddUserInQueue(User user)
         {
-            lock (LockObj)
+            bool operationResult = false;
+
+            if (user.State == UserState.Online)
             {
-                if (Instance._QueueState == QueueState.opened)
+                lock (LockObj)
                 {
-                    try
+                    if (Instance._QueueState == QueueState.opened)
                     {
-                        user.iClient.StandInQueue();
+                        this.AddUser(user);
+                        user.UpdateInfo(TypeOfUpdate.StandInQueue);
+                        QueueArgs args = new QueueArgs(TypeOfChanges.add);
+                        OnQueueChanged(user, args);
+                        AlertQueue();
+                        operationResult = true;
                     }
-                    catch (Exception ex)
-                    {
-                        user.iClient.ShowMessage("callback exception stand in queue: " + ex.Message);
-                    }
-
-                    user.iClient.ShowMessage("lol");
-
-                    this.AddUser(user);
-                    UserInfo.Instance.CheckUser(user.ID);
-                    user.State = UserState.InQueue;
-                    QueueArgs args = new QueueArgs(TypeOfChanges.add);
-                    OnQueueChanged(user, args);
-                    AlertQueue();
-                    return true;
-                }
-                else
-                {
-                    return false;
                 }
             }
 
+            return operationResult;
         }
         public User GetUser(string id)
         {
@@ -120,17 +110,17 @@ namespace AdminApp.Queue
                 switch (user.State)
                 {
                     case UserState.InQueue:
-                        UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
+                        user.UpdateInfo(TypeOfUpdate.LeftQueueBeforeUsedNishtyak);
                         break;
                     case UserState.WaitingForAccept:
-                        UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.leftQueueBeforeUsedNishtyak);
+                        user.UpdateInfo(TypeOfUpdate.LeftQueueBeforeUsedNishtyak);
                         break;
                     case UserState.UsingNishtiak:
-                        UserInfo.Instance.GetUser(user.ID).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);
+                        user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);
                         user.Abort();
                         break;
                 }
-                user.State = UserState.Offline;
+                user.State = UserState.Online;
                 _queue.Remove(user);
                 QueueArgs args = new QueueArgs(TypeOfChanges.delete);
                 OnQueueChanged(user, args);
@@ -142,21 +132,19 @@ namespace AdminApp.Queue
         {
             lock (LockObj)
             {
-                //если роль юзера изменилась на премиум, то надо добавить ему 3 дня
                 if (needed_role == Role.premium)
-                { UserInfo.Instance.GetUser(user.ID).AddPremium(); }
-
-                for (int i = 0; i < _queue.Count; i++)
                 {
-                    if (_queue[i].Equals(user))
-                    {
-                        _queue[i].Role = needed_role;
-                        QueueArgs args = new QueueArgs(TypeOfChanges.change, needed_role);
-                        OnQueueChanged(user, args);
-                        UpdateQueue(i, needed_role);
-                        break;
-                    }
+                    user.AddPremium();
                 }
+                if (needed_role == Role.standart)
+                {
+                    user.DeletePremium();
+                }
+
+                QueueArgs args = new QueueArgs(TypeOfChanges.change, needed_role);
+                OnQueueChanged(user, args);
+                UpdateQueue();
+
             }
 
         }
@@ -164,46 +152,26 @@ namespace AdminApp.Queue
         //оповещение пользователей
         static public void AlertQueue()
         {
-                int i = 0;
-                for (; i < Nishtiachok.GetNumOfFreeResources(); i++)
+
+            foreach (var nishtiak in Nishtiachok.Nishtiachki)
+            {
+                if (nishtiak.State == Nishtiachok_State.free)
                 {
-                    if (i < _instance._queue.Count)
+                    foreach (var user in Instance._queue)
                     {
-                        if ((_instance._queue[i].State == UserState.InQueue))
-                        {
-                            _instance._queue[i].CheckTimeForAcess();
-
-                            try
-                            {
-                                _instance._queue[i].iClient.OfferToUseObj();
-                            }
-                            catch (Exception ex)
-                            {
-                                _instance._queue[i].iClient.ShowMessage("callback exception offer to use: " + ex.Message);
-                            }
-
-                           _instance._queue[i].State = UserState.WaitingForAccept;
-                        }
+                        user.CheckTimeForAcess();
+                        user.iClient.OfferToUseObj();
+                        user.Statistic.UpdateInfo(TypeOfUpdate.WaitingForAccept);
                     }
                 }
-                if (i + 1 < _instance._queue.Count && (_instance._queue[i + 1].State == UserState.InQueue))
-                {
-                    _instance._queue[i + 1].iClient.ShowMessage("You'r next to USE");
-                }                     
-
+            }
         }
+
         public void StartUseNishtiak(string id)
         {
-            try
-            {
-                Instance.GetUser(id).iClient.NotifyToUseObj();
-            }
-            catch (Exception ex)
-            {
-                Instance.GetUser(id).iClient.ShowMessage("callback exception notify to use: " + ex.Message);
-            }
+            Instance.GetUser(id).iClient.NotifyToUseObj();
 
-            UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.beganToUseNishtyak);
+            User.GetUser(id).UpdateInfo(TypeOfUpdate.BeganToUseNishtyak);
             Instance.GetUser(id).Abort();
             Instance.GetUser(id).CheckTimeForUsing();
             Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
@@ -214,34 +182,26 @@ namespace AdminApp.Queue
         public void EndUseNishtiak(string id)
         {
             Instance.GetUser(id).Abort();
-            Instance.GetUser(id).iClient.ShowMessage("EndUseNishtiak for user");
-            UserInfo.Instance.GetUser(id).UpdateInfo(TypeOfUpdate.endedToUseNishtyak);          
+            User.GetUser(id).UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);          
             Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
             Nishtiachok.GetNishtiakByUserId(id).owner = null;
-            Instance.GetUser(id).State = UserState.Offline;
+            Instance.GetUser(id).State = UserState.Online;
             Instance.DeleteFromTheQueue(Instance.GetUser(id));
         }
         //сортировка,вызываемая при изменении роли пользователя
-        static void UpdateQueue(int i, Role changedRole)
+        static void UpdateQueue()
         {
-            if (changedRole == Role.premium)
+            for (int i = 0; i < Instance._queue.Count; i++)
             {
-                try
+                int j = i;
+                while (j - 1 > 0 && (int)Instance._queue[j].Role > (int)Instance._queue[j-1].Role)
                 {
-                    while (_instance._queue[i - 1].Role != Role.premium)
-                    {
-                        User temp = _instance._queue[i];
-                        _instance._queue[i] = _instance._queue[i - 1];
-                        _instance._queue[i - 1] = temp;
-                        i--;
-                    }
-
-                }
-                catch (IndexOutOfRangeException)
-                {
-
+                    var temp = Instance._queue[j];
+                    Instance._queue[j] = Instance._queue[j - 1];
+                    Instance._queue[j - 1] = Instance._queue[j];
                 }
             }
+
         }
         public int GetCount
         {

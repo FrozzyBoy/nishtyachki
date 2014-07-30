@@ -14,9 +14,7 @@ namespace AdminApp.Services
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class WcfService : IWcfService
     {
-        private static ConcurrentDictionary<string, IClient> _clients = new ConcurrentDictionary<string, IClient>();
-
-        private string _key;
+        private User _user;
 
         private bool _isDisconnected = false;
 
@@ -25,48 +23,46 @@ namespace AdminApp.Services
             _isDisconnected = false;
             
             IClient client = OperationContext.Current.GetCallbackChannel<IClient>();
-            _key = Thread.CurrentPrincipal.Identity.Name;
+            string key = Thread.CurrentPrincipal.Identity.Name;
 
-            _key = _key.Replace('\\', '_');
-            _clients[_key] = client;
+            key = key.Replace('\\', '_');
+            _user = new User(key, client);
 
             client.NotifyServerReady();
         }
 
         public bool TryStandInQueue()
         {
-            var client =_clients[_key];
+            bool stay = UsersQueue.Instance.AddUserInQueue(_user);
 
-            User usr = new User(_key, _clients[_key]);
-
-            bool stay = UsersQueue.Instance.AddUserInQueue(usr);
+            if (stay)
+            {
+                _user.iClient.StandInQueue();
+            }
 
             return stay;
         }
 
         public void LeaveQueue()
         {
-            User usr = new User(_key, _clients[_key]);
-            UsersQueue.Instance.DeleteFromTheQueue(usr);
+            UsersQueue.Instance.DeleteFromTheQueue(_user);
         }
 
         public void AnswerForOfferToUse(bool willUse)
         {
-            User usr = new User(_key, _clients[_key]);
-
             if (willUse)
             {
-                UsersQueue.Instance.StartUseNishtiak(_key);
+                UsersQueue.Instance.StartUseNishtiak(_user.ID);
             }
             else
             {
-                UsersQueue.Instance.DeleteFromTheQueue(usr);
+                UsersQueue.Instance.DeleteFromTheQueue(_user);
             }
         }
 
         public void StopUseObj()
         {
-            UsersQueue.Instance.EndUseNishtiak(_key);
+            UsersQueue.Instance.EndUseNishtiak(_user.ID);
         }
         
         ~WcfService()
@@ -79,6 +75,8 @@ namespace AdminApp.Services
             if (_isDisconnected)
             {
                 _isDisconnected = true;
+
+                _user.State = UserState.Offline;
                 
                 try
                 {

@@ -17,7 +17,6 @@ namespace AdminApp.Controllers
         }
         public ActionResult User(string id)
         {
-            UsersQueue.Instance.GetUser(id);
             return View();
         }
 	}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminApp.Queue;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,7 +8,6 @@ namespace AdminApp.Models
 {
     public class Stats
     {
-        
         public DateTime TimeOfBeginToStayInQuee { get; set; }
         public TimeSpan TimeOfStayingInQuee { get; set; }
         public DateTime TimeOfBeginToUseResource { get; set; }
@@ -21,17 +21,17 @@ namespace AdminApp.Models
         {
             switch(type)
             {
-                case TypeOfUpdate.standInQueue:
+                case TypeOfUpdate.StandInQueue:
                     TimeOfBeginToStayInQuee = DateTime.Now;
                     break;
-                case TypeOfUpdate.leftQueueBeforeUsedNishtyak:
+                case TypeOfUpdate.LeftQueueBeforeUsedNishtyak:
                     TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
                     break;
-                case TypeOfUpdate.beganToUseNishtyak:
+                case TypeOfUpdate.BeganToUseNishtyak:
                     TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
                     TimeOfBeginToUseResource = DateTime.Now;
                     break;
-                case TypeOfUpdate.endedToUseNishtyak:
+                case TypeOfUpdate.EndedToUseNishtyak:
                     TimeOfResourceUsing = DateTime.Now.Subtract(TimeOfBeginToUseResource);
                     break;
             }

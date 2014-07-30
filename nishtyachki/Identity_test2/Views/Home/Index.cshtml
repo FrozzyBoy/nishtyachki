@@ -11,7 +11,6 @@
             <br />
             <button ng-click="deleteNisht(n)">Delete</button>
             <select ng-model="myState[$index]" ng-options="state.name for state in states" ng-change="changeStatNisht(n,myState[$index])"></select>
-
         </p>
         <button ng-click="addNisht()">Add</button>
     </div>
@@ -24,7 +23,7 @@
             Message:
             <input type="text" ng-model="mess" ng-model-options="{ getterSetter: true }" />
             <button ng-click="sendMessage(mess, q)">Send Message</button>
-        </p>
+        </>
         <button ng-click="block(queue)"><img ng-src="{{blockButton.Im}}" width="150" height="100" /></button>
         <p>
             {{blockButton.Message}}
