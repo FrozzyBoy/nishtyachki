@@ -2,34 +2,7 @@
 <ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfArrayOfString>
     <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Queue\UsersQueue.cs</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Hubs\UserQueueHub.cs</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Scripts\AppScripts\App.js</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Scripts\AppScripts\Controller.js</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Scripts\AppScripts\DataService.js</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Scripts\AppScripts\QueueDataService.js</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Scripts\AppScripts\stringFactory.js</string>
-    </ArrayOfString>
-    <ArrayOfString>
       <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Views\Home\Index.cshtml</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Scripts\AppScripts\QueueCtrl.js</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Services\WcfService.svc.cs</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

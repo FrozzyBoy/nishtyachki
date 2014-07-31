@@ -187,7 +187,6 @@
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Hubs\ChartHub.cs" />
     <Compile Include="Hubs\UserQueueHub.cs" />
-    <Compile Include="Models\Infrastructure\IUserInfo.cs" />
     <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
     <Compile Include="Nishtiachki\Nishtiachok.cs" />
     <Compile Include="Queue\Interfaces\IChangeRole.cs" />

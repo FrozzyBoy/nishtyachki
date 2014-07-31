@@ -25,7 +25,14 @@ namespace AdminApp.Queue
         private UsersQueue()
         {
             _QueueState = QueueState.opened;
+            QueueChanged += UsersQueue_QueueChanged;
         }
+
+        void UsersQueue_QueueChanged(object sender, EventArgs e)
+        {
+            AlertQueue();
+        }
+
         public static void Lock_Unlock_Queue()
         {
             if (Instance._QueueState == QueueState.locked)
@@ -69,7 +76,6 @@ namespace AdminApp.Queue
                         user.UpdateInfo(TypeOfUpdate.StandInQueue);
                         QueueArgs args = new QueueArgs(TypeOfChanges.add);
                         OnQueueChanged(user, args);
-                        AlertQueue();
                         operationResult = true;
                     }
                 }
@@ -123,7 +129,6 @@ namespace AdminApp.Queue
                 _queue.Remove(user);
                 QueueArgs args = new QueueArgs(TypeOfChanges.delete);
                 OnQueueChanged(user, args);
-                AlertQueue();
             }
         }
 
