@@ -1,4 +1,4 @@
-﻿myApp.controller("QueueCtrl", function ($scope, QueueDataService) {
+﻿myApp.controller("QueueCtrl", function ($scope, QueueDataService, signalrFctr) {
     var blockedButton = { Im: urls.getImg("red_button.jpg"), Message: "Qeueu is blocked!" };
     var unblockedButton = { Im: urls.getImg("green_button.png"), Message: "Queue is available!" };
 
@@ -9,6 +9,7 @@
 
     function updateQueue() {
         QueueDataService.getQueue().success(function (data) {
+            
             $scope.queue = data;
 
             for (var i = 0; i < $scope.queue.Queue.length; i++) {
@@ -27,19 +28,22 @@
                 $scope.blockButton = blockedButton;
             }
 
-            if (!$scope.$$phase) {
-                $scope.$apply();
-            }
-
             console.log(data);
         });
     };
 
     updateQueue();
-
+    /*
     queue.client.updateTable = function () {
         updateQueue();
+        $scope.$apply();
+        //alert("update in queue controll");
     }
+
+    $.connection.hub.start();
+    */
+
+
 
     $scope.deleteUser = function (data) {
 
@@ -70,5 +74,7 @@
         }
         QueueDataService.blockUnblock();
     }
+
+    $scope.factory = signalrFctr.initialize(updateQueue, 'queue');
 
 });

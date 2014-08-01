@@ -20,11 +20,11 @@ namespace AdminApp.Queue
         private static UsersQueue _instance;
         public event EventHandler QueueChanged;
         static Object LockObj = new Object();
-        public QueueState _QueueState { get; private set; }
+        public QueueState QueueState { get; private set; }
 
         private UsersQueue()
         {
-            _QueueState = QueueState.opened;
+            QueueState = QueueState.opened;
             QueueChanged += UsersQueue_QueueChanged;
         }
 
@@ -35,13 +35,13 @@ namespace AdminApp.Queue
 
         public static void Lock_Unlock_Queue()
         {
-            if (Instance._QueueState == QueueState.locked)
+            if (Instance.QueueState == QueueState.locked)
             {
-                Instance._QueueState = QueueState.opened;
+                Instance.QueueState = QueueState.opened;
             }
             else
             {
-                Instance._QueueState = QueueState.locked;
+                Instance.QueueState = QueueState.locked;
             }
         }
         public static UsersQueue Instance
@@ -70,7 +70,7 @@ namespace AdminApp.Queue
             {
                 lock (LockObj)
                 {
-                    if (Instance._QueueState == QueueState.opened)
+                    if (QueueState == QueueState.opened)
                     {
                         this.AddUser(user);
                         user.UpdateInfo(TypeOfUpdate.StandInQueue);

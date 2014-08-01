@@ -1,5 +1,4 @@
-﻿var queue = $.connection.queue;
+﻿var myApp = angular.module("myApp", []);
+myApp.value('$', $);
 
-$.connection.hub.start();
-
-var myApp = angular.module("myApp", []);
+//var queue = $.connection.queue;

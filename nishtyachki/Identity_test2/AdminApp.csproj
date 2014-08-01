@@ -259,6 +259,7 @@
     <Content Include="Scripts\AppScripts\DataService.js" />
     <Content Include="Scripts\AppScripts\QueueCtrl.js" />
     <Content Include="Scripts\AppScripts\QueueDataService.js" />
+    <Content Include="Scripts\AppScripts\signalrFctr.js" />
     <Content Include="Scripts\AppScripts\stringFactory.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

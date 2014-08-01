@@ -18,10 +18,10 @@ namespace AdminApp.Hubs
             return base.OnConnected();
         }
         
-        public override System.Threading.Tasks.Task OnDisconnected()
+        public override System.Threading.Tasks.Task OnDisconnected(bool fl)
         {
             UsersQueue.Instance.QueueChanged -= Instance_QueueChanged;
-            return base.OnDisconnected();
+            return base.OnDisconnected(fl);
         }
 
         void Instance_QueueChanged(object sender, EventArgs e)

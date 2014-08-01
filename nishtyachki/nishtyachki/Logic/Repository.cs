@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace nishtyachki.Logic
 {
-    public class Repository : IRepository
+    public class Repository : IRepository, IDisposable
     {
         private AdminApp.IWcfService _service;
 
@@ -35,9 +35,12 @@ namespace nishtyachki.Logic
             _service.AnswerForOfferToUseAsync(willUse);
         }
 
-        public void Disconnect()
+        private void Dispose(bool isDisposing)
         {
-            _service.DisconnectAsync();
+            if (isDisposing)
+            {
+                _service.DisconnectAsync();
+            }
         }
 
         public void LeaveQueue()
@@ -52,7 +55,13 @@ namespace nishtyachki.Logic
 
         ~Repository()
         {
-            Disconnect();
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -4,6 +4,7 @@ using nishtyachki.Resources;
 using nishtyachki.Logic.Infrastructure;
 using nishtyachki.Logic;
 using System.Threading;
+using System.Collections.Generic;
 
 
 namespace nishtyachki
@@ -36,6 +37,7 @@ namespace nishtyachki
             _treyIcon = new TreyIcon(this);
 
             this.Closed += MainWindow_Closed;
+
 
             Restart();
         }
