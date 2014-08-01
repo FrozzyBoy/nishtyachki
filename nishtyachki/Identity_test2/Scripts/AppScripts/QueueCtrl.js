@@ -21,10 +21,10 @@
 
             }
 
-            if (data._QueueState == 0) {
+            if (data.QueueState == 0) {
                 $scope.blockButton = unblockedButton;
             }
-            if (data._QueueState == 1) {
+            if (data.QueueState == 1) {
                 $scope.blockButton = blockedButton;
             }
 
@@ -33,18 +33,7 @@
     };
 
     updateQueue();
-    /*
-    queue.client.updateTable = function () {
-        updateQueue();
-        $scope.$apply();
-        //alert("update in queue controll");
-    }
-
-    $.connection.hub.start();
-    */
-
-
-
+    
     $scope.deleteUser = function (data) {
 
         for (var i = 0; i < $scope.queue.Queue.length; i++) {
@@ -75,6 +64,6 @@
         QueueDataService.blockUnblock();
     }
 
-    $scope.factory = signalrFctr.initialize(updateQueue, 'queue');
+    signalrFctr.initialize(updateQueue, 'queue');
 
 });

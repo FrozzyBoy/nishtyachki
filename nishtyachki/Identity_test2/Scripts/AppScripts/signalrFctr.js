@@ -8,8 +8,7 @@
             proxy.hub.start();
 
             proxy[hubName].client.updateTable = function () {
-                callback();
-                $rootScope.$apply();
+                $rootScope.$apply(callback());
             }
 
         }

@@ -20,7 +20,7 @@
     </h3>
     <div id="Queue" ng-controller="QueueCtrl">
         <p ng-repeat="q in queue.Queue">
-            <a ng-href="/UserInfo/User/{{q.ID}}">{{q.ID}}</a>
+            <a ng-href="../UserInfo/User/{{q.ID}}">{{q.ID}}</a>
             <button ng-click="deleteUser(q)">Delete</button>
             <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
             Message:
