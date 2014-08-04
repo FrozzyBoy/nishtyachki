@@ -19,7 +19,6 @@ namespace AdminApp.Controllers
             return UsersQueue.Instance;
         }
        
-
         [Route("delete/{id}")]
         public void Delete(string id)
         {

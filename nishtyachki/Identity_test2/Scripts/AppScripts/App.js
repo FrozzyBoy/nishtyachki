@@ -1,2 +1,2 @@
-﻿var myApp = angular.module("myApp", ['ngDragDrop']);
+﻿var myApp = angular.module("myApp", ['ui.sortable']);
 myApp.value('$', $);

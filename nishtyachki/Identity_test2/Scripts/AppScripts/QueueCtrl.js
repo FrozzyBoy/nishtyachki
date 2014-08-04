@@ -18,7 +18,6 @@
                         $scope.myRole[i] = $scope.roles[j];
                     }
                 }
-
             }
 
             if (data.QueueState == 0) {
@@ -27,13 +26,19 @@
             if (data.QueueState == 1) {
                 $scope.blockButton = blockedButton;
             }
-
-            console.log(data);
+            
         });
     };
 
     updateQueue();
     
+    $scope.sortableOptions = {
+        update: function (e, ui) {
+            console.log(e);
+            console.log(ui);
+        }
+    };
+
     $scope.deleteUser = function (data) {
 
         for (var i = 0; i < $scope.queue.Queue.length; i++) {
