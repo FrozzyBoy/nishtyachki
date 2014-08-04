@@ -28,7 +28,7 @@ namespace AdminApp.Controllers
                 arr[i] = new int[4];
                 arr[i][0] = rnd.Next(count);
                  
-                dt = dt.AddDays(rnd.Next(1,3)); //new DateTime(rnd.Next(1, count));
+                dt = dt.AddDays(rnd.Next(1,3)); 
 
                 arr[i][1] = dt.Year;
                 arr[i][2] = dt.Month;

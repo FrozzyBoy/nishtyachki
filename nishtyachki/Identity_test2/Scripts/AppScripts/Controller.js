@@ -1,5 +1,5 @@
 ﻿
-myApp.controller("MyCtrl", function ($scope, DataService) {
+myApp.controller("MyCtrl", function ($scope, DataService, signalrFctr) {
     $scope.states = [{ value: 0, name: "free" },
         { value: 1, name: "locked" }
     ];
@@ -70,4 +70,6 @@ myApp.controller("MyCtrl", function ($scope, DataService) {
         DataService.changeStat(data.ID,st.value)
     }
     
+    //signalrFctr.initialize(getData, 'nishtiak');
+
 });
