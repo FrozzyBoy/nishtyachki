@@ -228,5 +228,35 @@ namespace AdminApp.Queue
             }
         }
 
+
+        internal void UpdateQueue(User[] users)
+        {
+            foreach (var oldUser in Instance.Queue)
+            {
+                bool inqueue = false;
+
+                foreach (var newUser in users)
+                {
+                    if (oldUser.UserName == oldUser.UserName)
+                    {
+                        inqueue = true;
+                        break;
+                    }
+
+                    if (!inqueue)
+                    {
+                        Instance.DeleteUserByAdmin(oldUser);
+                    }
+
+                }
+            }
+
+            lock (LockObj)
+            {
+                _queue.Clear();
+                _queue.AddRange(users);
+            }
+
+        }
     }
 }

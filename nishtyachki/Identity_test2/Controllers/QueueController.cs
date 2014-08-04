@@ -36,5 +36,12 @@ namespace AdminApp.Controllers
             UsersQueue.Lock_Unlock_Queue();
         }
 
+
+        [Route("update/queue")]
+        public void PushQueue(AdminApp.Queue.User[] users)
+        {
+            UsersQueue.Instance.UpdateQueue(users);
+        }
+
     }
 }

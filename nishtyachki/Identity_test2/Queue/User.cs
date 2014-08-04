@@ -27,6 +27,7 @@ namespace AdminApp.Queue
         EndedToUseNishtyak,
         WaitingForAccept
     }
+    
     public class User
     {
         private static ConcurrentDictionary<string, User> _allUsers = new ConcurrentDictionary<string, User>();

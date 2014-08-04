@@ -36,7 +36,5 @@ namespace AdminApp.Controllers
         {
             Nishtiachok.GetNishtiachokByNamme(id).ChangeNisht((Nishtiachok_State)state);
         }
-         
-
     }
 }
