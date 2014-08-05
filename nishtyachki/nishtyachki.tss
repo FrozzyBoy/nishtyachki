@@ -2,7 +2,22 @@
 <ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfArrayOfString>
     <ArrayOfString>
-      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Views\Home\Index.cshtml</string>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Services\WcfService.svc.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Models\IdentityModels.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Models\Stats.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Models\UserStat.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Models\AccountViewModels.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\projects\nishtyachki\nishtyachki\Identity_test2\Web.config</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

@@ -3,57 +3,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div ng-app="myApp">
 
-<html>
+    <h2>Top 10 users</h2>
+    <div style="width:30%">
+        <div ng-controller="chartControl">
+            <canvas id="canvas" height="450" width="600" ng-init="drawtop('canvas')"></canvas>
+        </div>
+    </div>
 
-<body>
-    <div id='chart_div' style='width: 900px; height: 500px;'></div>
-</body>
-</html>
-
-@section scripts {
-<script type='text/javascript' src='http://www.google.com/jsapi'></script>
-
-<script type='text/javascript'>
-
-    var url = "http://localhost/AdminApp/api/chartValues";
-    update();
-
-    function update() {
-        google.load('visualization', '1.1', { 'packages': ['annotationchart'] });
-        google.setOnLoadCallback(drawChart);
-    }
-
-    function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Date');
-        data.addColumn('number', 'number');
-
-        $.getJSON(url, function (values) {
-
-            for (var i = 0; i < values.length; i++) {
-
-                data.addRow(
-                    [
-                        new Date(values[i][1], values[i][2], values[i][3]),
-                        values[i][0]
-                    ]);
-
-            }
-
-
-            var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
-
-            var options = {
-                displayAnnotations: true,
-            };
-
-            chart.draw(data, options);
-        });
-
-    }
+</div>
+@section scripts{
+<script src="~/Scripts/AppScripts/stringFactory.js"></script>
+<script>
+    var appBaseUrl = '@ViewBag.Url';
+    var urls = new stringFactory(appBaseUrl);
 </script>
 
-
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Chart.js-master/Chart.js"></script>
+<script src="~/Scripts/AppScripts/simpleMyApp.js"></script>
+<script src="~/Scripts/AppScripts/chartDataService.js"></script>
+<script src="~/Scripts/AppScripts/chartControl.js"></script>
 }

@@ -185,7 +185,6 @@
     <Compile Include="Controllers\NishtController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
-    <Compile Include="Hubs\ChartHub.cs" />
     <Compile Include="Hubs\NishtiakHub.cs" />
     <Compile Include="Hubs\UserQueueHub.cs" />
     <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
@@ -257,17 +256,36 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AppScripts\App.js" />
+    <Content Include="Scripts\AppScripts\chartControl.js" />
+    <Content Include="Scripts\AppScripts\chartDataService.js" />
     <Content Include="Scripts\AppScripts\Controller.js" />
     <Content Include="Scripts\AppScripts\DataService.js" />
     <Content Include="Scripts\AppScripts\QueueCtrl.js" />
     <Content Include="Scripts\AppScripts\QueueDataService.js" />
     <Content Include="Scripts\AppScripts\signalrFctr.js" />
+    <Content Include="Scripts\AppScripts\simpleMyApp.js" />
     <Content Include="Scripts\AppScripts\stringFactory.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\Chart.js-master\.gitignore" />
+    <Content Include="Scripts\Chart.js-master\Chart.js" />
+    <Content Include="Scripts\Chart.js-master\Chart.min.js" />
+    <Content Include="Scripts\Chart.js-master\gulpfile.js" />
+    <Content Include="Scripts\Chart.js-master\samples\bar.html" />
+    <Content Include="Scripts\Chart.js-master\samples\doughnut.html" />
+    <Content Include="Scripts\Chart.js-master\samples\line.html" />
+    <Content Include="Scripts\Chart.js-master\samples\pie.html" />
+    <Content Include="Scripts\Chart.js-master\samples\polar-area.html" />
+    <Content Include="Scripts\Chart.js-master\samples\radar.html" />
+    <Content Include="Scripts\Chart.js-master\src\Chart.Bar.js" />
+    <Content Include="Scripts\Chart.js-master\src\Chart.Core.js" />
+    <Content Include="Scripts\Chart.js-master\src\Chart.Doughnut.js" />
+    <Content Include="Scripts\Chart.js-master\src\Chart.Line.js" />
+    <Content Include="Scripts\Chart.js-master\src\Chart.PolarArea.js" />
+    <Content Include="Scripts\Chart.js-master\src\Chart.Radar.js" />
     <Content Include="Scripts\css\ng-grid.min.css" />
     <Content Include="Scripts\css\style.css" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -279,6 +297,18 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\errors.json" />
+    <Content Include="Scripts\Chart.js-master\bower.json" />
+    <Content Include="Scripts\Chart.js-master\docs\00-Getting-Started.md" />
+    <Content Include="Scripts\Chart.js-master\docs\01-Line-Chart.md" />
+    <Content Include="Scripts\Chart.js-master\docs\02-Bar-Chart.md" />
+    <Content Include="Scripts\Chart.js-master\docs\03-Radar-Chart.md" />
+    <Content Include="Scripts\Chart.js-master\docs\04-Polar-Area-Chart.md" />
+    <Content Include="Scripts\Chart.js-master\docs\05-Pie-Doughnut-Chart.md" />
+    <Content Include="Scripts\Chart.js-master\docs\06-Advanced.md" />
+    <Content Include="Scripts\Chart.js-master\docs\07-Notes.md" />
+    <Content Include="Scripts\Chart.js-master\LICENSE.md" />
+    <Content Include="Scripts\Chart.js-master\package.json" />
+    <Content Include="Scripts\Chart.js-master\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -582,7 +612,9 @@
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Services\WcfService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -612,9 +644,7 @@
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\UserInfo\User.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Start\App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

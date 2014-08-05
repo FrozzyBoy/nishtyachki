@@ -6,36 +6,33 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace AdminApp.Controllers
-{
+{    
     [RoutePrefix("api/chartValues")]
     public class ChartValuesController : ApiController
     {
-        // GET api/<controller>
-        [Route("")]
-        [AllowAnonymous]
-        public IEnumerable<int[]> Get()
+        private class TempData
         {
-            Random rnd = new Random();
-            int length = 1000;
+            public string[] labels;
+            public int[] numbers;
+        }
 
-            int count = int.MaxValue;
+        // GET api/<controller>
+        [Route("{count}")]
+        [AllowAnonymous]
+        public object Get(int count)
+        {
+            TempData data = new TempData();
 
-            int[][] arr = new int[length][];
-            
-            DateTime dt = DateTime.Now;
-            for (int i = 0; i < length; i++)
+            data.numbers = new int[count];
+            data.labels = new string[count];
+
+            for (int i = 0; i < data.numbers.Length; i++)
             {
-                arr[i] = new int[4];
-                arr[i][0] = rnd.Next(count);
-                 
-                dt = dt.AddDays(rnd.Next(1,3)); 
-
-                arr[i][1] = dt.Year;
-                arr[i][2] = dt.Month;
-                arr[i][3] = dt.Day;
+                data.numbers[i] = data.numbers.Length - i;
+                data.labels[i] = "Abc" + i;
             }
 
-            return arr;
+            return data;
         }
     }
 }
