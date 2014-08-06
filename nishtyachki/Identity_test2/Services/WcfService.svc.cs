@@ -52,7 +52,7 @@ namespace AdminApp.Services
         {
             if (willUse)
             {
-                UsersQueue.Instance.StartUseNishtiak(_user.ID);
+                UsersQueue.Instance.StartUseNishtiak(_user);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace AdminApp.Services
 
         public void StopUseObj()
         {
-            UsersQueue.Instance.EndUseNishtiak(_user.ID);
+            UsersQueue.Instance.EndUseNishtiak(_user);
         }
         
         ~WcfService()

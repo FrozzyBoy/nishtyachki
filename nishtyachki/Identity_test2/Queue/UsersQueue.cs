@@ -171,26 +171,26 @@ namespace AdminApp.Queue
             }
         }
 
-        public void StartUseNishtiak(string id)
+        public void StartUseNishtiak(User user)
         {
-            Instance.GetUser(id).iClient.NotifyToUseObj();
+            user.iClient.NotifyToUseObj();
 
-            User.GetUser(id).UpdateInfo(TypeOfUpdate.BeganToUseNishtyak);
-            Instance.GetUser(id).Abort();
-            Instance.GetUser(id).CheckTimeForUsing();
-            Nishtiachok.GetFreeNishtiachok().owner = Instance.GetUser(id);
-            Instance.GetUser(id).State = UserState.UsingNishtiak;
+            user.UpdateInfo(TypeOfUpdate.BeganToUseNishtyak);
+            user.Abort();
+            user.CheckTimeForUsing();
+            Nishtiachok.GetFreeNishtiachok().owner = user;
+            user.State = UserState.UsingNishtiak;
 
-            //DeleteFromTheQueue(GetUser(id));
+            //DeleteFromTheQueue(user);
         }
-        public void EndUseNishtiak(string id)
+        public void EndUseNishtiak(User user)
         {
-            Instance.GetUser(id).Abort();
-            User.GetUser(id).UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);          
-            Nishtiachok.GetNishtiakByUserId(id).State = Nishtiachok_State.free;
-            Nishtiachok.GetNishtiakByUserId(id).owner = null;
-            Instance.GetUser(id).State = UserState.Online;
-            Instance.DeleteFromTheQueue(Instance.GetUser(id));
+            user.Abort();
+            user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);
+            Nishtiachok.GetNishtiakByUserId(user.ID).State = Nishtiachok_State.free;
+            Nishtiachok.GetNishtiakByUserId(user.ID).owner = null;
+            user.State = UserState.Online;
+            Instance.DeleteFromTheQueue(user);
         }
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue()
@@ -237,7 +237,7 @@ namespace AdminApp.Queue
 
                 foreach (var newUser in users)
                 {
-                    if (oldUser.UserName == oldUser.UserName)
+                    if (oldUser.ID == newUser.ID)
                     {
                         inqueue = true;
                         break;

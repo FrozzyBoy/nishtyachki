@@ -9,9 +9,13 @@ namespace AdminApp.Models
     public class UserStat
     {
         internal List<Stats> _stats;
-        public UserStat()
+        public UserStat(IEnumerable<Stats> stats = null)
         {
             _stats = new List<Stats>();
+            if (stats != null)
+            {
+                _stats.AddRange(stats);
+            }
         }
         internal void UpdateInfo(TypeOfUpdate type)
         {

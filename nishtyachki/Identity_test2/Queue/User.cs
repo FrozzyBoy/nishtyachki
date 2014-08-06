@@ -6,7 +6,6 @@ using System.Web;
 using System.Threading;
 using System.Timers;
 using AdminApp.Services;
-using System.Collections.Concurrent;
 
 namespace AdminApp.Queue
 {
@@ -29,14 +28,13 @@ namespace AdminApp.Queue
     }
     
     public class User
-    {
-        private static ConcurrentDictionary<string, User> _allUsers = new ConcurrentDictionary<string, User>();
-
-        public IClient iClient { get; set; }
+    {        
         public string ID { get; private set; }
-        public string UserName { get; private set; }
+        public IClient iClient { get; set; }
+        //public string UserName { get; private set; }
         public UserStat Statistic { get; private set; }
         public UserState State { get; set; }
+
         public Role Role
         {
             get
@@ -51,48 +49,57 @@ namespace AdminApp.Queue
 
         private DateTime _premiumEndDate;
 
-        public static User GetUser(string id)
+        public static UserInfo GetUserInfo(string id)
         {
-            User oldUser;
-            _allUsers.TryGetValue(id, out oldUser);
-
+            int key = id.GetHashCode();
+            UserInfo oldUser = AppDbContext.Instance.UsersInfo.SingleOrDefault<UserInfo>(u => u.ID == key);
             return oldUser;
         }
 
-        public static IEnumerable<User> GetAllUsers()
+        public static IEnumerable<UserInfo> GetUserInfo()
         {
-            return _allUsers.Values;
+            return AppDbContext.Instance.UsersInfo.ToArray<UserInfo>();
         }
 
         public User(string id,IClient IClient )
         {
-            User oldUser;
-            if (_allUsers.TryGetValue(id, out oldUser))
+            UserInfo oldUser = GetUserInfo(id);
+
+            if (oldUser != null)
             {
-                _premiumEndDate = oldUser._premiumEndDate;
-                Statistic = oldUser.Statistic;
+                AppDbContext.Instance.UsersInfo.Remove(oldUser);
+                _premiumEndDate = oldUser.PremiumEndDate;
+                Statistic = new UserStat(oldUser.Stats);
             }
             else
             {
                 _premiumEndDate = DateTime.MinValue;
                 Statistic = new UserStat();
+                oldUser = new UserInfo();
+                oldUser.ID = id.GetHashCode();
+                oldUser.PremiumEndDate = _premiumEndDate;
+                oldUser.Stats = new List<Stats>();
             }
 
             this.ID = id;
             this.iClient = IClient;
             this.State = UserState.Online;
+            oldUser.State = UserState.Online;
 
-            _allUsers.AddOrUpdate(id, this, (key, user) => user);
+            AppDbContext.Instance.UsersInfo.Add(oldUser);
+            AppDbContext.Instance.SaveChanges();
         }
 
         public void UpdateInfo(TypeOfUpdate type)
         {
             Statistic.UpdateInfo(type);
+            AppDbContext.Instance.SaveChanges();
         }
 
         public void AddPremium(int days = 3)
         {
             _premiumEndDate = DateTime.Now.AddDays(days);
+            AppDbContext.Instance.SaveChanges();
         }
 
         private System.Timers.Timer _t;
@@ -148,6 +155,7 @@ namespace AdminApp.Queue
         internal void DeletePremium()
         {
             _premiumEndDate = DateTime.MinValue;
+            AppDbContext.Instance.SaveChanges();
         }
     }
 }

@@ -154,3 +154,5 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/nishtyachki/Identity_test2/App_Data/temp1.mdf
+/nishtyachki/Identity_test2/App_Data/temp1_log.ldf

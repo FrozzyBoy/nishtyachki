@@ -1,13 +1,18 @@
 ﻿using AdminApp.Queue;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdminApp.Models
 {
     public class Stats
     {
+        [Key]
+        public int ID { get; set; }
+        [ForeignKey("UserInfoID")]
+        public int UserInfoID { get; set; }
+
         public DateTime TimeOfBeginToStayInQuee { get; set; }
         public TimeSpan TimeOfStayingInQuee { get; set; }
         public DateTime TimeOfBeginToUseResource { get; set; }
