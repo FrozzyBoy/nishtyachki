@@ -30,7 +30,7 @@ namespace AdminApp.Queue
     public class User
     {        
         public string ID { get; private set; }
-        public IClient iClient { get; set; }
+        public IClient Client { get; set; }
         //public string UserName { get; private set; }
         public UserStat Statistic { get; private set; }
         public UserState State { get; set; }
@@ -51,8 +51,10 @@ namespace AdminApp.Queue
 
         public static UserInfo GetUserInfo(string id)
         {
-            int key = id.GetHashCode();
-            UserInfo oldUser = AppDbContext.Instance.UsersInfo.SingleOrDefault<UserInfo>(u => u.ID == key);
+            List<UserInfo> list = AppDbContext.Instance.UsersInfo.ToList<UserInfo>();
+            
+            UserInfo oldUser = AppDbContext.Instance.UsersInfo.SingleOrDefault<UserInfo>(u => u.UserName == id);
+            
             return oldUser;
         }
 
@@ -61,45 +63,27 @@ namespace AdminApp.Queue
             return AppDbContext.Instance.UsersInfo.ToArray<UserInfo>();
         }
 
-        public User(string id,IClient IClient )
+        public User(string id,IClient Client )
         {
-            UserInfo oldUser = GetUserInfo(id);
-
-            if (oldUser != null)
-            {
-                AppDbContext.Instance.UsersInfo.Remove(oldUser);
-                _premiumEndDate = oldUser.PremiumEndDate;
-                Statistic = new UserStat(oldUser.Stats);
-            }
-            else
-            {
-                _premiumEndDate = DateTime.MinValue;
-                Statistic = new UserStat();
-                oldUser = new UserInfo();
-                oldUser.ID = id.GetHashCode();
-                oldUser.PremiumEndDate = _premiumEndDate;
-                oldUser.Stats = new List<Stats>();
-            }
-
             this.ID = id;
-            this.iClient = IClient;
-            this.State = UserState.Online;
-            oldUser.State = UserState.Online;
+            this.Client = Client;
+            this.Statistic = new UserStat();
 
-            AppDbContext.Instance.UsersInfo.Add(oldUser);
-            AppDbContext.Instance.SaveChanges();
+            LoadChanges();
+
+            this.State = UserState.Online;
         }
 
         public void UpdateInfo(TypeOfUpdate type)
         {
             Statistic.UpdateInfo(type);
-            AppDbContext.Instance.SaveChanges();
+            SaveChanges();
         }
 
         public void AddPremium(int days = 3)
         {
             _premiumEndDate = DateTime.Now.AddDays(days);
-            AppDbContext.Instance.SaveChanges();
+            SaveChanges();
         }
 
         private System.Timers.Timer _t;
@@ -148,14 +132,56 @@ namespace AdminApp.Queue
         void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _t.Stop();
-            iClient.DroppedByServer("you are dropepd");
+            Client.DroppedByServer("you are dropepd");
             UsersQueue.Instance.DeleteFromTheQueue(this);
         }
 
         internal void DeletePremium()
         {
             _premiumEndDate = DateTime.MinValue;
+            SaveChanges();
+        }
+
+        private void SaveChanges()
+        {
+            var info = GetUserInfo(this.ID);
+
+            bool addNewUser = false;
+
+            if (info == null)
+            {
+                addNewUser = true;
+                info = new UserInfo();
+            }
+
+            info.UserName = this.ID;
+            info.State = this.State;
+            info.Stats = this.Statistic._stats;
+            info.UserName = this.ID;
+            info.PremiumEndDate = this._premiumEndDate;
+
+            if (addNewUser)
+            {
+                AppDbContext.Instance.UsersInfo.Add(info);
+            }
             AppDbContext.Instance.SaveChanges();
         }
+
+        private void LoadChanges()
+        {
+            var info = GetUserInfo(this.ID);
+
+            if (info == null)
+            {
+                SaveChanges();
+            }
+            else
+            {
+                this.State = info.State;
+                this.Statistic = new UserStat(info.Stats);
+                _premiumEndDate = info.PremiumEndDate;
+            }
+        }
+
     }
 }

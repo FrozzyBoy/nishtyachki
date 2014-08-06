@@ -10,6 +10,7 @@ namespace AdminApp.Models
     {
         [Key]
         public int ID { get; set; }
+        public string UserName { get; set; }
         public UserState State;
         public DateTime PremiumEndDate;
         public List<Stats> Stats;

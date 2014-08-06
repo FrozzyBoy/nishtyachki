@@ -37,7 +37,7 @@ namespace AdminApp.Services
 
             if (stay)
             {
-                _user.iClient.StandInQueue();
+                _user.Client.StandInQueue();
             }
 
             return stay;

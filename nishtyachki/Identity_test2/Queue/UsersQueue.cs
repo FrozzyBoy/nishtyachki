@@ -104,7 +104,7 @@ namespace AdminApp.Queue
         }
         public void DeleteUserByAdmin(User user)
         {
-            user.iClient.DroppedByServer("you're dropped by Admin");
+            user.Client.DroppedByServer("you're dropped by Admin");
             DeleteFromTheQueue(user);
 
         }
@@ -164,7 +164,7 @@ namespace AdminApp.Queue
                     foreach (var user in Instance._queue)
                     {
                         user.CheckTimeForAcess();
-                        user.iClient.OfferToUseObj();
+                        user.Client.OfferToUseObj();
                         user.Statistic.UpdateInfo(TypeOfUpdate.WaitingForAccept);
                     }
                 }
@@ -173,7 +173,7 @@ namespace AdminApp.Queue
 
         public void StartUseNishtiak(User user)
         {
-            user.iClient.NotifyToUseObj();
+            user.Client.NotifyToUseObj();
 
             user.UpdateInfo(TypeOfUpdate.BeganToUseNishtyak);
             user.Abort();
