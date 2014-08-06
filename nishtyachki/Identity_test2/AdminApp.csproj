@@ -189,6 +189,7 @@
     <Compile Include="Controllers\NishtController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\UserInfoValuesController.cs" />
     <Compile Include="Hubs\NishtiakHub.cs" />
     <Compile Include="Hubs\UserQueueHub.cs" />
     <Compile Include="Models\AppDbContext.cs" />
@@ -271,6 +272,8 @@
     <Content Include="Scripts\AppScripts\signalrFctr.js" />
     <Content Include="Scripts\AppScripts\simpleMyApp.js" />
     <Content Include="Scripts\AppScripts\stringFactory.js" />
+    <Content Include="Scripts\AppScripts\usersCtrl.js" />
+    <Content Include="Scripts\AppScripts\usersDataService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

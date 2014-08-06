@@ -14,15 +14,15 @@
         </p>
         <button ng-click="addNisht()">Add</button>
     </div>
-
-    <h3>
-        Queue:
-    </h3>
+        
     <div id="Queue" ng-controller="QueueCtrl">
         
         <div ng-show="queue.Queue" >
+            <h3>
+                Queue:
+            </h3>
             <ol ng-model="queue.Queue"
-                ui-sortable="sortableOptions">
+                data-ui-sortable="sortableOptions">
 
                 <li ng-repeat="q in queue.Queue"
                     data-drag="true">
@@ -43,9 +43,20 @@
         <p>
             {{blockButton.Message}}
         </p>
-        <a href="/UserInfo/User/5">Перейти</a>
     </div>
-
+        
+    <div id="users" ng-controller="usersCtrl">
+        <div ng-show="users">
+            <h3>
+                Users:
+            </h3>
+            <ul>
+                <li ng-repeat="user in users">
+                    <a ng-href='../UserInfo/User/{{user.UserName}}'>{{user.UserName}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 </div>
 
@@ -71,4 +82,7 @@
 <script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
 
 <script src="~/Scripts/sortable.js"></script>
+
+<script src="~/Scripts/AppScripts/usersDataService.js"></script>
+<script src="~/Scripts/AppScripts/usersCtrl.js"></script>
 }

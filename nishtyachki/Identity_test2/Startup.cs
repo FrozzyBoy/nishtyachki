@@ -4,7 +4,6 @@ using Owin;
 using System.Web.Http;
 using System.Web.Routing;
 
-
 [assembly: OwinStartupAttribute(typeof(AdminApp.Startup))]
 namespace AdminApp
 {

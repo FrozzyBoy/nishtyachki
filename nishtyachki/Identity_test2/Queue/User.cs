@@ -19,7 +19,7 @@ namespace AdminApp.Queue
         Offline, Online, InQueue, WaitingForAccept, UsingNishtiak
     }
     public enum TypeOfUpdate
-    {
+    {        
         StandInQueue, 
         LeftQueueBeforeUsedNishtyak, 
         BeganToUseNishtyak, 
@@ -31,7 +31,6 @@ namespace AdminApp.Queue
     {        
         public string ID { get; private set; }
         public IClient Client { get; set; }
-        //public string UserName { get; private set; }
         public UserStat Statistic { get; private set; }
         public UserState State { get; set; }
 
@@ -51,10 +50,7 @@ namespace AdminApp.Queue
 
         public static UserInfo GetUserInfo(string id)
         {
-            List<UserInfo> list = AppDbContext.Instance.UsersInfo.ToList<UserInfo>();
-            
             UserInfo oldUser = AppDbContext.Instance.UsersInfo.SingleOrDefault<UserInfo>(u => u.UserName == id);
-            
             return oldUser;
         }
 
@@ -68,6 +64,7 @@ namespace AdminApp.Queue
             this.ID = id;
             this.Client = Client;
             this.Statistic = new UserStat();
+            this.State = UserState.Online;
 
             LoadChanges();
 
