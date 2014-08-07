@@ -34,19 +34,16 @@
     
     $scope.sortableOptions = {
         update: function (e, ui) {
-            console.log(e);
-            console.log(ui);
+            QueueDataService.updateQueue($scope.queue.Queue);
         }
     };
 
     $scope.deleteUser = function (data) {
-
-        for (var i = 0; i < $scope.queue.Queue.length; i++) {
-            if ($scope.queue.Queue[i].ID == data.ID) {
-                $scope.queue.Queue.splice(i, 1);
-            }
-        }
-        QueueDataService.delete(data.ID);
+        QueueDataService.delete(data.ID).success(function (data, status) {
+            console.log(data);
+        }).error(function (data, status) {
+            console.log(data);
+        });
     }
 
     $scope.changeRoleUser = function (data, role) {
@@ -67,6 +64,14 @@
             $scope.queue._QueueState = 1;
         }
         QueueDataService.blockUnblock();
+    }
+
+    $scope.sendMessage = function (msg, id) {
+        QueueDataService.sendMessage(msg, id).success(function (data, status) {
+            console.log(data);
+        }).error(function (data, status) {
+            console.log(data);
+        });
     }
 
     signalrFctr.initialize(updateQueue, 'queue');

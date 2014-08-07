@@ -32,7 +32,7 @@
                     <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
                     Message:
                     <input type="text" ng-model="mess" ng-model-options="{ getterSetter: true }" />
-                    <button ng-click="sendMessage(mess, q)">Send Message</button>
+                    <button ng-click="sendMessage(mess, q.ID)">Send Message</button>
 
                 </li>
 

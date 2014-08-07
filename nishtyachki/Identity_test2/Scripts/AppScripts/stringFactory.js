@@ -9,7 +9,7 @@
     }
 
     this.getWebApiControll = function (api) {
-        return str + api;
+        return this.str + api;
     }
 
 }

@@ -104,9 +104,8 @@ namespace AdminApp.Queue
         }
         public void DeleteUserByAdmin(User user)
         {
-            user.Client.DroppedByServer("you're dropped by Admin");
             DeleteFromTheQueue(user);
-
+            user.Client.DroppedByServer("you're dropped by Admin");
         }
         public void DeleteFromTheQueue(User user)
         {

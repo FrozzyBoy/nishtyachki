@@ -19,6 +19,7 @@ namespace AdminApp.Controllers
             return UsersQueue.Instance;
         }
        
+        [HttpDelete]
         [Route("delete/{id}")]
         public void Delete(string id)
         {
@@ -36,12 +37,19 @@ namespace AdminApp.Controllers
             UsersQueue.Lock_Unlock_Queue();
         }
 
-
         [Route("update/queue")]
         public void PushQueue(AdminApp.Queue.User[] users)
         {
             UsersQueue.Instance.UpdateQueue(users);
         }
+        [Route("sendMsg")]
+        public void SendMsg(object[] data)
+        {
+            string msg = data[0] as string;
+            string id = data[1] as string;
 
+            UsersQueue.Instance.GetUser(id).Client.ShowMessage(msg);
+        }
+        
     }
 }
