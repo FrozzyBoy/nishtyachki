@@ -34,7 +34,13 @@
     
     $scope.sortableOptions = {
         update: function (e, ui) {
-            QueueDataService.updateQueue($scope.queue.Queue);
+            
+            var newData = new Array($scope.queue.Queue.length);
+            for (var i = 0; i < newData.length; i++) {
+                newData[i] = $scope.queue.Queue[i].ID;
+            }
+
+            QueueDataService.updateQueue(newData);
         }
     };
 

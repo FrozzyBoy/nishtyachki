@@ -16,7 +16,7 @@ namespace AdminApp.Queue
     }
     public class UsersQueue
     {
-        private  List<User> _queue = new List<User>();
+        private List<User> _queue = new List<User>();
         private static UsersQueue _instance;
         public event EventHandler QueueChanged;
         static Object LockObj = new Object();
@@ -68,7 +68,7 @@ namespace AdminApp.Queue
 
             if (user.State == UserState.Online)
             {
-                lock (LockObj)
+                lock (_queue)
                 {
                     if (QueueState == QueueState.opened)
                     {
@@ -86,14 +86,17 @@ namespace AdminApp.Queue
         }
         public User GetUser(string id)
         {
-            return _queue.Find(m => m.ID == id);
+            lock (_queue)
+            {
+                return _queue.Find(m => m.ID == id);
+            }
         }
 
         public void AddUser(User user)
         {
             var oldUser = Instance.GetUser(user.ID);
 
-            lock (LockObj)
+            lock (_queue)
             {
                 if (oldUser == null)
                 {
@@ -103,9 +106,9 @@ namespace AdminApp.Queue
                 {
                     _queue.Remove(oldUser);
                     _queue.Add(user);
-                }                
+                }
             }
-            
+
         }
         public void DeleteUserByAdmin(User user)
         {
@@ -114,7 +117,7 @@ namespace AdminApp.Queue
         }
         public void DeleteFromTheQueue(User user)
         {
-            lock (LockObj)
+            lock (_queue)
             {
                 switch (user.State)
                 {
@@ -138,7 +141,7 @@ namespace AdminApp.Queue
 
         public void ChangeRoleByAdmin(User user, Role needed_role)
         {
-            lock (LockObj)
+            lock (_queue)
             {
                 if (needed_role == Role.premium)
                 {
@@ -199,17 +202,28 @@ namespace AdminApp.Queue
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue()
         {
-            for (int i = 0; i < Instance._queue.Count; i++)
+            lock (Instance._queue)
             {
-                int j = i;
-                while (j - 1 > 0 && (int)Instance._queue[j].Role > (int)Instance._queue[j-1].Role)
+                for (int i = 0; i < Instance._queue.Count; i++)
                 {
-                    var temp = Instance._queue[j];
-                    Instance._queue[j] = Instance._queue[j - 1];
-                    Instance._queue[j - 1] = Instance._queue[j];
+                    int j = i;
+                    while (j - 1 > 0 && (int)Instance._queue[j].Role > (int)Instance._queue[j - 1].Role)
+                    {
+                        var temp = Instance._queue[j];
+                        Instance._queue[j] = Instance._queue[j - 1];
+                        Instance._queue[j - 1] = Instance._queue[j];
+                        j--;
+                    }
+                    while (j + 1 < Instance._queue.Count && (int)Instance._queue[j].Role < (int)Instance._queue[j + 1].Role)
+                    {
+                        var temp = Instance._queue[j];
+                        Instance._queue[j] = Instance._queue[j + 1];
+                        Instance._queue[j + 1] = Instance._queue[j];
+                        j++;
+                    }
                 }
-            }
 
+            }
         }
         public int GetCount
         {
@@ -232,35 +246,21 @@ namespace AdminApp.Queue
             }
         }
 
-
-        internal void UpdateQueue(User[] users)
+        internal void UpdateQueue(string[] userNames)
         {
-            foreach (var oldUser in Instance.Queue)
+            if (userNames != null && userNames.Length > 0)
             {
-                bool inqueue = false;
+                var newUsers = from name in userNames
+                        join user in _queue on name equals user.ID
+                        select user;
 
-                foreach (var newUser in users)
+                lock (_queue)
                 {
-                    if (oldUser.ID == newUser.ID)
-                    {
-                        inqueue = true;
-                        break;
-                    }
-
-                    if (!inqueue)
-                    {
-                        Instance.DeleteUserByAdmin(oldUser);
-                    }
-
+                    _queue.Clear();
+                    _queue.AddRange(newUsers.ToList<User>());
                 }
-            }
 
-            lock (LockObj)
-            {
-                _queue.Clear();
-                _queue.AddRange(users);
             }
-
         }
     }
 }

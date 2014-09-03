@@ -38,9 +38,9 @@ namespace AdminApp.Controllers
         }
 
         [Route("update/queue")]
-        public void PushQueue(AdminApp.Queue.User[] users)
+        public void PushQueue(string[] userNames)
         {
-            UsersQueue.Instance.UpdateQueue(users);
+            UsersQueue.Instance.UpdateQueue(userNames);
         }
         [Route("sendMsg")]
         public void SendMsg(object[] data)
