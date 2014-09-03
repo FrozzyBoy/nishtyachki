@@ -77,6 +77,7 @@ namespace AdminApp.Queue
                         QueueArgs args = new QueueArgs(TypeOfChanges.add);
                         OnQueueChanged(user, args);
                         operationResult = true;
+                        user.Client.StandInQueue();
                     }
                 }
             }
@@ -92,15 +93,19 @@ namespace AdminApp.Queue
         {
             var oldUser = Instance.GetUser(user.ID);
 
-            if (oldUser == null)
+            lock (LockObj)
             {
-                _queue.Add(user);
+                if (oldUser == null)
+                {
+                    _queue.Add(user);
+                }
+                else
+                {
+                    _queue.Remove(oldUser);
+                    _queue.Add(user);
+                }                
             }
-            else
-            {
-                _queue.Remove(oldUser);
-                _queue.Add(user);
-            }
+            
         }
         public void DeleteUserByAdmin(User user)
         {
@@ -180,7 +185,7 @@ namespace AdminApp.Queue
             Nishtiachok.GetFreeNishtiachok().owner = user;
             user.State = UserState.UsingNishtiak;
 
-            //DeleteFromTheQueue(user);
+            DeleteFromTheQueue(user);
         }
         public void EndUseNishtiak(User user)
         {
