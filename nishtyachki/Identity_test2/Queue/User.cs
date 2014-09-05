@@ -16,7 +16,7 @@ namespace AdminApp.Queue
     }
     public enum UserState
     {
-        Offline, Online, InQueue, WaitingForAccept, UsingNishtiak
+        Offline, Online, InQueue, AcceptingOffer, UsingNishtiak
     }
     public enum TypeOfUpdate
     {        
@@ -24,7 +24,8 @@ namespace AdminApp.Queue
         LeftQueueBeforeUsedNishtyak, 
         BeganToUseNishtyak, 
         EndedToUseNishtyak,
-        WaitingForAccept
+        WaitingForAccept,
+        UseApp
     }
     
     public class User
@@ -129,7 +130,14 @@ namespace AdminApp.Queue
         void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _t.Stop();
-            Client.DroppedByServer("you are dropepd");
+            try
+            {
+                Client.DroppedByServer("you are dropepd");
+            }
+            catch (Exception ex)
+            {
+                
+            }
             UsersQueue.Instance.DeleteFromTheQueue(this);
         }
 

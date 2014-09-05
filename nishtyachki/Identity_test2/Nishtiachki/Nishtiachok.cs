@@ -7,7 +7,7 @@ namespace AdminApp.Nishtiachki
 {
     public enum Nishtiachok_State
     {
-        free, locked, in_using
+        free, locked, in_using, wait_for_user
     }
 
     public class Nishtiachok
@@ -51,7 +51,6 @@ namespace AdminApp.Nishtiachki
         public static Nishtiachok GetNishtiakByUserId(string id)
         {
             return Nishtiachki.Find(m => m.owner.ID == id);
-
         }
 
         public static Nishtiachok GetNishtiachokByNamme(string id)
@@ -123,5 +122,11 @@ namespace AdminApp.Nishtiachki
             return base.GetHashCode();
         }
 
+
+        internal void MakeFree()
+        {
+            this.owner = null;
+            this.State = Nishtiachok_State.free;
+        }
     }
 }

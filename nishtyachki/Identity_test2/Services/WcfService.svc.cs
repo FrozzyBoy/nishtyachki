@@ -26,9 +26,11 @@ namespace AdminApp.Services
             string key = Thread.CurrentPrincipal.Identity.Name;
 
             key = key.Replace('\\', '_');
-            _user = new User(key, client);
 
-            client.NotifyServerReady();
+            IClient safeClient = new ClientSafalyCommunicate(client);
+            _user = new User(key, safeClient);
+
+            safeClient.NotifyServerReady();
         }
 
         public bool TryStandInQueue()

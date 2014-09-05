@@ -17,6 +17,7 @@ namespace AdminApp.Models
         public TimeSpan TimeOfStayingInQuee { get; set; }
         public DateTime TimeOfBeginToUseResource { get; set; }
         public TimeSpan TimeOfResourceUsing { get; set; }
+        public DateTime TimeStartUseApp { get; set; }
 
         public Stats()
         {
@@ -38,6 +39,9 @@ namespace AdminApp.Models
                     break;
                 case TypeOfUpdate.EndedToUseNishtyak:
                     TimeOfResourceUsing = DateTime.Now.Subtract(TimeOfBeginToUseResource);
+                    break;
+                case TypeOfUpdate.UseApp:
+                    TimeStartUseApp = DateTime.Now;
                     break;
             }
 

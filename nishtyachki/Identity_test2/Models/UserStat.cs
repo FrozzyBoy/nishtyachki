@@ -16,6 +16,12 @@ namespace AdminApp.Models
             {
                 _stats.AddRange(stats);
             }
+            else
+            {
+                var stat = new Stats();
+                stat.UpdateInfo(TypeOfUpdate.UseApp);
+                _stats.Add(stat);
+            }
         }
         internal void UpdateInfo(TypeOfUpdate type)
         {
@@ -29,7 +35,7 @@ namespace AdminApp.Models
         public Stats CurrentState
         {
             get
-            {
+            {                
                 return _stats[_stats.Count - 1];
             }
         }
