@@ -31,7 +31,7 @@ namespace AdminApp.Services
         public ClientSafalyCommunicate(IClient client)
         {
             _client = client;
-            log.Debug("test");
+            log.Info("test");
         }
 
         public System.Threading.Tasks.Task NotifyServerReady()

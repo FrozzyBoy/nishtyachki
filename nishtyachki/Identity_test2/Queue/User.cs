@@ -130,14 +130,7 @@ namespace AdminApp.Queue
         void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _t.Stop();
-            try
-            {
-                Client.DroppedByServer("you are dropepd");
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            Client.DroppedByServer("you are dropepd");
             UsersQueue.Instance.DeleteFromTheQueue(this);
         }
 
