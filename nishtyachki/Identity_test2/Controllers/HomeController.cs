@@ -23,6 +23,7 @@ namespace AdminApp.Controllers
             }
         }
                 
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.Url = BaseUrl;

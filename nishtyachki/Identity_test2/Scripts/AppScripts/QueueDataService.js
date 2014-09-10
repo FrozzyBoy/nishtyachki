@@ -13,7 +13,7 @@
         return $http.delete(url + "/" + data + "/role/" + role);
     }
     this.blockUnblock = function () {
-        var url = urls.getWebApiControll("api/queue/queue/block");
+        var url = urls.getWebApiControll("api/queue/block");
         return $http.put(url);
     }
     this.updateQueue = function (queue){

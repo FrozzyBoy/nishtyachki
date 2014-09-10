@@ -61,15 +61,17 @@
         QueueDataService.changeStat(data.ID, role.value)
     }
     $scope.block = function (data) {
+        
+        QueueDataService.blockUnblock();
+
         if (data._QueueState == 1) {
             $scope.blockButton = unblockedButton;
             $scope.queue._QueueState = 0;
         }
-        else  {
+        else {
             $scope.blockButton = blockedButton;
             $scope.queue._QueueState = 1;
         }
-        QueueDataService.blockUnblock();
     }
 
     $scope.sendMessage = function (msg, id) {
