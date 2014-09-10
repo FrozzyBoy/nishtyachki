@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
+﻿using System.Text;
 using System.Web.Mvc;
 
 namespace AdminApp.Controllers
@@ -25,7 +22,7 @@ namespace AdminApp.Controllers
                 return sb.ToString();
             }
         }
-
+                
         public ActionResult Index()
         {
             ViewBag.Url = BaseUrl;

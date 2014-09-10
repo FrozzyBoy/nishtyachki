@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div ng-app="myApp">
@@ -14,10 +15,10 @@
         </p>
         <button ng-click="addNisht()">Add</button>
     </div>
-        
+
     <div id="Queue" ng-controller="QueueCtrl">
-        
-        <div ng-show="queue.Queue" >
+
+        <div ng-show="queue.Queue">
             <h3>
                 Queue:
             </h3>
@@ -44,7 +45,7 @@
             {{blockButton.Message}}
         </p>
     </div>
-        
+
     <div id="users" ng-controller="usersCtrl">
         <div ng-show="users">
             <h3>
@@ -62,27 +63,27 @@
 
 @section scripts{
 
-<script src="~/Scripts/AppScripts/stringFactory.js"></script>
-<script>
+    <script src="~/Scripts/AppScripts/stringFactory.js"></script>
+    <script>
     var appBaseUrl = '@ViewBag.Url';
     var urls = new stringFactory(appBaseUrl);
-</script>
+    </script>
 
-<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.js"></script>
-<script type="text/javascript" src="~/Scripts/angular.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery.signalR-2.1.0.js"></script>
-<script type="text/javascript" src="~/signalr/hubs"></script>
-<script type="text/javascript" src="~/Scripts/AppScripts/App.js"></script>
-<script src="~/Scripts/AppScripts/signalrFctr.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.1.0.js"></script>
+    <script type="text/javascript" src="~/signalr/hubs"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/App.js"></script>
+    <script src="~/Scripts/AppScripts/signalrFctr.js"></script>
 
-<script type="text/javascript" src="~/Scripts/AppScripts/DataService.js"></script>
-<script type="text/javascript" src="~/Scripts/AppScripts/Controller.js"></script>
-<script type="text/javascript" src="~/Scripts/AppScripts/QueueDataService.js"></script>
-<script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/DataService.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/Controller.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/QueueDataService.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
 
-<script src="~/Scripts/sortable.js"></script>
+    <script src="~/Scripts/sortable.js"></script>
 
-<script src="~/Scripts/AppScripts/usersDataService.js"></script>
-<script src="~/Scripts/AppScripts/usersCtrl.js"></script>
+    <script src="~/Scripts/AppScripts/usersDataService.js"></script>
+    <script src="~/Scripts/AppScripts/usersCtrl.js"></script>
 }

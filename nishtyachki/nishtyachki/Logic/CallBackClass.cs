@@ -20,37 +20,37 @@ namespace nishtyachki.Logic
             _notify = notify;
         }
 
-        async public void NotifyServerReady()
+        public void NotifyServerReady()
         {
             Application.Current.Dispatcher.Invoke(() => _window.NotifyServerReady());
         }
 
-        async public void ShowMessage(string text)
+        public void ShowMessage(string text)
         {
             Application.Current.Dispatcher.Invoke(() => _window.ShowMessage(text));
         }
 
-        async public void ShowPosition(int position)
+        public void ShowPosition(int position)
         {
             Application.Current.Dispatcher.Invoke(() => _notify.ShowPosition(position));
         }
 
-        async public void OfferToUseObj()
+        public void OfferToUseObj()
         {
             Application.Current.Dispatcher.Invoke(() => _window.OfferToUseObj());
         }
 
-        async public void NotifyToUseObj()
+        public void NotifyToUseObj()
         {
             Application.Current.Dispatcher.Invoke(() => _window.NotifyToUseObj());
         }
 
-        async public void StandInQueue()
+        public void StandInQueue()
         {
             Application.Current.Dispatcher.Invoke(() => _window.StandInQueue());
         }
 
-        async public void DroppedByServer(string text)
+        public void DroppedByServer(string text)
         {
             Application.Current.Dispatcher.Invoke(() => _window.DroppedByServer(text));
         }

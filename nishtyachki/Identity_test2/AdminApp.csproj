@@ -29,7 +29,7 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -636,32 +636,58 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml">
+      <BrowseToURL>~/Shared/Error</BrowseToURL>
+    </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\About.cshtml">
+      <BrowseToURL>~/Home/About</BrowseToURL>
+    </Content>
+    <Content Include="Views\Home\Contact.cshtml">
+      <BrowseToURL>~/Home/Contact</BrowseToURL>
+    </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml">
+      <BrowseToURL>~/Account/ExternalLoginConfirmation</BrowseToURL>
+    </Content>
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml">
+      <BrowseToURL>~/Account/ExternalLoginFailure</BrowseToURL>
+    </Content>
+    <Content Include="Views\Account\Login.cshtml">
+      <BrowseToURL>~/Account/Login</BrowseToURL>
+    </Content>
+    <Content Include="Views\Account\Manage.cshtml">
+      <BrowseToURL>~/Account/Manage</BrowseToURL>
+    </Content>
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml">
+      <BrowseToURL>~/Account/Register</BrowseToURL>
+    </Content>
+    <Content Include="Views\Chart\Index.cshtml">
+      <BrowseToURL>~/Chart/Index</BrowseToURL>
+    </Content>
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\UserInfo\Index.cshtml" />
-    <Content Include="Views\UserInfo\User.cshtml" />
+    <Content Include="Views\UserInfo\Index.cshtml">
+      <BrowseToURL>~/UserInfo/Index</BrowseToURL>
+    </Content>
+    <Content Include="Views\UserInfo\User.cshtml">
+      <BrowseToURL>~/UserInfo/User</BrowseToURL>
+    </Content>
+    <Content Include="Views\Home\Index.cshtml">
+      <BrowseToURL>~/Home/Index</BrowseToURL>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>
@@ -682,7 +708,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60540</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/AdminApp/Home/Index</IISUrl>
+          <IISUrl>http://localhost/AdminApp/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

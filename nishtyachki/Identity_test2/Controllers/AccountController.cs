@@ -43,18 +43,26 @@ namespace AdminApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            //default adm
+            try
+            {
+                var user = new ApplicationUser() { UserName = "Allonsi" };
+                var result = await UserManager.CreateAsync(user, "Fidelio");
+            }
+            catch { }
+
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
-                {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+                    var user = await UserManager.FindAsync(model.UserName, model.Password);
+                    if (user != null)
+                    {
+                        await SignInAsync(user, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                    }
             }
 
             // If we got this far, something failed, redisplay form

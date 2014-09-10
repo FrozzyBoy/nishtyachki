@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApp", "nishtyachki\User
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminApp", "Identity_test2\AdminApp.csproj", "{ACAC5F00-2422-4D07-8FBD-FD9D47797816}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\WcfService.csproj", "{47169C63-3EF8-4A80-A507-3DCFEB51D9F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{ACAC5F00-2422-4D07-8FBD-FD9D47797816}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAC5F00-2422-4D07-8FBD-FD9D47797816}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAC5F00-2422-4D07-8FBD-FD9D47797816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47169C63-3EF8-4A80-A507-3DCFEB51D9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47169C63-3EF8-4A80-A507-3DCFEB51D9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47169C63-3EF8-4A80-A507-3DCFEB51D9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47169C63-3EF8-4A80-A507-3DCFEB51D9F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

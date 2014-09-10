@@ -1,14 +1,16 @@
-﻿using AdminApp.Queue;
-using System;
+﻿using System;
 using System.ServiceModel;
+using AdminApp;
+using AdminApp.Queue;
 using System.Threading;
+using AdminApp.Services;
 
-namespace AdminApp.Services
+namespace WcfService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "WcfService" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select WcfService.svc or WcfService.svc.cs at the Solution Explorer and start debugging.
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class WcfService : IWcfService
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "WcfCommunicator" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select WcfCommunicator.svc or WcfCommunicator.svc.cs at the Solution Explorer and start debugging.
+    [ServiceContract(CallbackContract = typeof(IClient))]
+    public class WcfCommunicator : IWcfService
     {
         private User _user;
 
@@ -23,7 +25,7 @@ namespace AdminApp.Services
 
             key = key.Replace('\\', '_');
 
-            IClient safeClient = new ClientSafalyCommunicate(client);
+            AdminApp.Services.IClient safeClient = new ClientSafalyCommunicate(client);
             _user = new User(key, safeClient);
 
             safeClient.NotifyServerReady();
@@ -57,12 +59,7 @@ namespace AdminApp.Services
         {
             UsersQueue.Instance.EndUseNishtiak(_user);
         }
-        
-        ~WcfService()
-        {
-            Disconnect();
-        }
-        
+                
         public void Disconnect()
         {
             if (_isDisconnected)
@@ -89,6 +86,5 @@ namespace AdminApp.Services
             }
             
         }
-
     }
 }
