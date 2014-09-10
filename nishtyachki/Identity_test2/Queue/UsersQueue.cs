@@ -22,10 +22,13 @@ namespace AdminApp.Queue
         static Object LockObj = new Object();
         public QueueState QueueState { get; private set; }
 
+        private bool _onqueueChange;
+
         private UsersQueue()
         {
             QueueState = QueueState.opened;
             QueueChanged += UsersQueue_QueueChanged;
+            _onqueueChange = false;
         }
 
         private void UsersQueue_QueueChanged(object sender, EventArgs e)
@@ -174,12 +177,13 @@ namespace AdminApp.Queue
             {
                 if (nishtiak.State == Nishtiachok_State.free )
                 {
-                    lock (Instance._queue)
+                    lock (Instance.Queue)
                     {
-                        if (Instance._queue.Count > 0)
+                        if (Instance.Queue.Count > 0)
                         {
-                            foreach (var user in Instance._queue)
+                            for (int i = 0; i < Instance.Queue.Count; i++)
                             {
+                                var user = Instance.Queue[i];
                                 if (user.State == UserState.InQueue)
                                 {
                                     Instance.DeleteFromTheQueue(user);
@@ -189,6 +193,7 @@ namespace AdminApp.Queue
                                     user.State = UserState.AcceptingOffer;
                                     user.Client.OfferToUseObj();
                                     user.Statistic.UpdateInfo(TypeOfUpdate.WaitingForAccept);
+                                    i--;
                                 }
                             }
                         }
@@ -221,14 +226,14 @@ namespace AdminApp.Queue
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue()
         {
-            lock (Instance._queue)
+            lock (Instance.Queue)
             {
                 for (int i = 0; i < Instance._queue.Count; i++)
                 {
                     int j = i;
-                    while (j - 1 > 0 && (int)Instance._queue[j].Role > (int)Instance._queue[j - 1].Role)
+                    while (j - 1 > 0 && (int)Instance.Queue[j].Role > (int)Instance.Queue[j - 1].Role)
                     {
-                        var temp = Instance._queue[j];
+                        var temp = Instance.Queue[j];
                         Instance._queue[j] = Instance._queue[j - 1];
                         Instance._queue[j - 1] = Instance._queue[j];
                         j--;
@@ -239,14 +244,25 @@ namespace AdminApp.Queue
         }
         public int GetCount
         {
-            get { return _instance._queue.Count; }
+            get { return _instance.Queue.Count; }
         }
 
-        void OnQueueChanged(object obj, QueueArgs args)
+        private void OnQueueChanged(object obj, QueueArgs args)
         {
-            if (QueueChanged != null)
+            if (!_onqueueChange)
             {
-                QueueChanged(obj, args);
+                _onqueueChange = true;
+                try
+                {
+                    if (QueueChanged != null)
+                    {
+                        QueueChanged(obj, args);
+                    }
+                }
+                finally
+                {
+                    _onqueueChange = false;
+                }
             }
         }
 
