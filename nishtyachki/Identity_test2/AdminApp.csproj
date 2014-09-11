@@ -237,7 +237,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Resources\bucket.jpg" />
-    <None Include="Resources\bucket_untitled.png" />
+    <None Include="Resources\bucket_wait_user.png" />
     <None Include="Resources\bucket_block.jpg" />
     <None Include="Resources\bucket_in_using.jpg" />
     <None Include="Resources\green_button.png" />
@@ -271,6 +271,7 @@
     <Content Include="Scripts\AppScripts\chartDataService.js" />
     <Content Include="Scripts\AppScripts\Controller.js" />
     <Content Include="Scripts\AppScripts\DataService.js" />
+    <Content Include="Scripts\AppScripts\LogData.js" />
     <Content Include="Scripts\AppScripts\QueueCtrl.js" />
     <Content Include="Scripts\AppScripts\QueueDataService.js" />
     <Content Include="Scripts\AppScripts\signalrFctr.js" />

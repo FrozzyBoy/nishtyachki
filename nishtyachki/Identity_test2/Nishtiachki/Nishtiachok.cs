@@ -21,10 +21,21 @@ namespace AdminApp.Nishtiachki
         public static List<Nishtiachok> Nishtiachki;
 
         public static event EventHandler EventChangeNisht;
-        public Nishtiachok_State State { get; set; }
+        private Nishtiachok_State _state;
+        public Nishtiachok_State State 
+        { 
+            get
+            {
+                return _state;
+            } 
+            set
+            {
+                _state = value;
+                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+            }
+        }
         public string ID { get; set; }
         public User owner { get; set; }
-        public string Im { get; set; }
 
         private Nishtiachok(string id)
         {
@@ -32,20 +43,30 @@ namespace AdminApp.Nishtiachki
             this.ID = id;
         }
 
-        public void OnChangeNisht(Nishtiachok obj, ChangeNishtArg arg)
+        private static bool _onchangeNicht = false;
+
+        public static void OnChangeNisht(Nishtiachok obj, ChangeNishtArg arg)
         {
-            if (EventChangeNisht != null)
+            if (!_onchangeNicht)
             {
-                EventChangeNisht(obj, arg);
+                _onchangeNicht = true;
+                try
+                {
+                    if (EventChangeNisht != null)
+                    {
+                        EventChangeNisht(obj, arg);
+                    }
+                }
+                finally
+                {
+                    _onchangeNicht = false;
+                }
             }
         }
 
         public void ChangeNisht(Nishtiachok_State state)
         {
             this.State = state;
-
-            ChangeNishtArg arg = new ChangeNishtArg(TypeOfChanges.change, state);
-            OnChangeNisht(this, arg);
         }
 
         public static Nishtiachok GetNishtiakByUserId(string id)
@@ -68,8 +89,7 @@ namespace AdminApp.Nishtiachki
             Nishtiachok obj = new Nishtiachok(id);
             Nishtiachki.Add(obj);
             ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.add);
-            obj.OnChangeNisht(obj, args);
-            UsersQueue.AlertQueue();
+            OnChangeNisht(obj, args);
         }
 
         public static void DeleteNishtiachok(string id)
@@ -77,8 +97,7 @@ namespace AdminApp.Nishtiachki
             Nishtiachok obj = new Nishtiachok(id);
             Nishtiachki.Remove(obj);
             ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
-            obj.OnChangeNisht(obj, args);
-
+            OnChangeNisht(obj, args);
         }
 
         public static void LockNishtiachok(string id)
@@ -90,7 +109,7 @@ namespace AdminApp.Nishtiachki
                 {
                     n.State = Nishtiachok_State.locked;
                     ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.change);
-                    n.OnChangeNisht(n, args);
+                    OnChangeNisht(n, args);
                     break;
                 }
             }
@@ -114,15 +133,13 @@ namespace AdminApp.Nishtiachki
             {
                 return false;
             }
-
         }
      
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
-
+        
         internal void MakeFree()
         {
             this.owner = null;

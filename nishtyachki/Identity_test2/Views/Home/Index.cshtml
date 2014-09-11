@@ -23,10 +23,10 @@
                 Queue:
             </h3>
             <ol ng-model="queue.Queue"
-                data-ui-sortable="sortableOptions">
+                ng-data-ui-sortable="sortableOptions">
 
                 <li ng-repeat="q in queue.Queue"
-                    data-drag="true">
+                    ng-data-drag="true">
 
                     <a ng-href='../UserInfo/User/{{q.ID}}'>{{q.ID}}</a>
                     <button ng-click="deleteUser(q)">Delete</button>
@@ -63,8 +63,14 @@
 
 @section scripts{
 
+<script type="text/javascript">
+    
+</script>
+    
+<script src="~/Scripts/AppScripts/LogData.js"></script>
     <script src="~/Scripts/AppScripts/stringFactory.js"></script>
     <script>
+
     var appBaseUrl = '@ViewBag.Url';
     var urls = new stringFactory(appBaseUrl);
     </script>

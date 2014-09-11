@@ -1,43 +1,34 @@
-﻿
-myApp.controller("MyCtrl", function ($scope, DataService, signalrFctr) {
-    $scope.states = [{ value: 0, name: "free" },
-        { value: 1, name: "locked" }
+﻿myApp.controller("MyCtrl", function ($scope, DataService, signalrFctr) {
+    $scope.states = [{ value: 0, name: "free", imgUrl: urls.getImg("bucket.jpg") },
+        { value: 1, name: "locked", imgUrl: urls.getImg("bucket_block.jpg") },
+        { value: 2, name: "in use", imgUrl: urls.getImg("bucket_in_using.jpg") },
+        { value: 3, name: "wait user answer", imgUrl: urls.getImg("bucket_wait_user.png") }
     ];
     $scope.myState = [];
     
     function getData() {
         DataService.getNisht().success(function (data) {
+            alert("recieve data!");
+            alert("length  " + data.length + " state " + data[0].State + " id " + data[0].ID);
+            
             $scope.nisht = data;
             if (data.length != 0) {
-                $scope.count = (parseInt(data[data.length - 1].ID) + 1).toString();
+                $scope.count = data.length;
 
-                for (var i = 0; i < data.length; i++) {
-                    data[i].Im = urls.getImg("bucket.jpg");
-                }
-
-                for (var i = 0; i < $scope.nisht.length; i++) {
-                    for (var j = 0; j < $scope.states.length; j++) {
-                        if ($scope.nisht[i].State == $scope.states[j].value) {
-                            $scope.myState[i] = $scope.states[j];
-                            break;
-                        }
-                        if (j == ($scope.states.length - 1)) {
-                            $scope.myState[i] = { value: 2, name: "in using" };
-                            $scope.nisht[i].Im = urls.getImg("bucket_in_using.jpg");
-                        }
-                    }
+                for (var i = 0; i < data.length; i++) {                    
+                    $scope.myState[i] = $scope.states[data[i].State];
+                    $scope.nisht[i].Im = $scope.states[data[i].State].imgUrl;
                 }
             }
-            else {
-                $scope.count = "1";
-            }
+        }).error(function (data, status, headers, config) {
+            alert("error recieve data!");
         });
     }
 
     getData();
 
     $scope.addNisht = function () {
-        $scope.nisht.push({ Im: urls.getImg("bucket.jpg"), ID: $scope.count, State: $scope.states[0].name });
+        $scope.nisht.push({ID: $scope.count, State: $scope.states[0].name });
         $scope.myState.push($scope.states[0]);
         DataService.update($scope.count);
         $scope.count = (parseInt($scope.count) + 1).toString();
@@ -58,18 +49,12 @@ myApp.controller("MyCtrl", function ($scope, DataService, signalrFctr) {
     $scope.changeStatNisht = function (data, st) {
         for (var i = 0; i < $scope.nisht.length; i++) {
             if ($scope.nisht[i].ID == data.ID) {
-                $scope.nisht[i].State = st;
-                if (st.value == 0) {
-                    $scope.nisht[i].Im = urls.getImg("bucket.jpg");
-                }
-                if (st.value == 1) {
-                    $scope.nisht[i].Im = urls.getImg("bucket_block.jpg");
-                }
+                $scope.nisht[i].State = st;                
             }
         }
         DataService.changeStat(data.ID,st.value)
     }
     
-    //signalrFctr.initialize(getData, 'nishtiak');
+    signalrFctr.initialize(getData, 'nishtiak');
 
 });

@@ -18,34 +18,42 @@ namespace AdminApp.Queue
     {
         private List<User> _queue = new List<User>();
         private static UsersQueue _instance;
-        public event EventHandler QueueChanged;
+        public static event EventHandler QueueChanged;
         static Object LockObj = new Object();
         public QueueState QueueState { get; private set; }
 
-        private bool _onqueueChange;
+        private static bool _onqueueChange;
 
         private UsersQueue()
         {
             QueueState = QueueState.opened;
             QueueChanged += UsersQueue_QueueChanged;
             _onqueueChange = false;
+            Nishtiachok.EventChangeNisht += UsersQueue_QueueChanged;
         }
 
-        private void UsersQueue_QueueChanged(object sender, EventArgs e)
+        private static void UsersQueue_QueueChanged(object sender, EventArgs e)
         {
             AlertQueue();
         }
 
         public static void Lock_Unlock_Queue()
         {
+            QueueArgs queueChange = null; 
+
             if (Instance.QueueState == QueueState.locked)
             {
                 Instance.QueueState = QueueState.opened;
+                queueChange = new QueueArgs(TypeOfChanges.opened);
             }
             else
             {
                 Instance.QueueState = QueueState.locked;
+                queueChange = new QueueArgs(TypeOfChanges.blocked);
             }
+
+            OnQueueChanged(Instance, queueChange);
+
         }
         public static UsersQueue Instance
         {
@@ -116,6 +124,7 @@ namespace AdminApp.Queue
             }
 
         }
+
         public void DeleteUserByAdmin(User user)
         {
             DeleteFromTheQueue(user);
@@ -171,30 +180,27 @@ namespace AdminApp.Queue
         }
 
         //оповещение пользователей
-        public static void AlertQueue()
+        private static void AlertQueue()
         {
             foreach (var nishtiak in Nishtiachok.Nishtiachki)
             {
-                if (nishtiak.State == Nishtiachok_State.free )
+                if (nishtiak.State == Nishtiachok_State.free)
                 {
                     lock (Instance.Queue)
                     {
-                        if (Instance.Queue.Count > 0)
+                        for (int i = 0; i < Instance.Queue.Count; i++)
                         {
-                            for (int i = 0; i < Instance.Queue.Count; i++)
+                            var user = Instance.Queue[i];
+                            if (user.State == UserState.InQueue)
                             {
-                                var user = Instance.Queue[i];
-                                if (user.State == UserState.InQueue)
-                                {
-                                    Instance.DeleteFromTheQueue(user);
-                                    nishtiak.owner = user;
-                                    nishtiak.State = Nishtiachok_State.wait_for_user;
-                                    user.CheckTimeForAcess();
-                                    user.State = UserState.AcceptingOffer;
-                                    user.Client.OfferToUseObj();
-                                    user.Statistic.UpdateInfo(TypeOfUpdate.WaitingForAccept);
-                                    i--;
-                                }
+                                Instance.DeleteFromTheQueue(user);
+                                nishtiak.owner = user;
+                                nishtiak.State = Nishtiachok_State.wait_for_user;
+                                user.CheckTimeForAcess();
+                                user.State = UserState.AcceptingOffer;
+                                user.Client.OfferToUseObj();
+                                user.Statistic.UpdateInfo(TypeOfUpdate.WaitingForAccept);
+                                i--;
                             }
                         }
                     }
@@ -247,7 +253,7 @@ namespace AdminApp.Queue
             get { return _instance.Queue.Count; }
         }
 
-        private void OnQueueChanged(object obj, QueueArgs args)
+        private static void OnQueueChanged(object obj, QueueArgs args)
         {
             if (!_onqueueChange)
             {

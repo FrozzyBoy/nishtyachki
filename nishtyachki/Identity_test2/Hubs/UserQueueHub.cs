@@ -14,13 +14,13 @@ namespace AdminApp.Hubs
     {       
         public override System.Threading.Tasks.Task OnConnected()
         {
-            UsersQueue.Instance.QueueChanged += Instance_QueueChanged;
+            UsersQueue.QueueChanged += Instance_QueueChanged;            
             return base.OnConnected();
         }
         
         public override System.Threading.Tasks.Task OnDisconnected(bool fl)
         {
-            UsersQueue.Instance.QueueChanged -= Instance_QueueChanged;
+            UsersQueue.QueueChanged -= Instance_QueueChanged;
             return base.OnDisconnected(fl);
         }
 
