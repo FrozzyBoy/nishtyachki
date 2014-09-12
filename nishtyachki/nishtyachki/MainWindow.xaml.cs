@@ -25,7 +25,7 @@ namespace nishtyachki
         {
             InitializeComponent();
 
-            bool isUnique;            
+            bool isUnique;
             mutex = new Mutex(true, "uniqe_app_mutex", out isUnique);
             if (!isUnique)
             {
@@ -41,8 +41,11 @@ namespace nishtyachki
             this.Closing += MainWindow_Closing;
 
             currentApp.DispatcherUnhandledException += currentApp_DispatcherUnhandledException;
-    
-            Restart();
+
+            _notifyToUse = new NotifyWindow(this);
+            _repo = new Repository(this);
+
+            Restart(false);
         }
 
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -52,27 +55,24 @@ namespace nishtyachki
 
         private void currentApp_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
             //e.Handled = true;
             //e.Exception;
         }
 
-        private void Restart()
+        private void Restart(bool isRestart)
         {
             _treyIcon.IsVicible = false;
-
-            if (_notifyToUse != null)
-            {
-                _notifyToUse.Close();
-            }
-
+            
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
 
-            _notifyToUse = new NotifyWindow(this);
-            _notifyToUse.Hide();
+            _notifyToUse.Restart();
 
-            _repo = new Repository(this, _notifyToUse);
+            if (isRestart)
+            {
+                this.NotifyServerReady();
+            }
 
         }
 
@@ -118,7 +118,11 @@ namespace nishtyachki
 
         public void ShowMessage(string msg)
         {
-            MessageBox.Show(msg);
+            //this.Invoke();
+            var thread = new Thread(() => MessageBox.Show(msg));
+            thread.IsBackground = true;
+            thread.Priority = ThreadPriority.Lowest;
+            thread.Start();
         }
 
         public void ShowWindow()
@@ -159,7 +163,7 @@ namespace nishtyachki
             {
                 _notifyToUse.Hide();
                 _treyIcon.IsVicible = false;
-                Restart();
+                Restart(true);
             }
             _repo.AnswerForOfferToUse(willUse);
         }
@@ -167,19 +171,24 @@ namespace nishtyachki
         public void LeaveQueue()
         {
             _repo.LeaveQueue();
-            Restart();
+            Restart(true);
         }
 
         public void StopUse()
         {
             _repo.StopUse();
-            Restart();
+            Restart(true);
         }
 
         public void DroppedByServer(string text)
         {
             ShowMessage(text);
-            Restart();
+            Restart(true);
+        }
+
+        public void ShowPosition(int pos)
+        {
+            _notifyToUse.ShowPosition(pos);
         }
     }
 }

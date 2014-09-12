@@ -12,14 +12,9 @@ namespace nishtyachki.Logic
     {
         private AdminApp.IWcfService _service;
 
-        public Repository(IClientWindow window, INotifyWindow notify)
+        public Repository(IClientWindow window)
         {
-            if (_service != null)
-            {
-                _service.DisconnectAsync();
-            }
-
-            AdminApp.IWcfServiceCallback callback = new CallBackClass(window, notify);
+            AdminApp.IWcfServiceCallback callback = new CallBackClass(window);
             InstanceContext ic = new InstanceContext(callback);
             _service = new AdminApp.WcfServiceClient(ic);
             _service.InitUserAsync();

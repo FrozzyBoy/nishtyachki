@@ -12,12 +12,10 @@ namespace nishtyachki.Logic
     public class CallBackClass : AdminApp.IWcfServiceCallback
     {
         private IClientWindow _window;
-        private INotifyWindow _notify;
 
-        public CallBackClass(IClientWindow window, INotifyWindow notify)
+        public CallBackClass(IClientWindow window)
         {
             _window = window;
-            _notify = notify;
         }
 
         public void NotifyServerReady()
@@ -32,7 +30,7 @@ namespace nishtyachki.Logic
 
         public void ShowPosition(int position)
         {
-            Application.Current.Dispatcher.Invoke(() => _notify.ShowPosition(position));
+            Application.Current.Dispatcher.Invoke(() => _window.ShowPosition(position));
         }
 
         public void OfferToUseObj()

@@ -22,6 +22,8 @@ namespace nishtyachki
             this.btnOk.IsEnabled = false;
 
             _window = window;
+
+            this.Hide();
         }
 
         #region indata
@@ -91,5 +93,12 @@ namespace nishtyachki
             _window.AnswerForOffer(ok);            
         }
         #endregion outdata
+
+        internal void Restart()
+        {
+            this.lblNotification.Content = "Wait.";
+            this.btnOk.IsEnabled = false;
+            this.Hide();
+        }
     }
 }
