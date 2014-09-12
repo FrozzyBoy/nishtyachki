@@ -10,6 +10,10 @@
             <br />
             <img ng-src="{{n.Im}}">
             <br />
+            <a ng-show="n.owner.ID">
+                Owner of it is {{n.owner.ID}}
+            </a>            
+            <br />
             <button ng-click="deleteNisht(n)">Delete</button>
             <select ng-model="myState[$index]" ng-options="state.name for state in states" ng-change="changeStatNisht(n,myState[$index])"></select>
         </p>

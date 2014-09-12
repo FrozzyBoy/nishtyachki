@@ -194,8 +194,8 @@ namespace AdminApp.Queue
                             if (user.State == UserState.InQueue)
                             {
                                 Instance.DeleteFromTheQueue(user);
-                                nishtiak.owner = user;
-                                nishtiak.State = Nishtiachok_State.wait_for_user;
+                                nishtiak.SetOwner(user);
+                                nishtiak.ChangeNishtState( Nishtiachok_State.wait_for_user);
                                 user.CheckTimeForAcess();
                                 user.State = UserState.AcceptingOffer;
                                 user.Client.OfferToUseObj();
@@ -216,16 +216,15 @@ namespace AdminApp.Queue
             user.Abort();
             user.CheckTimeForUsing();
             var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
-            nishtiak.owner = user;
-            nishtiak.State = Nishtiachok_State.in_using;
+            nishtiak.SetOwner(user);
+            nishtiak.ChangeNishtState(Nishtiachok_State.in_using);
             user.State = UserState.UsingNishtiak;
         }
         public void EndUseNishtiak(User user)
         {
             user.Abort();
-            user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);
-            Nishtiachok.GetNishtiakByUserId(user.ID).State = Nishtiachok_State.free;
-            Nishtiachok.GetNishtiakByUserId(user.ID).owner = null;
+            user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);            
+            Nishtiachok.GetNishtiakByUserId(user.ID).MakeFree();
             user.State = UserState.Online;
             Instance.DeleteFromTheQueue(user);
         }

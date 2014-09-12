@@ -36,15 +36,25 @@ namespace nishtyachki
 
             _treyIcon = new TreyIcon(this);
 
-            this.Closed += MainWindow_Closed;
+            var currentApp = Application.Current;
 
+            this.Closing += MainWindow_Closing;
 
+            currentApp.DispatcherUnhandledException += currentApp_DispatcherUnhandledException;
+    
             Restart();
         }
 
-        void MainWindow_Closed(object sender, EventArgs e)
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void currentApp_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
+            //e.Handled = true;
+            //e.Exception;
         }
 
         private void Restart()

@@ -34,7 +34,7 @@ namespace AdminApp.Controllers
         [Route("change/{id}/state/{state}")]
         public void DeleteSettings(string id, int state)
         {
-            Nishtiachok.GetNishtiachokByNamme(id).ChangeNisht((Nishtiachok_State)state);
+            Nishtiachok.GetNishtiachokByNamme(id).ChangeNishtState((Nishtiachok_State)state);
         }
     }
 }

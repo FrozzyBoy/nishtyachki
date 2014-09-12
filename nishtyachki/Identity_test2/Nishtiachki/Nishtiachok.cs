@@ -7,7 +7,7 @@ namespace AdminApp.Nishtiachki
 {
     public enum Nishtiachok_State
     {
-        free, locked, in_using, wait_for_user
+        free, locked, wait_for_user, in_using
     }
 
     public class Nishtiachok
@@ -28,14 +28,14 @@ namespace AdminApp.Nishtiachki
             {
                 return _state;
             } 
-            set
-            {
-                _state = value;
-                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+            private set
+            {                
+                _state = value;                
             }
         }
-        public string ID { get; set; }
-        public User owner { get; set; }
+        public string ID { get; private set; }
+
+        public User owner { get; private set; }
 
         private Nishtiachok(string id)
         {
@@ -64,9 +64,28 @@ namespace AdminApp.Nishtiachki
             }
         }
 
-        public void ChangeNisht(Nishtiachok_State state)
+        public void SetOwner(User owner)
         {
+            if (this.owner != null && owner == null)
+            {
+                this.owner.Client.DroppedByServer("nishtiak changed");
+            }
+            else
+            {
+                this.owner = owner;            
+                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+            }
+            this.owner = owner;            
+        }
+
+        public void ChangeNishtState(Nishtiachok_State state)
+        {
+            if ((int)state < (int)Nishtiachok_State.wait_for_user)
+            {
+                this.SetOwner(null);
+            }
             this.State = state;
+            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
         }
 
         public static Nishtiachok GetNishtiakByUserId(string id)
@@ -144,6 +163,7 @@ namespace AdminApp.Nishtiachki
         {
             this.owner = null;
             this.State = Nishtiachok_State.free;
+            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
         }
     }
 }

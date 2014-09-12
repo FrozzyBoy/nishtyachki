@@ -1,8 +1,8 @@
 ﻿myApp.controller("MyCtrl", function ($scope, DataService, signalrFctr) {
     $scope.states = [{ value: 0, name: "free", imgUrl: urls.getImg("bucket.jpg") },
         { value: 1, name: "locked", imgUrl: urls.getImg("bucket_block.jpg") },
-        { value: 2, name: "in use", imgUrl: urls.getImg("bucket_in_using.jpg") },
-        { value: 3, name: "wait user answer", imgUrl: urls.getImg("bucket_wait_user.png") }
+        { value: 3, name: "wait user answer", imgUrl: urls.getImg("bucket_wait_user.png") },
+        { value: 2, name: "in use", imgUrl: urls.getImg("bucket_in_using.jpg") }        
     ];
     $scope.myState = [];
     
