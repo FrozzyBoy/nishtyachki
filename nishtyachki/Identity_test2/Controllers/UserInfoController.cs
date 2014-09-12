@@ -35,11 +35,12 @@ namespace AdminApp.Controllers
             ViewBag.Url = BaseUrl;
             return View();
         }
+        /*
         public ActionResult User(string id)
         {
             ViewBag.Url = BaseUrl;
             ViewBag.ID = id;
             return View();
-        }
+        }*/
 	}
 }

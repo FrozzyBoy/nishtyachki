@@ -271,7 +271,6 @@
     <Content Include="Scripts\AppScripts\chartDataService.js" />
     <Content Include="Scripts\AppScripts\Controller.js" />
     <Content Include="Scripts\AppScripts\DataService.js" />
-    <Content Include="Scripts\AppScripts\LogData.js" />
     <Content Include="Scripts\AppScripts\QueueCtrl.js" />
     <Content Include="Scripts\AppScripts\QueueDataService.js" />
     <Content Include="Scripts\AppScripts\signalrFctr.js" />

@@ -8,9 +8,10 @@
     
     function getData() {
         DataService.getNisht().success(function (data) {
+            /*
             alert("recieve data!");
             alert("length  " + data.length + " state " + data[0].State + " id " + data[0].ID);
-            
+            */
             $scope.nisht = data;
             if (data.length != 0) {
                 $scope.count = data.length;
@@ -21,7 +22,7 @@
                 }
             }
         }).error(function (data, status, headers, config) {
-            alert("error recieve data!");
+            //alert("error recieve data!");
         });
     }
 

@@ -45,12 +45,7 @@
     };
 
     $scope.deleteUser = function (data) {
-        QueueDataService.delete(data.ID).success(function (data, status) {            
-            logData(data);
-        }).error(function (data, status) {
-            logData(data);
-        });
-        
+        QueueDataService.delete(data.ID);        
     }
 
     $scope.changeRoleUser = function (data, role) {
@@ -77,9 +72,9 @@
 
     $scope.sendMessage = function (msg, id) {
         QueueDataService.sendMessage(msg, id).success(function (data, status) {
-            logData(data);
+           //очистить поле с сообщением и вывести что все хорошо 
         }).error(function (data, status) {
-            logData(data);
+           //напсать что все плохо
         });
     }
 

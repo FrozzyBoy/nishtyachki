@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AdminApp.Controllers
@@ -24,6 +25,7 @@ namespace AdminApp.Controllers
         }
                 
         [Authorize]
+        [OutputCache(NoStore=true, Duration=0, VaryByParam="None")]
         public ActionResult Index()
         {
             ViewBag.Url = BaseUrl;
