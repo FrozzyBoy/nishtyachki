@@ -8,8 +8,13 @@ namespace AdminApp.Models
 {
     public class UserStat
     {
-        internal List<Stats> _stats;
-        public UserStat(IEnumerable<Stats> stats = null)
+        public static UserStat GetUserStat(string id)
+        {
+            return new UserStat();
+        }
+
+        private List<Stats> _stats;
+        private UserStat(IEnumerable<Stats> stats = null)
         {
             _stats = new List<Stats>();
             if (stats != null)
@@ -23,6 +28,7 @@ namespace AdminApp.Models
                 _stats.Add(stat);
             }
         }
+
         internal void UpdateInfo(TypeOfUpdate type)
         {
             if (type == TypeOfUpdate.StandInQueue)
@@ -37,6 +43,14 @@ namespace AdminApp.Models
             get
             {                
                 return _stats[_stats.Count - 1];
+            }
+        }
+
+        public IList<Stats> Stats
+        {
+            get
+            {
+                return _stats;
             }
         }
 

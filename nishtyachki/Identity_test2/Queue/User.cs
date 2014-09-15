@@ -32,14 +32,24 @@ namespace AdminApp.Queue
     {        
         public string ID { get; private set; }
         public IClient Client { get; set; }
-        public UserStat Statistic { get; private set; }
-        public UserState State { get; set; }
+        private UserState _state;
+        public UserState State 
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+            }
+        }
 
         public Role Role
         {
             get
             {
-                if (_premiumEndDate > DateTime.Now)
+                if (PremiumEndDate > DateTime.Now)
                 {
                     return Queue.Role.premium;
                 }
@@ -47,7 +57,23 @@ namespace AdminApp.Queue
             }
         }
 
-        private DateTime _premiumEndDate;
+        private DateTime? _premiumEndDate;
+        public DateTime PremiumEndDate
+        {
+            get
+            {
+                if (_premiumEndDate == null)
+                {
+                    _premiumEndDate = DateTime.MinValue;
+                }
+                return (DateTime)_premiumEndDate;
+            }
+            private set
+            {
+                _premiumEndDate = value;
+            }
+
+        }
 
         public static UserInfo GetUserInfo(string id)
         {
@@ -64,7 +90,6 @@ namespace AdminApp.Queue
         {
             this.ID = id;
             this.Client = Client;
-            this.Statistic = new UserStat();
             this.State = UserState.Online;
 
             LoadChanges();
@@ -74,13 +99,13 @@ namespace AdminApp.Queue
 
         public void UpdateInfo(TypeOfUpdate type)
         {
-            Statistic.UpdateInfo(type);
+            //this.State;
             SaveChanges();
         }
 
         public void AddPremium(int days = 3)
         {
-            _premiumEndDate = DateTime.Now.AddDays(days);
+            PremiumEndDate = DateTime.Now.AddDays(days);
             SaveChanges();
         }
 
@@ -136,7 +161,7 @@ namespace AdminApp.Queue
 
         internal void DeletePremium()
         {
-            _premiumEndDate = DateTime.MinValue;
+            PremiumEndDate = DateTime.MinValue;
             SaveChanges();
         }
 
@@ -154,9 +179,8 @@ namespace AdminApp.Queue
 
             info.UserName = this.ID;
             info.State = this.State;
-            info.Stats = this.Statistic._stats;
             info.UserName = this.ID;
-            info.PremiumEndDate = this._premiumEndDate;
+            info.PremiumEndDate = this.PremiumEndDate;
 
             if (addNewUser)
             {
@@ -176,8 +200,7 @@ namespace AdminApp.Queue
             else
             {
                 this.State = info.State;
-                this.Statistic = new UserStat(info.Stats);
-                _premiumEndDate = info.PremiumEndDate;
+                PremiumEndDate = info.PremiumEndDate;
             }
         }
 

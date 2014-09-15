@@ -199,7 +199,6 @@ namespace AdminApp.Queue
                                 user.CheckTimeForAcess();
                                 user.State = UserState.AcceptingOffer;
                                 user.Client.OfferToUseObj();
-                                user.Statistic.UpdateInfo(TypeOfUpdate.WaitingForAccept);
                                 i--;
                             }
                         }
