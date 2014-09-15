@@ -11,10 +11,17 @@ namespace nishtyachki.Logic
     public class Repository : IRepository, IDisposable
     {
         private AdminApp.IWcfService _service;
+        private IClientWindow _window;
 
         public Repository(IClientWindow window)
         {
-            AdminApp.IWcfServiceCallback callback = new CallBackClass(window);
+            _window = window;
+            ConnectToServer();
+        }
+
+        public void ConnectToServer()        
+        {
+            AdminApp.IWcfServiceCallback callback = new CallBackClass(_window);
             InstanceContext ic = new InstanceContext(callback);
             _service = new AdminApp.WcfServiceClient(ic);
             _service.InitUserAsync();
@@ -22,12 +29,28 @@ namespace nishtyachki.Logic
 
         public void StayInQueue()
         {
-            _service.TryStandInQueueAsync();        
+            try
+            {
+                _service.TryStandInQueueAsync();
+            }
+            catch (Exception)
+            {
+                ConnectToServer();
+                throw;
+            }
         }
 
         public void AnswerForOfferToUse(bool willUse)
         {
-            _service.AnswerForOfferToUseAsync(willUse);
+            try
+            {
+                _service.AnswerForOfferToUseAsync(willUse);
+            }
+            catch (Exception)
+            {
+                ConnectToServer();                
+                throw;
+            }
         }
 
         private void Dispose(bool isDisposing)

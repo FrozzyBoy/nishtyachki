@@ -223,8 +223,14 @@ namespace AdminApp.Queue
         public void EndUseNishtiak(User user)
         {
             user.Abort();
-            user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);            
-            Nishtiachok.GetNishtiakByUserId(user.ID).MakeFree();
+            user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);
+            var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
+
+            if (nishtiak != null)
+            {
+                nishtiak.MakeFree();
+            }
+
             user.State = UserState.Online;
             Instance.DeleteFromTheQueue(user);
         }

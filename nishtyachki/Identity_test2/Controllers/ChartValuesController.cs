@@ -9,6 +9,7 @@ using System.Web.Http;
 namespace AdminApp.Controllers
 {    
     [RoutePrefix("api/chartValues")]
+    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class ChartValuesController : ApiController
     {
         private class TempData
@@ -19,6 +20,7 @@ namespace AdminApp.Controllers
 
         // GET api/<controller>
         [Route("{count}")]
+        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public object Get(int count)
         {
             var list = new List<UserInfo>();
@@ -57,6 +59,7 @@ namespace AdminApp.Controllers
         }
         
         [Route("user/{userID}")]
+        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public object GetUserEveryDayStatistic(string userID)
         {
             var stats = AdminApp.Queue.User.GetUserInfo(userID).Stats;

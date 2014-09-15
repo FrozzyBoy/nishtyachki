@@ -90,7 +90,14 @@ namespace AdminApp.Nishtiachki
 
         public static Nishtiachok GetNishtiakByUserId(string id)
         {
-            return Nishtiachki.Find(m => m.owner.ID == id);
+            return Nishtiachki.Find((m) => 
+                {
+                    if (m.owner != null)
+                    {
+                        return m.owner.ID == id;
+                    }
+                    return false;
+                });
         }
 
         public static Nishtiachok GetNishtiachokByNamme(string id)

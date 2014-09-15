@@ -4,7 +4,7 @@ using nishtyachki.Resources;
 using nishtyachki.Logic.Infrastructure;
 using nishtyachki.Logic;
 using System.Threading;
-using System.Collections.Generic;
+using log4net;
 
 
 namespace nishtyachki
@@ -16,6 +16,8 @@ namespace nishtyachki
     {
         private IRepository _repo;
         private TreyIcon _treyIcon;
+
+        private static readonly ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private NotifyWindow _notifyToUse;
 
@@ -41,7 +43,6 @@ namespace nishtyachki
             this.Closing += MainWindow_Closing;
 
             currentApp.DispatcherUnhandledException += currentApp_DispatcherUnhandledException;
-
             _notifyToUse = new NotifyWindow(this);
             _repo = new Repository(this);
 
@@ -58,6 +59,9 @@ namespace nishtyachki
             //throw new NotImplementedException();
             //e.Handled = true;
             //e.Exception;
+            _log.Error("unhadled exception", e.Exception);
+            ShowMessage(e.Exception.Message);
+            e.Handled = true;
         }
 
         private void Restart(bool isRestart)
