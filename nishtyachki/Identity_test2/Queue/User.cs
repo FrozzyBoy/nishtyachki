@@ -29,7 +29,7 @@ namespace AdminApp.Queue
             }
             set
             {
-                UserStats.GetUserStat(ID).UpdateInfo(_state, value);
+                UserStats.GetUserStat(ID).UpdateInfo(value,_state);
                 _state = value;                
             }
         }
@@ -85,7 +85,6 @@ namespace AdminApp.Queue
         {
             this.ID = id;
             this.Client = Client;
-            this.State = UserCurrentState.Online;
 
             LoadChanges();
 
@@ -191,7 +190,6 @@ namespace AdminApp.Queue
             }
             else
             {
-                this.State = info.State;
                 this.PremiumEndDate = (DateTime)info.PremiumEndDate;
             }
         }

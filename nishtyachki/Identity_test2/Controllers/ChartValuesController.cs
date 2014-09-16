@@ -15,11 +15,15 @@ namespace AdminApp.Controllers
         {
             var data = new { labels = new string[count], numbers = new long[count] };
            
-            List<UserStats> userStat = null;
+            List<UserStats> userStat = new List<UserStats>();
 
             using (var context = new AppDbContext())
             {
-                userStat = context.UserStats.ToList<UserStats>();
+                var userinfo = context.UsersInfo.ToList<UserInfo>();
+                foreach (var item in userinfo)
+                {
+                    userStat.Add(new UserStats(item.UserName));
+                }
             }
 
             count = Math.Min(userStat.Count, count);
@@ -28,7 +32,7 @@ namespace AdminApp.Controllers
             {
                 data.labels[i] = userStat[i].UserName;
                 data.numbers[i] = 0;
-                foreach (var item in userStat[i].Stats)
+                foreach (var item in userStat[i].StatsForUser)
                 {
                     if (item.NewState == Queue.UserCurrentState.InQueue)
                     {
@@ -43,13 +47,7 @@ namespace AdminApp.Controllers
         [Route("user/{userID}")]
         public object GetPersonal(string userID)
         {
-            UserStats stats = null;
-            using (var context = new AppDbContext())
-            {
-                stats = (from st in context.UserStats
-                             where st.UserName == userID
-                             select st).FirstOrDefault<UserStats>();
-            }
+            UserStats stats = new UserStats(userID);
             
             var names = Enum.GetNames(typeof(AdminApp.Queue.UserCurrentState));
 
@@ -61,9 +59,9 @@ namespace AdminApp.Controllers
             {
                 data.labels[i] = names[i];
                 data.numbers[i] = 0;
-                for (int j = 0; j < stats.Stats.Count; j++)
+                for (int j = 0; j < stats.StatsForUser.Count; j++)
                 {
-                    if (names[i] == stats.Stats[j].NewState.ToString())
+                    if (names[i] == stats.StatsForUser[j].NewState.ToString())
                     {
                         data.numbers[i]++;
                     }

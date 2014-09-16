@@ -14,10 +14,6 @@ namespace AdminApp.Models
         public string UserName { get; set; }
         public List<Stats> _stats;
 
-        [Obsolete("Only needed for serialization and materialization", true)]
-        public UserStats()
-        { }
-
         public UserStats(string userID)
         {
             this.UserName = userID;
@@ -39,6 +35,7 @@ namespace AdminApp.Models
 
             using (var context = new AppDbContext())
             {
+                context.Stats.Add(newStat);
                 context.SaveChanges();
             }
 
@@ -48,19 +45,28 @@ namespace AdminApp.Models
         public Stats CurrentState
         {
             get
-            {                
-                return _stats[_stats.Count - 1];
+            {
+                var stats = StatsForUser;
+                return stats[stats.Count - 1];
             }
         }
 
         [NotMapped] 
-        public IList<Stats> Stats
+        public IList<Stats> StatsForUser
         {
             get
             {
+                using (var context = new AppDbContext())
+                {
+                    var selected = from st in context.Stats
+                                   where st.UserName == this.UserName
+                                   select st;
+                    _stats = selected.ToList<Stats>();
+                }
+
                 if(_stats == null)
                 {
-                    _stats = new List<Stats>();
+                    this.UpdateInfo(UserCurrentState.Online, UserCurrentState.Offline);
                 }
                 return _stats;
             }
@@ -69,18 +75,7 @@ namespace AdminApp.Models
 
         internal static UserStats GetUserStat(string userID)
         {
-            UserStats stats = null;
-            using (var context = new AppDbContext())
-            {
-                stats = context.UserStats.SingleOrDefault<UserStats>(x => x.UserName == userID);
-                if (stats == null)
-                {
-                    stats = new UserStats(userID);
-                    context.UserStats.Add(stats);
-                    context.SaveChanges();
-                }
-            }
-
+            UserStats stats = new UserStats(userID);            
             return stats;                
         }
     }
