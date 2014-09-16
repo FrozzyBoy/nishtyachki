@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdminApp.Models
 {
+    [Table("UserInfo")]
     public class UserInfo
     {
         [Key]
         public int ID { get; set; }
         public string UserName { get; set; }
-        public UserState State;
-        public DateTime PremiumEndDate;
-        public List<Stats> Stats;
+        public UserCurrentState State { get; set; }
+        public DateTime? PremiumEndDate { get; set; }
 
         public Role Role
         {

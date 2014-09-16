@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Web;
-using AdminApp.Services;
 using AdminApp.Nishtiachki;
-using AdminApp.Models;
-using System.Threading;
 
 namespace AdminApp.Queue
 {
@@ -77,16 +72,16 @@ namespace AdminApp.Queue
         {
             bool operationResult = false;
 
-            if (user.State == UserState.Online)
+            if (user.State == UserCurrentState.Online)
             {
                 lock (_queue)
                 {
                     if (QueueState == QueueState.opened)
                     {
                         this.AddUser(user);
-                        user.UpdateInfo(TypeOfUpdate.StandInQueue);
                         QueueArgs args = new QueueArgs(TypeOfChanges.add);
                         user.Client.StandInQueue();
+                        user.State = UserCurrentState.InQueue;
                         OnQueueChanged(user, args);
                         operationResult = true;                        
                     }
@@ -120,7 +115,7 @@ namespace AdminApp.Queue
                     _queue.Remove(oldUser);
                     _queue.Add(user);
                 }
-                user.State = UserState.InQueue;
+                user.State = UserCurrentState.InQueue;
             }
 
         }
@@ -137,21 +132,16 @@ namespace AdminApp.Queue
             {
                 switch (user.State)
                 {
-                    case UserState.InQueue:
-                        user.UpdateInfo(TypeOfUpdate.LeftQueueBeforeUsedNishtyak);
-                        break;
-                    case UserState.AcceptingOffer:
-                        user.UpdateInfo(TypeOfUpdate.LeftQueueBeforeUsedNishtyak);
+                    case UserCurrentState.AcceptingOffer:
                         Nishtiachok.GetNishtiakByUserId(user.ID).MakeFree();
                         user.Abort();
                         break;
-                    case UserState.UsingNishtiak:
-                        user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);
+                    case UserCurrentState.UsingNishtiak:
                         Nishtiachok.GetNishtiakByUserId(user.ID).MakeFree();
                         user.Abort();
                         break;
                 }
-                user.State = UserState.Online;
+                user.State = UserCurrentState.Online;
                 _queue.Remove(user);
                 QueueArgs args = new QueueArgs(TypeOfChanges.delete);
                 OnQueueChanged(user, args);
@@ -191,13 +181,13 @@ namespace AdminApp.Queue
                         for (int i = 0; i < Instance.Queue.Count; i++)
                         {
                             var user = Instance.Queue[i];
-                            if (user.State == UserState.InQueue)
+                            if (user.State == UserCurrentState.InQueue)
                             {
                                 Instance.DeleteFromTheQueue(user);
                                 nishtiak.SetOwner(user);
                                 nishtiak.ChangeNishtState( Nishtiachok_State.wait_for_user);
                                 user.CheckTimeForAcess();
-                                user.State = UserState.AcceptingOffer;
+                                user.State = UserCurrentState.AcceptingOffer;
                                 user.Client.OfferToUseObj();
                                 i--;
                             }
@@ -211,18 +201,16 @@ namespace AdminApp.Queue
         {
             user.Client.NotifyToUseObj();
 
-            user.UpdateInfo(TypeOfUpdate.BeganToUseNishtyak);
             user.Abort();
             user.CheckTimeForUsing();
             var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
             nishtiak.SetOwner(user);
             nishtiak.ChangeNishtState(Nishtiachok_State.in_using);
-            user.State = UserState.UsingNishtiak;
+            user.State = UserCurrentState.UsingNishtiak;
         }
         public void EndUseNishtiak(User user)
         {
             user.Abort();
-            user.UpdateInfo(TypeOfUpdate.EndedToUseNishtyak);
             var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
 
             if (nishtiak != null)
@@ -230,7 +218,7 @@ namespace AdminApp.Queue
                 nishtiak.MakeFree();
             }
 
-            user.State = UserState.Online;
+            user.State = UserCurrentState.Online;
             Instance.DeleteFromTheQueue(user);
         }
         //сортировка,вызываемая при изменении роли пользователя

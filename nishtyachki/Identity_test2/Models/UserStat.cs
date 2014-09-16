@@ -1,43 +1,50 @@
-﻿using AdminApp.Queue;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
+using AdminApp.Queue;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdminApp.Models
 {
-    public class UserStat
+    public class UserStats
     {
-        public static UserStat GetUserStat(string id)
-        {
-            return new UserStat();
-        }
+        [Key]
+        public int ID { get; set; }
+        public string UserName { get; set; }
+        public List<Stats> _stats;
 
-        private List<Stats> _stats;
-        private UserStat(IEnumerable<Stats> stats = null)
+        [Obsolete("Only needed for serialization and materialization", true)]
+        public UserStats()
+        { }
+
+        public UserStats(string userID)
         {
+            this.UserName = userID;
             _stats = new List<Stats>();
-            if (stats != null)
-            {
-                _stats.AddRange(stats);
-            }
-            else
-            {
-                var stat = new Stats();
-                stat.UpdateInfo(TypeOfUpdate.UseApp);
-                _stats.Add(stat);
-            }
+            UpdateInfo(UserCurrentState.Online, UserCurrentState.Offline);
         }
 
-        internal void UpdateInfo(TypeOfUpdate type)
+        internal void UpdateInfo(UserCurrentState newState, UserCurrentState oldState)
         {
-            if (type == TypeOfUpdate.StandInQueue)
+            var newStat = new Stats();
+            newStat.UpdateInfo(newState, oldState);
+            newStat.UserName = this.UserName;
+
+            if (_stats == null)
             {
-                _stats.Add(new Stats());
+                _stats = new List<Stats>();
             }
-            _stats.Last().UpdateInfo(type);
+            _stats.Add(newStat);
+
+            using (var context = new AppDbContext())
+            {
+                context.SaveChanges();
+            }
+
         }
 
+        [NotMapped] 
         public Stats CurrentState
         {
             get
@@ -46,6 +53,7 @@ namespace AdminApp.Models
             }
         }
 
+        [NotMapped] 
         public IList<Stats> Stats
         {
             get
@@ -54,5 +62,22 @@ namespace AdminApp.Models
             }
         }
 
+
+        internal static UserStats GetUserStat(string userID)
+        {
+            UserStats stats = null;
+            using (var context = new AppDbContext())
+            {
+                stats = context.UserStats.SingleOrDefault<UserStats>(x => x.UserName == userID);
+                if (stats == null)
+                {
+                    stats = new UserStats(userID);
+                    context.UserStats.Add(stats);
+                    context.SaveChanges();
+                }
+            }
+
+            return stats;                
+        }
     }
 }

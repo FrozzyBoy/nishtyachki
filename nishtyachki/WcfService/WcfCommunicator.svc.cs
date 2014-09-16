@@ -66,7 +66,7 @@ namespace WcfService
             {
                 _isDisconnected = true;
 
-                _user.State = UserState.Offline;
+                _user.State = UserCurrentState.Offline;
                 
                 try
                 {

@@ -2,14 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace AdminApp.Controllers
 {    
     [RoutePrefix("api/chartValues")]
-    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class ChartValuesController : ApiController
     {
         private class TempData
@@ -23,36 +20,31 @@ namespace AdminApp.Controllers
         [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public object Get(int count)
         {
-            var list = new List<UserInfo>();
-            list.AddRange(AdminApp.Queue.User.GetUserInfo());
-
-            var stats = new List<Stats>();
-            foreach (var item in list)
-            {
-                stats.AddRange(item.Stats);
-            }
-
-            stats.Sort((lh, rh) =>
-                {
-                    return lh.TimeOfStayingInQuee.Seconds.CompareTo(rh.TimeOfStayingInQuee.Seconds);
-                });
-
-            stats.Reverse();
-
-            if (stats.Count < count)
-            {
-                count = stats.Count;
-            }
-
             TempData data = new TempData();
 
             data.numbers = new long[count];
             data.labels = new string[count];
 
+            List<UserStats> userStat = null;
+
+            using (var context = new AppDbContext())
+            {
+                userStat = context.UserStats.ToList<UserStats>();
+            }
+
+            count = Math.Min(userStat.Count, count);
+
             for (int i = 0; i < count; i++)
             {
-                data.numbers[i] = stats[i].TimeOfStayingInQuee.Seconds;
-                data.labels[i] = stats[i].TimeOfBeginToStayInQuee.ToString();
+                data.labels[i] = userStat[i].UserName;
+                data.numbers[i] = 0;
+                foreach (var item in userStat[i].Stats)
+                {
+                    if (item.NewState == Queue.UserCurrentState.InQueue)
+                    {
+                        data.numbers[i]++;
+                    }
+                }
             }
 
             return data;
@@ -60,24 +52,39 @@ namespace AdminApp.Controllers
         
         [Route("user/{userID}")]
         [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public object GetUserEveryDayStatistic(string userID)
+        public object Get(string userID)
         {
-            var stats = AdminApp.Queue.User.GetUserInfo(userID).Stats;
-            
+            UserStats stats = null;
+            using (var context = new AppDbContext())
+            {
+                stats = (from st in context.UserStats
+                             where st.UserName == userID
+                             select st).FirstOrDefault<UserStats>();
+            }
+
             var data = new TempData();
 
-            if (stats != null)
+            var names = Enum.GetNames(typeof(AdminApp.Queue.UserCurrentState));
+
+            int length = names.Length;
+
+            data.numbers = new long[length];
+            data.labels = new string[length];
+
+            var sortedStats =stats.Stats.ToArray<Stats>();
+            Array.Sort<Stats>(sortedStats, (x, y) =>
             {
+                return x.NewState.CompareTo(y.NewState);
+            });
 
-                int length = stats.Count;
+            int labelsCount = -1;
 
-                data.labels = new string[length];
-                data.numbers = new long[length];
-
-                for (int i = 0; i < length; i++)
+            for (int i = 0; i < sortedStats.Length; i++)
+            {
+                data.labels[++labelsCount] = names[i];
+                while (names[i] == data.labels[labelsCount])
                 {
-                    data.labels[i] = stats[i].TimeOfBeginToStayInQuee.ToString();
-                    data.numbers[i] = stats[i].TimeOfStayingInQuee.Seconds;
+                    data.numbers[labelsCount]++;
                 }
             }
 

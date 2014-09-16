@@ -1,6 +1,5 @@
 ﻿using AdminApp.Queue;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,44 +9,21 @@ namespace AdminApp.Models
     {
         [Key]
         public int ID { get; set; }
-        [ForeignKey("UserInfoID")]
-        public int UserInfoID { get; set; }
+        [ForeignKey("UserStateID")]
+        public int UserInfoID;
 
-        public DateTime TimeOfBeginToStayInQuee { get; set; }
-        public TimeSpan TimeOfStayingInQuee { get; set; }
-        public DateTime TimeOfBeginToUseResource { get; set; }
-        public TimeSpan TimeOfResourceUsing { get; set; }
-        public DateTime TimeStartUseApp { get; set; }
+        public string UserName { get;set;}
 
-        public Stats()
+        public UserCurrentState NewState { get; set; }//state changed to
+        public UserCurrentState OldState { get; set; }//state changed from
+        public DateTime WhenHappend { get; set; }
+
+        internal void UpdateInfo(UserCurrentState userState, UserCurrentState olduserState)
         {
-          
+            this.WhenHappend = DateTime.Now;
+            this.NewState = userState;
+            this.OldState = olduserState;
         }
-      internal  void UpdateInfo(TypeOfUpdate type)
-        {
-            switch(type)
-            {
-                case TypeOfUpdate.StandInQueue:
-                    TimeOfBeginToStayInQuee = DateTime.Now;
-                    break;
-                case TypeOfUpdate.LeftQueueBeforeUsedNishtyak:
-                    TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
-                    break;
-                case TypeOfUpdate.BeganToUseNishtyak:
-                    TimeOfStayingInQuee = DateTime.Now.Subtract(TimeOfBeginToStayInQuee);
-                    TimeOfBeginToUseResource = DateTime.Now;
-                    break;
-                case TypeOfUpdate.EndedToUseNishtyak:
-                    TimeOfResourceUsing = DateTime.Now.Subtract(TimeOfBeginToUseResource);
-                    break;
-                case TypeOfUpdate.UseApp:
-                    TimeStartUseApp = DateTime.Now;
-                    break;
-            }
 
-        }
-       
-
-    
     }
 }

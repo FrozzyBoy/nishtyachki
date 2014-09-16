@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Threading;
-using System.Timers;
 using AdminApp.Services;
 
 namespace AdminApp.Queue
@@ -14,26 +11,17 @@ namespace AdminApp.Queue
         standart = 0,
         premium = 1
     }
-    public enum UserState
+    public enum UserCurrentState
     {
         Offline, Online, InQueue, AcceptingOffer, UsingNishtiak
-    }
-    public enum TypeOfUpdate
-    {        
-        StandInQueue, 
-        LeftQueueBeforeUsedNishtyak, 
-        BeganToUseNishtyak, 
-        EndedToUseNishtyak,
-        WaitingForAccept,
-        UseApp
     }
     
     public class User
     {        
         public string ID { get; private set; }
         public IClient Client { get; set; }
-        private UserState _state;
-        public UserState State 
+        private UserCurrentState _state;
+        public UserCurrentState State 
         {
             get
             {
@@ -41,7 +29,8 @@ namespace AdminApp.Queue
             }
             set
             {
-                _state = value;
+                UserStats.GetUserStat(ID).UpdateInfo(_state, value);
+                _state = value;                
             }
         }
 
@@ -64,7 +53,7 @@ namespace AdminApp.Queue
             {
                 if (_premiumEndDate == null)
                 {
-                    _premiumEndDate = DateTime.MinValue;
+                    _premiumEndDate = new DateTime(2000, 1, 1, 1, 1, 1, 1);//если нет премиума, то он кончается в 2000-ом году
                 }
                 return (DateTime)_premiumEndDate;
             }
@@ -77,30 +66,30 @@ namespace AdminApp.Queue
 
         public static UserInfo GetUserInfo(string id)
         {
-            UserInfo oldUser = AppDbContext.Instance.UsersInfo.SingleOrDefault<UserInfo>(u => u.UserName == id);
-            return oldUser;
+            using (var context = new AppDbContext())
+            {
+                UserInfo oldUser = context.UsersInfo.SingleOrDefault<UserInfo>(u => u.UserName == id);
+                return oldUser;
+            }
         }
 
         public static IEnumerable<UserInfo> GetUserInfo()
         {
-            return AppDbContext.Instance.UsersInfo.ToArray<UserInfo>();
+            using (var context = new AppDbContext())
+            {
+                return context.UsersInfo.ToArray<UserInfo>();
+            }
         }
 
         public User(string id,IClient Client )
         {
             this.ID = id;
             this.Client = Client;
-            this.State = UserState.Online;
+            this.State = UserCurrentState.Online;
 
             LoadChanges();
 
-            this.State = UserState.Online;
-        }
-
-        public void UpdateInfo(TypeOfUpdate type)
-        {
-            //this.State;
-            SaveChanges();
+            this.State = UserCurrentState.Online;
         }
 
         public void AddPremium(int days = 3)
@@ -161,7 +150,7 @@ namespace AdminApp.Queue
 
         internal void DeletePremium()
         {
-            PremiumEndDate = DateTime.MinValue;
+            _premiumEndDate = null;
             SaveChanges();
         }
 
@@ -182,11 +171,14 @@ namespace AdminApp.Queue
             info.UserName = this.ID;
             info.PremiumEndDate = this.PremiumEndDate;
 
-            if (addNewUser)
+            using (var context = new AppDbContext())
             {
-                AppDbContext.Instance.UsersInfo.Add(info);
+                if (addNewUser)
+                {
+                    context.UsersInfo.Add(info);
+                }
+                context.SaveChanges();
             }
-            AppDbContext.Instance.SaveChanges();
         }
 
         private void LoadChanges()
@@ -200,7 +192,7 @@ namespace AdminApp.Queue
             else
             {
                 this.State = info.State;
-                PremiumEndDate = info.PremiumEndDate;
+                this.PremiumEndDate = (DateTime)info.PremiumEndDate;
             }
         }
 
