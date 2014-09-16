@@ -674,9 +674,6 @@
     <Content Include="Views\UserInfo\Index.cshtml">
       <BrowseToURL>~/UserInfo/Index</BrowseToURL>
     </Content>
-    <Content Include="Views\UserInfo\User.cshtml">
-      <BrowseToURL>~/UserInfo/User</BrowseToURL>
-    </Content>
     <Content Include="Views\Home\Index.cshtml">
       <BrowseToURL>~/Home/Index</BrowseToURL>
     </Content>

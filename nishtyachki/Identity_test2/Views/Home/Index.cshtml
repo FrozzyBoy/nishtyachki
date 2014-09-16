@@ -31,8 +31,7 @@
 
                 <li ng-repeat="q in queue.Queue"
                     ng-data-drag="true">
-
-                    <a ng-href='../UserInfo/User/{{q.ID}}'>{{q.ID}}</a>
+                    <a ng-href='UserInfo/Index?userID={{q.ID}}'>{{q.ID}}</a>
                     <button ng-click="deleteUser(q)">Delete</button>
                     <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
                     Message:
@@ -56,8 +55,9 @@
                 Users:
             </h3>
             <ul>
-                <li ng-repeat="user in users">
-                    <a ng-href='../UserInfo/User/{{user.UserName}}'>{{user.UserName}}</a>
+                <li ng-repeat="user in users">                    
+                    <a ng-href='UserInfo/Index?userID={{user.UserName}}'>{{user.UserName}}</a>
+
                 </li>
             </ul>
         </div>

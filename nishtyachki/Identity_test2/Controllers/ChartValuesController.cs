@@ -9,22 +9,12 @@ namespace AdminApp.Controllers
     [RoutePrefix("api/chartValues")]
     public class ChartValuesController : ApiController
     {
-        private class TempData
-        {
-            public string[] labels;
-            public long[] numbers;
-        }
-
         // GET api/<controller>
         [Route("{count}")]
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public object Get(int count)
+        public object GetGeneral(int count)
         {
-            TempData data = new TempData();
-
-            data.numbers = new long[count];
-            data.labels = new string[count];
-
+            var data = new { labels = new string[count], numbers = new long[count] };
+           
             List<UserStats> userStat = null;
 
             using (var context = new AppDbContext())
@@ -51,8 +41,7 @@ namespace AdminApp.Controllers
         }
         
         [Route("user/{userID}")]
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public object Get(string userID)
+        public object GetPersonal(string userID)
         {
             UserStats stats = null;
             using (var context = new AppDbContext())
@@ -61,30 +50,23 @@ namespace AdminApp.Controllers
                              where st.UserName == userID
                              select st).FirstOrDefault<UserStats>();
             }
-
-            var data = new TempData();
-
+            
             var names = Enum.GetNames(typeof(AdminApp.Queue.UserCurrentState));
 
             int length = names.Length;
 
-            data.numbers = new long[length];
-            data.labels = new string[length];
+            var data = new { labels = new string[length], numbers = new long[length] };
 
-            var sortedStats =stats.Stats.ToArray<Stats>();
-            Array.Sort<Stats>(sortedStats, (x, y) =>
+            for (int i = 0; i < length; i++)
             {
-                return x.NewState.CompareTo(y.NewState);
-            });
-
-            int labelsCount = -1;
-
-            for (int i = 0; i < sortedStats.Length; i++)
-            {
-                data.labels[++labelsCount] = names[i];
-                while (names[i] == data.labels[labelsCount])
+                data.labels[i] = names[i];
+                data.numbers[i] = 0;
+                for (int j = 0; j < stats.Stats.Count; j++)
                 {
-                    data.numbers[labelsCount]++;
+                    if (names[i] == stats.Stats[j].NewState.ToString())
+                    {
+                        data.numbers[i]++;
+                    }
                 }
             }
 

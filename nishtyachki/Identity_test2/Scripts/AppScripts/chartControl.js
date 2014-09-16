@@ -1,5 +1,7 @@
 ﻿myApp.controller("chartControl", function ($scope, chartData) {
 
+    $scope.data = true;
+
     $scope.drawtop = function (id) {
         window.onload = function () {
             var ctx = document.getElementById(id).getContext("2d");
@@ -20,7 +22,7 @@
                 window.myBar = new Chart(ctx).Bar(topData, {
                     responsive: true
                 });
-            })
+            }).error($scope.data = false);
             
         }
     }
@@ -44,7 +46,7 @@
 
                 window.myBar = new Chart(ctx).Bar(topData, {
                     responsive: true
-                });
+                }).error($scope.data = false);
             })
 
         }

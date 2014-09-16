@@ -58,6 +58,10 @@ namespace AdminApp.Models
         {
             get
             {
+                if(_stats == null)
+                {
+                    _stats = new List<Stats>();
+                }
                 return _stats;
             }
         }

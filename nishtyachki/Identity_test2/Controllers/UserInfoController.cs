@@ -27,20 +27,14 @@ namespace AdminApp.Controllers
                 return sb.ToString();
             }
         }
-
-        //
+                
         // GET: /UserInfo/
-        public ActionResult Index()
+        public ActionResult Index(string userID)
         {
             ViewBag.Url = BaseUrl;
+            ViewBag.ID = userID;
             return View();
         }
-        /*
-        public ActionResult User(string id)
-        {
-            ViewBag.Url = BaseUrl;
-            ViewBag.ID = id;
-            return View();
-        }*/
+        
 	}
 }
