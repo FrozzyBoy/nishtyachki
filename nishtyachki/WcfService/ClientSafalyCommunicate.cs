@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using log4net;
 using System.Threading.Tasks;
+using AdminApp.Services;
 
-namespace AdminApp.Services
+namespace WcfService
 {
     public class ClientSafalyCommunicate : IClient
     {

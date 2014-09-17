@@ -9,8 +9,8 @@ namespace WcfService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "WcfCommunicator" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select WcfCommunicator.svc or WcfCommunicator.svc.cs at the Solution Explorer and start debugging.
-    [ServiceContract(CallbackContract = typeof(IClient))]
-    public class WcfCommunicator : IWcfService
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
+    public class WcfCommunicator : IWcfServiceCommunicator
     {
         private User _user;
 

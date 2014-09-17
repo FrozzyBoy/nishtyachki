@@ -11,7 +11,7 @@ namespace WcfService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IWcfService" in both code and config file together.
     [ServiceContract(CallbackContract = typeof(IClient))]
-    public interface IWcfService
+    public interface IWcfServiceCommunicator
     {
         [OperationContract(IsInitiating = true)]
         void InitUser();

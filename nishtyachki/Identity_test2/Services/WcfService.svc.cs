@@ -23,7 +23,8 @@ namespace AdminApp.Services
 
             key = key.Replace('\\', '_');
 
-            IClient safeClient = new ClientSafalyCommunicate(client);
+            //IClient safeClient = new ClientSafalyCommunicate(client);
+            IClient safeClient = client;
             _user = new User(key, safeClient);
 
             safeClient.NotifyServerReady();
