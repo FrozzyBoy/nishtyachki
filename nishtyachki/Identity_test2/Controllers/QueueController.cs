@@ -36,6 +36,11 @@ namespace AdminApp.Controllers
         {
             UsersQueue.Lock_Unlock_Queue();
         }
+        [Route("send/{message}/id/{id}")]
+        public void Put(string message, string id)
+        {
+            UsersQueue.Instance.GetUser(id).Client.ShowMessage(message);
+        }
 
         [Route("update/queue")]
         [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]

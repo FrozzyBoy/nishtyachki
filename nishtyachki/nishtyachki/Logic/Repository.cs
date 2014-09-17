@@ -81,5 +81,11 @@ namespace nishtyachki.Logic
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+
+        public void Disconnect()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

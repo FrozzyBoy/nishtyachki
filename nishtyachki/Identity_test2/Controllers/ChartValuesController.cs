@@ -43,12 +43,13 @@ namespace AdminApp.Controllers
 
             return data;
         }
-        
+
         [Route("user/{userID}")]
         public object GetPersonal(string userID)
         {
+
             UserStats stats = new UserStats(userID);
-            
+
             var names = Enum.GetNames(typeof(AdminApp.Queue.UserCurrentState));
 
             int length = names.Length;

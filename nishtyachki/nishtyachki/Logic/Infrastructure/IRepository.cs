@@ -7,5 +7,6 @@ namespace nishtyachki.Logic.Infrastructure
         void LeaveQueue();
         void AnswerForOfferToUse(bool willUse);
         void StopUse();
+        void Disconnect();
     }
 }
