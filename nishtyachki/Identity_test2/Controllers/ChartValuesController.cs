@@ -12,9 +12,7 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("{count}")]
         public object GetGeneral(int count)
-        {
-            var data = new { labels = new string[count], numbers = new long[count] };
-           
+        {  
             List<UserStats> userStat = new List<UserStats>();
 
             using (var context = new AppDbContext())
@@ -28,13 +26,15 @@ namespace AdminApp.Controllers
 
             count = Math.Min(userStat.Count, count);
 
+            var data = new { labels = new string[count], numbers = new long[count] };
+
             for (int i = 0; i < count; i++)
             {
                 data.labels[i] = userStat[i].UserName;
                 data.numbers[i] = 0;
                 foreach (var item in userStat[i].StatsForUser)
                 {
-                    if (item.NewState == Queue.UserCurrentState.InQueue)
+                    if (item.NewState == Queue.UserCurrentState.UsingNishtiak)
                     {
                         data.numbers[i]++;
                     }

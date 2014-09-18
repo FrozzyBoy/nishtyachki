@@ -85,7 +85,7 @@ namespace nishtyachki.Logic
 
         public void Disconnect()
         {
-            throw new NotImplementedException();
+            _service.Disconnect();
         }
     }
 }

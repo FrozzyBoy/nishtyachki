@@ -66,23 +66,21 @@ namespace WcfService
             {
                 _isDisconnected = true;
 
-                _user.State = UserCurrentState.Offline;
-                
-                try
+                switch (_user.State)
                 {
-                    LeaveQueue();
-                }
-                catch (Exception)
-                {
+                    case UserCurrentState.InQueue:
+                        LeaveQueue();
+                        break;
+                    case UserCurrentState.AcceptingOffer:
+                        AnswerForOfferToUse(false);
+                        break;
+                    case UserCurrentState.UsingNishtiak:
+                        StopUseObj();
+                        break;
                 }
 
-                try
-                {
-                    StopUseObj();
-                }
-                catch (Exception)
-                {
-                }
+                _user.State = UserCurrentState.Offline;
+                
             }
             
         }
