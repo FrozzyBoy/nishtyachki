@@ -33,6 +33,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAdminAppService_AddNishtiak_InputMessage">
@@ -65,6 +66,12 @@
   <wsdl:message name="IAdminAppService_SwitchQueueState_OutputMessage">
     <wsdl:part name="parameters" element="tns:SwitchQueueStateResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_UpdateUsersInQueue_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsersInQueue" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_UpdateUsersInQueue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsersInQueueResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_SendMsg_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMsg" />
   </wsdl:message>
@@ -76,6 +83,12 @@
   </wsdl:message>
   <wsdl:message name="IAdminAppService_ChangeUserRole_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeUserRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_Ping_InputMessage">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_Ping_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
   </wsdl:message>
   <wsdl:message name="IAdminAppService_UpdateQueue_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:UpdateQueue" />
@@ -104,6 +117,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/SwitchQueueState" message="tns:IAdminAppService_SwitchQueueState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/SwitchQueueStateResponse" message="tns:IAdminAppService_SwitchQueueState_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UpdateUsersInQueue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/UpdateUsersInQueue" message="tns:IAdminAppService_UpdateUsersInQueue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/UpdateUsersInQueueResponse" message="tns:IAdminAppService_UpdateUsersInQueue_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SendMsg">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/SendMsg" message="tns:IAdminAppService_SendMsg_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/SendMsgResponse" message="tns:IAdminAppService_SendMsg_OutputMessage" />
@@ -111,6 +128,10 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ChangeUserRole">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/ChangeUserRole" message="tns:IAdminAppService_ChangeUserRole_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/ChangeUserRoleResponse" message="tns:IAdminAppService_ChangeUserRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ping">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/Ping" message="tns:IAdminAppService_Ping_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/PingResponse" message="tns:IAdminAppService_Ping_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UpdateQueue">
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/UpdateQueue" message="tns:IAdminAppService_UpdateQueue_OutputCallbackMessage" />
@@ -167,6 +188,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateUsersInQueue">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/UpdateUsersInQueue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SendMsg">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/SendMsg" style="document" />
       <wsdl:input>
@@ -178,6 +208,15 @@
     </wsdl:operation>
     <wsdl:operation name="ChangeUserRole">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/ChangeUserRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/Ping" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -45,6 +45,12 @@ namespace AdminApp.AdminAppService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/SwitchQueueState", ReplyAction="http://tempuri.org/IAdminAppService/SwitchQueueStateResponse")]
         System.Threading.Tasks.Task SwitchQueueStateAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/UpdateUsersInQueue", ReplyAction="http://tempuri.org/IAdminAppService/UpdateUsersInQueueResponse")]
+        void UpdateUsersInQueue(string[] userNames);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/UpdateUsersInQueue", ReplyAction="http://tempuri.org/IAdminAppService/UpdateUsersInQueueResponse")]
+        System.Threading.Tasks.Task UpdateUsersInQueueAsync(string[] userNames);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/SendMsg", ReplyAction="http://tempuri.org/IAdminAppService/SendMsgResponse")]
         void SendMsg(string msg, string id);
         
@@ -56,6 +62,12 @@ namespace AdminApp.AdminAppService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/ChangeUserRole", ReplyAction="http://tempuri.org/IAdminAppService/ChangeUserRoleResponse")]
         System.Threading.Tasks.Task ChangeUserRoleAsync(string id, int role);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Ping", ReplyAction="http://tempuri.org/IAdminAppService/PingResponse")]
+        bool Ping();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Ping", ReplyAction="http://tempuri.org/IAdminAppService/PingResponse")]
+        System.Threading.Tasks.Task<bool> PingAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -136,6 +148,14 @@ namespace AdminApp.AdminAppService {
             return base.Channel.SwitchQueueStateAsync();
         }
         
+        public void UpdateUsersInQueue(string[] userNames) {
+            base.Channel.UpdateUsersInQueue(userNames);
+        }
+        
+        public System.Threading.Tasks.Task UpdateUsersInQueueAsync(string[] userNames) {
+            return base.Channel.UpdateUsersInQueueAsync(userNames);
+        }
+        
         public void SendMsg(string msg, string id) {
             base.Channel.SendMsg(msg, id);
         }
@@ -150,6 +170,14 @@ namespace AdminApp.AdminAppService {
         
         public System.Threading.Tasks.Task ChangeUserRoleAsync(string id, int role) {
             return base.Channel.ChangeUserRoleAsync(id, role);
+        }
+        
+        public bool Ping() {
+            return base.Channel.Ping();
+        }
+        
+        public System.Threading.Tasks.Task<bool> PingAsync() {
+            return base.Channel.PingAsync();
         }
     }
 }

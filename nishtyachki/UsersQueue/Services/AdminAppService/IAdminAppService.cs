@@ -37,5 +37,8 @@ namespace UsersQueue.Services.AdminAppService
         [OperationContract]
         void ChangeUserRole(string id, int role);
         #endregion
+
+        [OperationContract]
+        bool Ping();
     }
 }

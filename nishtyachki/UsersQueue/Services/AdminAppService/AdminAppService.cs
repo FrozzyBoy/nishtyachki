@@ -52,5 +52,9 @@ namespace UsersQueue.Services.AdminAppService
             throw new NotImplementedException();
         }
 
+        public bool Ping()
+        {
+            return true;
+        }
     }
 }
