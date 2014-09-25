@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AdminApp.Nishtiachki;
+using AdminApp.QueueChannel;
 
 namespace AdminApp.Controllers
 {
@@ -8,6 +9,13 @@ namespace AdminApp.Controllers
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class NishtController : ApiController
     {
+        private readonly IQueueChannel _channel;
+
+        public NishtController(IQueueChannel channel)
+        {
+            _channel = channel;
+        }
+
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]

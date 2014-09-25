@@ -1,11 +1,19 @@
 ﻿using System.Web.Http;
 using AdminApp.Queue;
+using AdminApp.QueueChannel;
 
 namespace AdminApp.Controllers
 {
     [RoutePrefix("api/queue")]
     public class QueueController : ApiController
     {
+        private readonly IQueueChannel _channel;
+
+        public QueueController(IQueueChannel channel)
+        {
+            _channel = channel;
+        }
+
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]

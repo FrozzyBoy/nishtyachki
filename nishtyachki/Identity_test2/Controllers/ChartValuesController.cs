@@ -1,4 +1,5 @@
 ﻿using AdminApp.Models;
+using AdminApp.QueueChannel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,13 @@ namespace AdminApp.Controllers
     [RoutePrefix("api/chartValues")]
     public class ChartValuesController : ApiController
     {
+        private readonly IQueueChannel _channel;
+
+        public ChartValuesController(IQueueChannel channel)
+        {
+            _channel = channel;
+        }
+
         // GET api/<controller>
         [Route("{count}")]
         public object GetGeneral(int count)

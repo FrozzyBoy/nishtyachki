@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AdminApp.App_Start;
 
 namespace AdminApp
 {
@@ -13,6 +14,10 @@ namespace AdminApp
     {
         protected void Application_Start()
         {
+            ContainerConfig.Config();
+
+            AreaRegistration.RegisterAllAreas();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
