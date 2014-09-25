@@ -85,6 +85,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -199,8 +200,6 @@
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
     <Compile Include="Nishtiachki\Nishtiachok.cs" />
-    <Compile Include="Queue\Interfaces\IChangeRole.cs" />
-    <Compile Include="Queue\Interfaces\IDeleteFromTheQueue.cs" />
     <Compile Include="Queue\QueueArgs.cs" />
     <Compile Include="Models\Stats.cs" />
     <Compile Include="Queue\User.cs" />
@@ -219,10 +218,16 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\UserStat.cs" />
-    <Compile Include="Services\IClient.cs" />
-    <Compile Include="Services\IWcfService.cs" />
-    <Compile Include="Services\WcfService.svc.cs">
-      <DependentUpon>WcfService.svc</DependentUpon>
+    <Compile Include="Repository\CallBackAdminApp.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\NishtiakSet.cs" />
+    <Compile Include="Repository\QueueSet.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\UserSet.cs" />
+    <Compile Include="Service References\AdminAppService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -623,9 +628,15 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Services\WcfService.svc">
-      <BrowseToURL>~/WcfService.svc</BrowseToURL>
-    </Content>
+    <None Include="Service References\AdminAppService\AdminAppService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AdminAppService\configuration91.svcinfo" />
+    <None Include="Service References\AdminAppService\configuration.svcinfo" />
+    <None Include="Service References\AdminAppService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -678,6 +689,10 @@
     <Content Include="Views\Home\Index.cshtml">
       <BrowseToURL>~/Home/Index</BrowseToURL>
     </Content>
+    <None Include="Service References\AdminAppService\AdminAppService.wsdl" />
+    <None Include="Service References\AdminAppService\AdminAppService.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -687,6 +702,12 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AdminAppService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

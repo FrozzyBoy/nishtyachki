@@ -1,15 +1,10 @@
 ﻿using nishtyachki.Logic.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using nishtyachki.UserAppService;
 using System.Windows;
 
 namespace nishtyachki.Logic
 {
-    public class CallBackClass : AdminApp.IWcfServiceCallback
+    public class CallBackClass : IUserAppServiceCallback
     {
         private IClientWindow _window;
 

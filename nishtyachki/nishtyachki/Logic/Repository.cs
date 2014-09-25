@@ -10,8 +10,8 @@ namespace nishtyachki.Logic
 {
     public class Repository : IRepository, IDisposable
     {
-        private AdminApp.IWcfService _service;
         private IClientWindow _window;
+        private UserAppService.IUserAppService _service;
 
         public Repository(IClientWindow window)
         {
@@ -19,11 +19,12 @@ namespace nishtyachki.Logic
             ConnectToServer();
         }
 
-        public void ConnectToServer()        
+        public void ConnectToServer()
         {
-            AdminApp.IWcfServiceCallback callback = new CallBackClass(_window);
+            UserAppService.IUserAppServiceCallback callback = new CallBackClass(_window);
+
             InstanceContext ic = new InstanceContext(callback);
-            _service = new AdminApp.WcfServiceClient(ic);
+            _service = new UserAppService.UserAppServiceClient(ic);
             _service.InitUserAsync();
         }
 

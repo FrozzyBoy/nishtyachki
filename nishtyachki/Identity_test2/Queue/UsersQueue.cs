@@ -32,7 +32,7 @@ namespace AdminApp.Queue
             AlertQueue();
         }
 
-        public static void Lock_Unlock_Queue()
+        public static void SwitchQueueState()
         {
             QueueArgs queueChange = null; 
 
@@ -80,7 +80,7 @@ namespace AdminApp.Queue
                     {
                         this.AddUser(user);
                         QueueArgs args = new QueueArgs(TypeOfChanges.add);
-                        user.Client.StandInQueue();
+                        //user.Client.StandInQueue();
                         user.State = UserCurrentState.InQueue;
                         OnQueueChanged(user, args);
                         operationResult = true;                        
@@ -123,7 +123,7 @@ namespace AdminApp.Queue
         public void DeleteUserByAdmin(User user)
         {
             DeleteFromTheQueue(user);
-            user.Client.DroppedByServer("you're dropped by Admin");
+            //user.Client.DroppedByServer("you're dropped by Admin");
         }
 
         public void DeleteFromTheQueue(User user)
@@ -188,7 +188,7 @@ namespace AdminApp.Queue
                                 nishtiak.ChangeNishtState( Nishtiachok_State.wait_for_user);
                                 user.CheckTimeForAcess();
                                 user.State = UserCurrentState.AcceptingOffer;
-                                user.Client.OfferToUseObj();
+                                //user.Client.OfferToUseObj();
                                 i--;
                             }
                         }
@@ -199,7 +199,7 @@ namespace AdminApp.Queue
 
         public void StartUseNishtiak(User user)
         {
-            user.Client.NotifyToUseObj();
+            //user.Client.NotifyToUseObj();
 
             user.Abort();
             user.CheckTimeForUsing();

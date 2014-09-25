@@ -68,7 +68,7 @@ namespace AdminApp.Nishtiachki
         {
             if (this.owner != null && owner == null)
             {
-                this.owner.Client.DroppedByServer("nishtiak changed");
+                //this.owner.Client.DroppedByServer("nishtiak changed");
             }
             else
             {

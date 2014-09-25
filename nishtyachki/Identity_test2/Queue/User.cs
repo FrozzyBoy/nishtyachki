@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdminApp.Services;
 
 namespace AdminApp.Queue
 {
@@ -19,7 +18,7 @@ namespace AdminApp.Queue
     public class User
     {        
         public string ID { get; private set; }
-        public IClient Client { get; set; }
+        //public IClient Client { get; set; }
         private UserCurrentState _state;
         public UserCurrentState State 
         {
@@ -81,10 +80,10 @@ namespace AdminApp.Queue
             }
         }
 
-        public User(string id,IClient Client )
+        public User(string id)//,IClient Client )
         {
             this.ID = id;
-            this.Client = Client;
+            //this.Client = Client;
 
             LoadChanges();
 
@@ -143,7 +142,7 @@ namespace AdminApp.Queue
         void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _t.Stop();
-            Client.DroppedByServer("you are dropepd");
+            //Client.DroppedByServer("you are dropepd");
             UsersQueue.Instance.DeleteFromTheQueue(this);
         }
 

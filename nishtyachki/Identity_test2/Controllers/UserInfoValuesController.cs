@@ -23,25 +23,5 @@ namespace AdminApp.Controllers
             return AdminApp.Queue.User.GetUserInfo(id);
         }
 
-        // POST api/<controller>
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public void Post([FromBody]string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        // PUT api/<controller>/5
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public void Put(int id, [FromBody]string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        // DELETE api/<controller>/5
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
