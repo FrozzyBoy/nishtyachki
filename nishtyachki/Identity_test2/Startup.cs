@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using AdminApp.App_Start;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
@@ -11,9 +12,10 @@ namespace AdminApp
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
-
             var config = new HttpConfiguration();
+            ContainerConfig.Config(config);
+
+            ConfigureAuth(app);
             WebApiConfig.RegisterRoutes(config);
             config.MapHttpAttributeRoutes();
             app.UseWebApi(config);

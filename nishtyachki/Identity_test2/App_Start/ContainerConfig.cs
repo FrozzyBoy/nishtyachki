@@ -1,8 +1,5 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dispatcher;
-using System.Web.Mvc;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Practices.Unity;
 using AdminApp.Infrastructure;
 using AdminApp.QueueChannel;
@@ -11,7 +8,7 @@ namespace AdminApp.App_Start
 {
     public static class ContainerConfig
     {
-        public static void Config()
+        public static void Config(HttpConfiguration config)
         {
             var container = new UnityContainer();
             MapTypes(container);
@@ -23,6 +20,8 @@ namespace AdminApp.App_Start
             // Set resolver to WebApi.
             var httpControllerActivator = new UnityHttpControllerActivator(container);
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), httpControllerActivator);
+
+            config.DependencyResolver = new UnityResolver(container);
 
             // Set resolver to SignalR.
             //var hubActivator = new UnityHubActivator(container);

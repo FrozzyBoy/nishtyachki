@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.Practices.Unity;
 using System.Web.Http;
+using AdminApp.App_Start;
+using AdminApp.QueueChannel;
 
 namespace AdminApp
 {
@@ -23,6 +22,7 @@ namespace AdminApp
         {
             configuration.Routes.MapHttpRoute("API Default", "api/{controller}/{id}",
                 new { id = RouteParameter.Optional });
+
         }
 
     }

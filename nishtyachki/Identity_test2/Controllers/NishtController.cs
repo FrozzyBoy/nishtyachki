@@ -1,18 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using AdminApp.Nishtiachki;
 using AdminApp.QueueChannel;
 
 namespace AdminApp.Controllers
 {
-    [RoutePrefix("api/nisht")]
-    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
+    [RoutePrefix("api/nisht")]    
+    [System.Web.Mvc.ValidateAntiForgeryToken]
     public class NishtController : ApiController
     {
         private readonly IQueueChannel _channel;
 
         public NishtController(IQueueChannel channel)
         {
+            if(channel == null)
+            {
+                throw new ArgumentNullException("channel");
+            }
+
             _channel = channel;
         }
 
