@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using AdminApp.Nishtiachki;
 using AdminApp.QueueChannel;
+using AdminApp.AdminAppService;
 
 namespace AdminApp.Controllers
 {
@@ -25,31 +25,27 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public IEnumerable<Nishtiachok> Get()
         {
-            return Nishtiachok.Nishtiachki;           
+            return _channel.GetAllNishtiaks();
         }
 
         [Route("add/{id}")]
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public void Post(string id)
         {
-            Nishtiachok.AddNistiachokByAdmin(id);
+            _channel.AddNishtiak(id);
         }
 
         [Route("delete/{id}")]
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public void Delete(string id)
         {
-            Nishtiachok.DeleteNishtiachok(id);
+            _channel.DeleteNishtiak(id);
         }
 
         [Route("change/{id}/state/{state}")]
-        [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
-        public void DeleteSettings(string id, int state)
+        public void ChangeUserRole(string id, int state)
         {
-            Nishtiachok.GetNishtiachokByNamme(id).ChangeNishtState((Nishtiachok_State)state);
+            _channel.ChangeUserRole(id, state);
         }
     }
 }

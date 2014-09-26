@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UsersQueue.Queue.Models;
+using System.Runtime.Serialization;
 using UsersQueue.Queue.UserInformtion;
 
 namespace UsersQueue.Queue.Nishtiachki
@@ -13,6 +10,7 @@ namespace UsersQueue.Queue.Nishtiachki
         free, locked, wait_for_user, in_using
     }
 
+    [DataContract]
     public class Nishtiachok
     {
         static Nishtiachok()
@@ -24,20 +22,13 @@ namespace UsersQueue.Queue.Nishtiachki
         public static List<Nishtiachok> Nishtiachki;
 
         public static event EventHandler EventChangeNisht;
-        private Nishtiachok_State _state;
-        public Nishtiachok_State State
-        {
-            get
-            {
-                return _state;
-            }
-            private set
-            {
-                _state = value;
-            }
-        }
+        [DataMember]
+        public Nishtiachok_State State { get; set; }
+
+        [DataMember]
         public string ID { get; private set; }
 
+        [DataMember]
         public QueueUser owner { get; private set; }
 
         private Nishtiachok(string id)

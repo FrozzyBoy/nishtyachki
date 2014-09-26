@@ -8,6 +8,7 @@ using System.Web.Http;
 namespace AdminApp.Controllers
 {    
     [RoutePrefix("api/chartValues")]
+    [System.Web.Mvc.ValidateAntiForgeryToken]
     public class ChartValuesController : ApiController
     {
         private readonly IQueueChannel _channel;
@@ -55,7 +56,6 @@ namespace AdminApp.Controllers
         [Route("user/{userID}")]
         public object GetPersonal(string userID)
         {
-
             UserStats stats = new UserStats(userID);
 
             var names = Enum.GetNames(typeof(AdminApp.Queue.UserCurrentState));

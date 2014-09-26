@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using UsersQueue.Queue.Nishtiachki;
+using UsersQueue.Queue.UserInformtion;
 
 namespace UsersQueue.Services.AdminAppService
 {
@@ -20,6 +22,8 @@ namespace UsersQueue.Services.AdminAppService
         void DeleteNishtiak(string id);
         [OperationContract]
         void ChangeNishtiakState(string id, int state);
+        [OperationContract]
+        Nishtiachok[] GetAllNishtiachoks();
         #endregion
 
         #region impliments_for_queue
@@ -29,6 +33,10 @@ namespace UsersQueue.Services.AdminAppService
         void SwitchQueueState();
         [OperationContract]
         void UpdateUsersInQueue(string[] userNames);
+        [OperationContract]
+        QueueUser GetUserInQueueByID(string id);
+        [OperationContract]
+        QueueUser[] GetAllUsersInQueue();
         #endregion
 
         #region impliments_for_user
@@ -36,6 +44,10 @@ namespace UsersQueue.Services.AdminAppService
         void SendMsg(string msg, string id);
         [OperationContract]
         void ChangeUserRole(string id, int role);
+        [OperationContract]
+        UserInfo GetUserInfoByID(string id);
+        [OperationContract]
+        UserInfo[] GetInfoForAllUsers();
         #endregion
 
         [OperationContract]

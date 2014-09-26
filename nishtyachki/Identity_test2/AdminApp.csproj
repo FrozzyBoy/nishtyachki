@@ -1146,6 +1146,24 @@
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.Nishtiachok.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.QueueUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.UserInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\AdminAppService\AdminAppService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AdminAppService\AdminAppService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AdminAppService\AdminAppService41.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AdminAppService\configuration91.svcinfo" />
     <None Include="Service References\AdminAppService\configuration.svcinfo" />
     <None Include="Service References\AdminAppService\Reference.svcmap">

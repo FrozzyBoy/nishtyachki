@@ -33,7 +33,10 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAdminAppService_AddNishtiak_InputMessage">
@@ -54,6 +57,12 @@
   <wsdl:message name="IAdminAppService_ChangeNishtiakState_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeNishtiakStateResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetAllNishtiachoks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNishtiachoks" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetAllNishtiachoks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNishtiachoksResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_DeleteUserByAdmin_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteUserByAdmin" />
   </wsdl:message>
@@ -72,6 +81,18 @@
   <wsdl:message name="IAdminAppService_UpdateUsersInQueue_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateUsersInQueueResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetUserInQueueByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserInQueueByID" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetUserInQueueByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserInQueueByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetAllUsersInQueue_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersInQueue" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetAllUsersInQueue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersInQueueResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_SendMsg_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMsg" />
   </wsdl:message>
@@ -83,6 +104,18 @@
   </wsdl:message>
   <wsdl:message name="IAdminAppService_ChangeUserRole_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeUserRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetUserInfoByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByID" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetUserInfoByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetInfoForAllUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoForAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetInfoForAllUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoForAllUsersResponse" />
   </wsdl:message>
   <wsdl:message name="IAdminAppService_Ping_InputMessage">
     <wsdl:part name="parameters" element="tns:Ping" />
@@ -109,6 +142,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/ChangeNishtiakState" message="tns:IAdminAppService_ChangeNishtiakState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/ChangeNishtiakStateResponse" message="tns:IAdminAppService_ChangeNishtiakState_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAllNishtiachoks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetAllNishtiachoks" message="tns:IAdminAppService_GetAllNishtiachoks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetAllNishtiachoksResponse" message="tns:IAdminAppService_GetAllNishtiachoks_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="DeleteUserByAdmin">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/DeleteUserByAdmin" message="tns:IAdminAppService_DeleteUserByAdmin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/DeleteUserByAdminResponse" message="tns:IAdminAppService_DeleteUserByAdmin_OutputMessage" />
@@ -121,6 +158,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/UpdateUsersInQueue" message="tns:IAdminAppService_UpdateUsersInQueue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/UpdateUsersInQueueResponse" message="tns:IAdminAppService_UpdateUsersInQueue_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetUserInQueueByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetUserInQueueByID" message="tns:IAdminAppService_GetUserInQueueByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetUserInQueueByIDResponse" message="tns:IAdminAppService_GetUserInQueueByID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAllUsersInQueue">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetAllUsersInQueue" message="tns:IAdminAppService_GetAllUsersInQueue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetAllUsersInQueueResponse" message="tns:IAdminAppService_GetAllUsersInQueue_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SendMsg">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/SendMsg" message="tns:IAdminAppService_SendMsg_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/SendMsgResponse" message="tns:IAdminAppService_SendMsg_OutputMessage" />
@@ -128,6 +173,14 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ChangeUserRole">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/ChangeUserRole" message="tns:IAdminAppService_ChangeUserRole_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/ChangeUserRoleResponse" message="tns:IAdminAppService_ChangeUserRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetUserInfoByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetUserInfoByID" message="tns:IAdminAppService_GetUserInfoByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetUserInfoByIDResponse" message="tns:IAdminAppService_GetUserInfoByID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetInfoForAllUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetInfoForAllUsers" message="tns:IAdminAppService_GetInfoForAllUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetInfoForAllUsersResponse" message="tns:IAdminAppService_GetInfoForAllUsers_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ping">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/Ping" message="tns:IAdminAppService_Ping_InputMessage" />
@@ -170,6 +223,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllNishtiachoks">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetAllNishtiachoks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DeleteUserByAdmin">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/DeleteUserByAdmin" style="document" />
       <wsdl:input>
@@ -197,6 +259,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserInQueueByID">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetUserInQueueByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersInQueue">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetAllUsersInQueue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SendMsg">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/SendMsg" style="document" />
       <wsdl:input>
@@ -208,6 +288,24 @@
     </wsdl:operation>
     <wsdl:operation name="ChangeUserRole">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/ChangeUserRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByID">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetUserInfoByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoForAllUsers">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetInfoForAllUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

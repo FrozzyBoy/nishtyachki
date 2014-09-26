@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using AdminApp.QueueChannel;
 
 namespace AdminApp.Hubs
 {
@@ -12,18 +10,18 @@ namespace AdminApp.Hubs
     {
         public override System.Threading.Tasks.Task OnConnected()
         {
-            Nishtiachki.Nishtiachok.EventChangeNisht += Nishtiachok_EventChangeNisht;
+            CallBackAdminApp.eventUpdateNishtiachok += Nishtiachok_EventChangeNisht;
             return base.OnConnected();
         }
 
-        void Nishtiachok_EventChangeNisht(object sender, EventArgs e)
+        void Nishtiachok_EventChangeNisht()
         {
             Clients.All.update();
         }
 
         public override System.Threading.Tasks.Task OnDisconnected(bool fl)
         {
-            Nishtiachki.Nishtiachok.EventChangeNisht -= Nishtiachok_EventChangeNisht;
+            CallBackAdminApp.eventUpdateNishtiachok -= Nishtiachok_EventChangeNisht;
             return base.OnDisconnected(fl);
         }
     }

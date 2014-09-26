@@ -1,5 +1,5 @@
 ﻿using AdminApp.AdminAppService;
-using System;
+using Antlr.Runtime.Misc;
 
 namespace AdminApp.QueueChannel
 {
@@ -8,7 +8,7 @@ namespace AdminApp.QueueChannel
         public static event Action eventUpdateQueue;
         public static event Action eventUpdateNishtiachok;
 
-        public void UpdateQueue()
+        public void UpdateQueue(object sender, AdminApp.AdminAppService.EventArgs e)
         {
             if(eventUpdateQueue != null)
             {
@@ -16,7 +16,7 @@ namespace AdminApp.QueueChannel
             }
         }
 
-        public void UpdateNishtiachok()
+        public void UpdateNishtiachok(object sender, AdminApp.AdminAppService.EventArgs e)
         {
             if (eventUpdateNishtiachok != null)
             {

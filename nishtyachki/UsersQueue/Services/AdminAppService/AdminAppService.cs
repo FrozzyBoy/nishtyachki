@@ -56,5 +56,30 @@ namespace UsersQueue.Services.AdminAppService
         {
             return true;
         }
+
+        public Queue.Nishtiachki.Nishtiachok[] GetAllNishtiachoks()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Queue.UserInformtion.QueueUser GetUserInQueueByID(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Queue.UserInformtion.QueueUser[] GetAllUsersInQueue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Queue.UserInformtion.UserInfo GetUserInfoByID(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Queue.UserInformtion.UserInfo[] GetInfoForAllUsers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

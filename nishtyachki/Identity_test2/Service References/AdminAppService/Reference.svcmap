@@ -24,10 +24,13 @@
     <MetadataSource Address="  http://localhost/AdminAppService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AdminAppService.xsd" MetadataType="Schema" ID="364518ed-a170-467a-b719-77f5010d3c56" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd1" />
+    <MetadataFile FileName="AdminAppService4.xsd" MetadataType="Schema" ID="28d66ca0-4bb8-459f-b2c0-03f6a86c8b2c" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd5" />
     <MetadataFile FileName="AdminAppService1.xsd" MetadataType="Schema" ID="42c2d75f-79a4-4f51-bb8a-a6fb41a70629" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd2" />
-    <MetadataFile FileName="AdminAppService.wsdl" MetadataType="Wsdl" ID="4fdefd7e-c5e6-4362-8252-b8b98cb3c8ef" SourceId="1" SourceUrl="http://localhost/AdminAppService" />
+    <MetadataFile FileName="AdminAppService3.xsd" MetadataType="Schema" ID="199b4207-5016-41e2-806b-acfa6a3dae41" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd3" />
     <MetadataFile FileName="AdminAppService2.xsd" MetadataType="Schema" ID="e76a4e6f-01c2-4eee-8c1e-6ae8c5a51628" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd0" />
+    <MetadataFile FileName="AdminAppService.xsd" MetadataType="Schema" ID="364518ed-a170-467a-b719-77f5010d3c56" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd1" />
+    <MetadataFile FileName="AdminAppService41.xsd" MetadataType="Schema" ID="bf19b14a-bf2f-4b8a-8807-10afb1fa1833" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd4" />
+    <MetadataFile FileName="AdminAppService.wsdl" MetadataType="Wsdl" ID="4fdefd7e-c5e6-4362-8252-b8b98cb3c8ef" SourceId="1" SourceUrl="http://localhost/AdminAppService" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
