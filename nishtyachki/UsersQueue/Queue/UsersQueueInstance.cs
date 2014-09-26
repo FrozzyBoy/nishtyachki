@@ -121,8 +121,9 @@ namespace UsersQueue.Queue
 
         }
 
-        public void DeleteUserByAdmin(QueueUser user)
+        public void DeleteUserByAdmin(string id)
         {
+            var user = this.GetUser(id);
             DeleteFromTheQueue(user);
             user.Client.DroppedByServer("you're dropped by Admin");
         }
@@ -289,5 +290,6 @@ namespace UsersQueue.Queue
 
             }
         }
+
     }
 }

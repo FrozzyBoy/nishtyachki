@@ -103,6 +103,9 @@ namespace AdminApp.AdminAppService {
         private string IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private AdminApp.AdminAppService.Role RoleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> _premiumEndDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -127,6 +130,19 @@ namespace AdminApp.AdminAppService {
                 if ((object.ReferenceEquals(this.IDField, value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AdminApp.AdminAppService.Role Role {
+            get {
+                return this.RoleField;
+            }
+            set {
+                if ((this.RoleField.Equals(value) != true)) {
+                    this.RoleField = value;
+                    this.RaisePropertyChanged("Role");
                 }
             }
         }
@@ -182,6 +198,17 @@ namespace AdminApp.AdminAppService {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         in_using = 3,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Role", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion")]
+    public enum Role : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        standart = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        premium = 1,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
@@ -408,6 +435,7 @@ namespace AdminApp.AdminAppService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok_State))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Role))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserCurrentState))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserInfo))]
@@ -421,6 +449,7 @@ namespace AdminApp.AdminAppService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok_State))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Role))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserCurrentState))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserInfo))]

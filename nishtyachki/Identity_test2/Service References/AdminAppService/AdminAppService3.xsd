@@ -3,11 +3,19 @@
   <xs:complexType name="QueueUser">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Role" type="tns:Role" />
       <xs:element minOccurs="0" name="_premiumEndDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="_state" type="tns:UserCurrentState" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="QueueUser" nillable="true" type="tns:QueueUser" />
+  <xs:simpleType name="Role">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="standart" />
+      <xs:enumeration value="premium" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
   <xs:simpleType name="UserCurrentState">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Offline" />

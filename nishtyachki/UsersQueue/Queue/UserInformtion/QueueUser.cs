@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UsersQueue.Services.UserAppService;
 using System.Linq;
-using UsersQueue.Queue.Models;
+using UsersQueue;
 using System.Runtime.Serialization;
+using UsersQueue.Model;
 
 namespace UsersQueue.Queue.UserInformtion
 {
@@ -39,6 +40,7 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
+        [DataMember]
         public Role Role
         {
             get
@@ -68,6 +70,21 @@ namespace UsersQueue.Queue.UserInformtion
                 _premiumEndDate = value;
             }
 
+        }
+
+        public void ChangeRole(Role newRole)
+        {
+            switch (newRole)
+            {
+                case Role.standart:
+                    this.DeletePremium();
+                    break;
+                case Role.premium:
+                    this.AddPremium();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public static UserInfo GetUserInfo(string id)

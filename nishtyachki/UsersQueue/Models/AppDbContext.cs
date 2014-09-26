@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using UsersQueue.Queue.UserInformtion;
 
-namespace UsersQueue.Queue.Models
+namespace UsersQueue.Model
 {
     public class AppDbContext : DbContext
     {

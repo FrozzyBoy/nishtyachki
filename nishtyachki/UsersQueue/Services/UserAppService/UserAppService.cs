@@ -2,7 +2,6 @@
 using System.ServiceModel;
 using System.Threading;
 using UsersQueue.Queue;
-using UsersQueue.Queue.Models;
 using UsersQueue.Queue.UserInformtion;
 
 namespace UsersQueue.Services.UserAppService

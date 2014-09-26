@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
+using UsersQueue.Queue.Nishtiachki;
+using UsersQueue.Queue;
+using UsersQueue.Model;
+using System.Linq;
 
 namespace UsersQueue.Services.AdminAppService
 {
@@ -14,42 +13,48 @@ namespace UsersQueue.Services.AdminAppService
     {
         public void AddNishtiak(string id)
         {
-            throw new NotImplementedException();
+            Nishtiachok.AddNistiachokByAdmin(id);
         }
 
         public void DeleteNishtiak(string id)
         {
-            throw new NotImplementedException();
+            Nishtiachok.DeleteNishtiachok(id);
         }
 
         public void ChangeNishtiakState(string id, int state)
         {
-            throw new NotImplementedException();
+            var nishtiak = Nishtiachok.GetNishtiachokByNamme(id);
+            nishtiak.ChangeNishtState((Nishtiachok_State)state);
         }
 
         public void DeleteUserByAdmin(string id)
         {
-            throw new NotImplementedException();
+            UsersQueueInstance.Instance.DeleteUserByAdmin(id);
         }
 
         public void SwitchQueueState()
         {
-            throw new NotImplementedException();
+            UsersQueueInstance.SwitchQueueState();
         }
 
         public void UpdateUsersInQueue(string[] userNames)
         {
-            throw new NotImplementedException();
+            UsersQueueInstance.Instance.UpdateQueue(userNames);
         }
 
         public void SendMsg(string msg, string id)
         {
-            throw new NotImplementedException();
+            var user = UsersQueueInstance.Instance.GetUser(id);
+            if (user != null)
+            {
+                user.Client.ShowMessage(msg);
+            }
         }
 
         public void ChangeUserRole(string id, int role)
         {
-            throw new NotImplementedException();
+            var user = UsersQueueInstance.Instance.GetUser(id);
+            user.ChangeRole((Queue.UserInformtion.Role)role);
         }
 
         public bool Ping()
@@ -59,27 +64,40 @@ namespace UsersQueue.Services.AdminAppService
 
         public Queue.Nishtiachki.Nishtiachok[] GetAllNishtiachoks()
         {
-            throw new NotImplementedException();
+            return Nishtiachok.Nishtiachki.ToArray();
         }
 
         public Queue.UserInformtion.QueueUser GetUserInQueueByID(string id)
         {
-            throw new NotImplementedException();
+            return UsersQueueInstance.Instance.GetUser(id);
         }
 
         public Queue.UserInformtion.QueueUser[] GetAllUsersInQueue()
         {
-            throw new NotImplementedException();
+            return UsersQueueInstance.Instance.Queue.ToArray();
         }
 
         public Queue.UserInformtion.UserInfo GetUserInfoByID(string id)
         {
-            throw new NotImplementedException();
+            Queue.UserInformtion.UserInfo info = null;
+
+            using (var context = new AppDbContext())
+            {
+                info = context.UsersInfo.SingleOrDefault<Queue.UserInformtion.UserInfo>((x) => x.UserName == id);
+            }
+
+            return info;
         }
 
         public Queue.UserInformtion.UserInfo[] GetInfoForAllUsers()
         {
-            throw new NotImplementedException();
+            Queue.UserInformtion.UserInfo[] result = null;
+            using (var context = new AppDbContext())
+            {
+                result = (from ui in context.UsersInfo
+                          select ui).ToArray<Queue.UserInformtion.UserInfo>();
+            }
+            return result;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using UsersQueue.Queue.Models;
+using UsersQueue.Model;
 
 namespace UsersQueue.Queue.UserInformtion
 {
