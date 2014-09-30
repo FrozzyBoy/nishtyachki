@@ -8,7 +8,7 @@ using System.Linq;
 namespace UsersQueue.Services.AdminAppService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "AdminAppService" in both code and config file together.
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class AdminAppService : IAdminAppService
     {
         public void AddNishtiak(string id)
@@ -98,6 +98,18 @@ namespace UsersQueue.Services.AdminAppService
                           select ui).ToArray<Queue.UserInformtion.UserInfo>();
             }
             return result;
+        }
+
+        public void Init()
+        {
+            IAdminAppServiceCallback callbacks = OperationContext.Current.GetCallbackChannel<IAdminAppServiceCallback>();
+            Nishtiachok.EventChangeNisht += callbacks.UpdateNishtiachok;
+            UsersQueueInstance.QueueChanged += callbacks.UpdateQueue;
+        }
+
+        public int GetQueueState()
+        {
+            return UsersQueueInstance.Instance.GetCount;        
         }
     }
 }

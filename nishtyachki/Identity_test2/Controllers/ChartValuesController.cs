@@ -8,7 +8,6 @@ using System.Web.Http;
 namespace AdminApp.Controllers
 {    
     [RoutePrefix("api/chartValues")]
-    [System.Web.Mvc.ValidateAntiForgeryToken]
     public class ChartValuesController : ApiController
     {
         private readonly IQueueChannel _channel;

@@ -21,7 +21,7 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public static List<Nishtiachok> Nishtiachki;
 
-        public static event EventHandler EventChangeNisht;
+        public static event Action EventChangeNisht;
         [DataMember]
         public Nishtiachok_State State { get; set; }
 
@@ -48,7 +48,7 @@ namespace UsersQueue.Queue.Nishtiachki
                 {
                     if (EventChangeNisht != null)
                     {
-                        EventChangeNisht(obj, arg);
+                        EventChangeNisht();
                     }
                 }
                 finally

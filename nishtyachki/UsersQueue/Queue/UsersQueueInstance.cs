@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using UsersQueue.Queue.Nishtiachki;
 using UsersQueue.Queue.UserInformtion;
 
 namespace UsersQueue.Queue
 {
-    public enum QueueState
+    [DataContract]
+    public enum QueueState:int
     {
         opened, locked
     }
+
     public class UsersQueueInstance
     {
         private List<QueueUser> _queue = new List<QueueUser>();
         private static UsersQueueInstance _instance;
-        public static event EventHandler QueueChanged;
+        public static event Action QueueChanged;
         static Object LockObj = new Object();
         public QueueState QueueState { get; private set; }
 
@@ -28,7 +31,7 @@ namespace UsersQueue.Queue
             Nishtiachok.EventChangeNisht += UsersQueue_QueueChanged;
         }
 
-        private static void UsersQueue_QueueChanged(object sender, EventArgs e)
+        private static void UsersQueue_QueueChanged()
         {
             AlertQueue();
         }
@@ -48,9 +51,10 @@ namespace UsersQueue.Queue
                 queueChange = new QueueArgs(TypeOfChanges.blocked);
             }
 
-            OnQueueChanged(Instance, queueChange);
+            OnQueueChanged();
 
         }
+        
         public static UsersQueueInstance Instance
         {
             get
@@ -83,7 +87,7 @@ namespace UsersQueue.Queue
                         QueueArgs args = new QueueArgs(TypeOfChanges.add);
                         user.Client.StandInQueue();
                         user.State = UserCurrentState.InQueue;
-                        OnQueueChanged(user, args);
+                        OnQueueChanged();
                         operationResult = true;
                     }
                 }
@@ -146,7 +150,7 @@ namespace UsersQueue.Queue
                 user.State = UserCurrentState.Online;
                 _queue.Remove(user);
                 QueueArgs args = new QueueArgs(TypeOfChanges.delete);
-                OnQueueChanged(user, args);
+                OnQueueChanged();
             }
         }
 
@@ -164,7 +168,7 @@ namespace UsersQueue.Queue
                 }
 
                 QueueArgs args = new QueueArgs(TypeOfChanges.change, needed_role);
-                OnQueueChanged(user, args);
+                OnQueueChanged();
                 UpdateQueue();
 
             }
@@ -210,6 +214,7 @@ namespace UsersQueue.Queue
             nishtiak.ChangeNishtState(Nishtiachok_State.in_using);
             user.State = UserCurrentState.UsingNishtiak;
         }
+
         public void EndUseNishtiak(QueueUser user)
         {
             user.Abort();
@@ -223,6 +228,7 @@ namespace UsersQueue.Queue
             user.State = UserCurrentState.Online;
             Instance.DeleteFromTheQueue(user);
         }
+
         //сортировка,вызываемая при изменении роли пользователя
         static void UpdateQueue()
         {
@@ -242,12 +248,13 @@ namespace UsersQueue.Queue
 
             }
         }
+
         public int GetCount
         {
             get { return _instance.Queue.Count; }
         }
 
-        private static void OnQueueChanged(object obj, QueueArgs args)
+        private static void OnQueueChanged()
         {
             if (!_onqueueChange)
             {
@@ -256,7 +263,7 @@ namespace UsersQueue.Queue
                 {
                     if (QueueChanged != null)
                     {
-                        QueueChanged(obj, args);
+                        QueueChanged();
                     }
                 }
                 finally
@@ -265,7 +272,7 @@ namespace UsersQueue.Queue
                 }
             }
         }
-
+        
         public List<QueueUser> Queue
         {
             get

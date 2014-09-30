@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using UsersQueue.Queue;
 using UsersQueue.Queue.Nishtiachki;
 using UsersQueue.Queue.UserInformtion;
 
@@ -37,6 +38,9 @@ namespace UsersQueue.Services.AdminAppService
         QueueUser GetUserInQueueByID(string id);
         [OperationContract]
         QueueUser[] GetAllUsersInQueue();
+        [OperationContract]
+        int GetQueueState();
+
         #endregion
 
         #region impliments_for_user
@@ -50,7 +54,11 @@ namespace UsersQueue.Services.AdminAppService
         UserInfo[] GetInfoForAllUsers();
         #endregion
 
+        #region service_configs
         [OperationContract]
         bool Ping();
+        [OperationContract(IsInitiating=true)]
+        void Init();
+        #endregion service_configs
     }
 }

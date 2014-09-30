@@ -36,7 +36,6 @@
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAdminAppService_AddNishtiak_InputMessage">
@@ -93,6 +92,12 @@
   <wsdl:message name="IAdminAppService_GetAllUsersInQueue_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllUsersInQueueResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetQueueState_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQueueState" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetQueueState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQueueStateResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_SendMsg_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMsg" />
   </wsdl:message>
@@ -122,6 +127,12 @@
   </wsdl:message>
   <wsdl:message name="IAdminAppService_Ping_OutputMessage">
     <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_Init_InputMessage">
+    <wsdl:part name="parameters" element="tns:Init" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_Init_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InitResponse" />
   </wsdl:message>
   <wsdl:message name="IAdminAppService_UpdateQueue_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:UpdateQueue" />
@@ -166,6 +177,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetAllUsersInQueue" message="tns:IAdminAppService_GetAllUsersInQueue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetAllUsersInQueueResponse" message="tns:IAdminAppService_GetAllUsersInQueue_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetQueueState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetQueueState" message="tns:IAdminAppService_GetQueueState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetQueueStateResponse" message="tns:IAdminAppService_GetQueueState_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SendMsg">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/SendMsg" message="tns:IAdminAppService_SendMsg_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/SendMsgResponse" message="tns:IAdminAppService_SendMsg_OutputMessage" />
@@ -185,6 +200,10 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ping">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/Ping" message="tns:IAdminAppService_Ping_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/PingResponse" message="tns:IAdminAppService_Ping_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Init">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/Init" message="tns:IAdminAppService_Init_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/InitResponse" message="tns:IAdminAppService_Init_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UpdateQueue">
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/UpdateQueue" message="tns:IAdminAppService_UpdateQueue_OutputCallbackMessage" />
@@ -277,6 +296,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetQueueState">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetQueueState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SendMsg">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/SendMsg" style="document" />
       <wsdl:input>
@@ -315,6 +343,15 @@
     </wsdl:operation>
     <wsdl:operation name="Ping">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/Init" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

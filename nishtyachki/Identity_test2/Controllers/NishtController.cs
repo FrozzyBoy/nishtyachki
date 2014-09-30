@@ -6,8 +6,7 @@ using AdminApp.AdminAppService;
 
 namespace AdminApp.Controllers
 {
-    [RoutePrefix("api/nisht")]    
-    [System.Web.Mvc.ValidateAntiForgeryToken]
+    [RoutePrefix("api/nisht")]        
     public class NishtController : ApiController
     {
         private readonly IQueueChannel _channel;

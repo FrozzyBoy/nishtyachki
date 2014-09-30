@@ -6,8 +6,7 @@ using AdminApp.AdminAppService;
 
 namespace AdminApp.Controllers
 {
-    [RoutePrefix("api/UserInfo")]
-    [System.Web.Mvc.ValidateAntiForgeryToken]
+    [RoutePrefix("api/UserInfo")]    
     public class UserInfoValuesController : ApiController
     {
         private readonly IQueueChannel _channel;

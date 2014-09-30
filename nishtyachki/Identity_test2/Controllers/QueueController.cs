@@ -5,8 +5,7 @@ using AdminApp.AdminAppService;
 
 namespace AdminApp.Controllers
 {
-    [RoutePrefix("api/queue")]
-    [System.Web.Mvc.ValidateAntiForgeryToken]
+    [RoutePrefix("api/queue")]    
     public class QueueController : ApiController
     {
         private readonly IQueueChannel _channel;
@@ -19,37 +18,41 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]
-        public List<QueueUser> Get()
+        public object Get()
         {
-            return _channel.GetAllUsersInQueue();
+            return _channel.GetQueueInstance();
         }
-       
-        [HttpDelete]
+                
         [Route("delete/{id}")]
+        [AllowAnonymous]
         public void Delete(string id)
         {
             _channel.DeleteUserByAdmin(id);
         }
 
         [Route("change/{id}/role/{role}")]
+        [AllowAnonymous]
         public void ChangeUserRole(string id, int role)
         {
             _channel.ChangeUserRole(id, role);
         }
 
         [Route("block")]
+        [AllowAnonymous]
         public void SwitchQueueState()
         {
             _channel.SwitchQueueState();
         }
 
         [Route("update/queue")]
+        [AllowAnonymous]
         public void PushQueue(string[] userNames)
         {
             _channel.UpdateUsersInQueue(userNames);
         }
 
         [Route("sendMsg")]
+        [AllowAnonymous]
         public void SendMsg(object[] data)
         {
             string msg = data[0] as string;

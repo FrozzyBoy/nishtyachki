@@ -308,35 +308,6 @@ namespace AdminApp.AdminAppService {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EventArgs", Namespace="http://schemas.datacontract.org/2004/07/System")]
-    [System.SerializableAttribute()]
-    public partial class EventArgs : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AdminAppService.IAdminAppService", CallbackContract=typeof(AdminApp.AdminAppService.IAdminAppServiceCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IAdminAppService {
@@ -395,6 +366,12 @@ namespace AdminApp.AdminAppService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetAllUsersInQueue", ReplyAction="http://tempuri.org/IAdminAppService/GetAllUsersInQueueResponse")]
         System.Threading.Tasks.Task<AdminApp.AdminAppService.QueueUser[]> GetAllUsersInQueueAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetQueueState", ReplyAction="http://tempuri.org/IAdminAppService/GetQueueStateResponse")]
+        int GetQueueState();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetQueueState", ReplyAction="http://tempuri.org/IAdminAppService/GetQueueStateResponse")]
+        System.Threading.Tasks.Task<int> GetQueueStateAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/SendMsg", ReplyAction="http://tempuri.org/IAdminAppService/SendMsgResponse")]
         void SendMsg(string msg, string id);
         
@@ -424,38 +401,22 @@ namespace AdminApp.AdminAppService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Ping", ReplyAction="http://tempuri.org/IAdminAppService/PingResponse")]
         System.Threading.Tasks.Task<bool> PingAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Init", ReplyAction="http://tempuri.org/IAdminAppService/InitResponse")]
+        void Init();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Init", ReplyAction="http://tempuri.org/IAdminAppService/InitResponse")]
+        System.Threading.Tasks.Task InitAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IAdminAppServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdminAppService/UpdateQueue")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.EventArgs))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok_State))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Role))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserCurrentState))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
-        void UpdateQueue(object sender, AdminApp.AdminAppService.EventArgs e);
+        void UpdateQueue();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAdminAppService/UpdateNishtiachok")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.EventArgs))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Nishtiachok_State))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.Role))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserCurrentState))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.QueueUser[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdminApp.AdminAppService.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
-        void UpdateNishtiachok(object sender, AdminApp.AdminAppService.EventArgs e);
+        void UpdateNishtiachok();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -558,6 +519,14 @@ namespace AdminApp.AdminAppService {
             return base.Channel.GetAllUsersInQueueAsync();
         }
         
+        public int GetQueueState() {
+            return base.Channel.GetQueueState();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetQueueStateAsync() {
+            return base.Channel.GetQueueStateAsync();
+        }
+        
         public void SendMsg(string msg, string id) {
             base.Channel.SendMsg(msg, id);
         }
@@ -596,6 +565,14 @@ namespace AdminApp.AdminAppService {
         
         public System.Threading.Tasks.Task<bool> PingAsync() {
             return base.Channel.PingAsync();
+        }
+        
+        public void Init() {
+            base.Channel.Init();
+        }
+        
+        public System.Threading.Tasks.Task InitAsync() {
+            return base.Channel.InitAsync();
         }
     }
 }

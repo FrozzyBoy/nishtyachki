@@ -38,6 +38,7 @@ namespace AdminApp.QueueChannel
         #region queue
         QueueUser GetUserInQueueByID(string id);
         List<QueueUser> GetAllUsersInQueue();
+        object GetQueueInstance();
         #endregion queue
 
         #region user

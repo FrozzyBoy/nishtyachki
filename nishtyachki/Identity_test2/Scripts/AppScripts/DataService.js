@@ -1,29 +1,31 @@
 ﻿myApp.service("DataService", function ($http) {
 
-    if (typeof sol == "undefined") {
+    if (typeof sol == "undefined") {        
         myValueToCountUrlsBecauseIESucs = 0;
         sol = function () {
-            return "?" + ++myValueToCountUrlsBecauseIESucs;
-        }
+            var answer = typeof console == "undefined" ?
+                ("?" + ++myValueToCountUrlsBecauseIESucs) : "";
+            return answer;
+        }        
     }
 
     this.getNisht = function () {
-        var url = urls.getWebApiControll("api/nisht");
-        return $http.get(url + sol());
+        var url = urls.getWebApiControll("api/nisht") + sol();
+        return $http.get(url);
     };
 
     this.update = function (id) {
-        var url = urls.getWebApiControll("api/nisht/add");
-        $http.post(url + "/" + id + sol());
+        var url = urls.getWebApiControll("api/nisht/add") + "/" + id + sol();
+        $http.post(url);
     };
 
     this.delete = function (data) {
-        var url = urls.getWebApiControll("api/nisht/delete");
-        $http.delete(url + "/" + data + sol());
+        var url = urls.getWebApiControll("api/nisht/delete") + "/" + data + sol();
+        $http.delete(url);
     }
 
     this.changeStat = function (data, state) {
-        var url = urls.getWebApiControll("api/nisht/change");
-        $http.delete(url + "/" + data + "/state/" + state + sol());
+        var url = urls.getWebApiControll("api/nisht/change") + "/" + data + "/state/" + state + sol();
+        $http.delete(url);
     }
 });

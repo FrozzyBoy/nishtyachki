@@ -8,7 +8,7 @@ namespace AdminApp.QueueChannel
         public static event Action eventUpdateQueue;
         public static event Action eventUpdateNishtiachok;
 
-        public void UpdateQueue(object sender, AdminApp.AdminAppService.EventArgs e)
+        public void UpdateQueue()
         {
             if(eventUpdateQueue != null)
             {
@@ -16,7 +16,7 @@ namespace AdminApp.QueueChannel
             }
         }
 
-        public void UpdateNishtiachok(object sender, AdminApp.AdminAppService.EventArgs e)
+        public void UpdateNishtiachok()
         {
             if (eventUpdateNishtiachok != null)
             {

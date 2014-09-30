@@ -1158,9 +1158,6 @@
     <None Include="Service References\AdminAppService\AdminAppService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AdminAppService\AdminAppService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\AdminAppService\AdminAppService41.xsd">
       <SubType>Designer</SubType>
     </None>

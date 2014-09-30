@@ -3,33 +3,35 @@
     if (typeof sol == "undefined") {
         myValueToCountUrlsBecauseIESucs = 0;
         sol = function () {
-            return "?" + ++myValueToCountUrlsBecauseIESucs;
+            var answer = typeof console == "undefined" ?
+                ("?" + ++myValueToCountUrlsBecauseIESucs) : "";
+            return answer;
         }
     }
 
     this.getQueue = function () {
-        var url = urls.getWebApiControll("api/queue");
-        return $http.get(url + sol());
+        var url = urls.getWebApiControll("api/queue") + sol();
+        return $http.get(url);
     };
     this.delete = function (data) {
-        var url = urls.getWebApiControll("api/queue/delete") + "/" + data;
-        return $http.delete(url + sol());
+        var url = urls.getWebApiControll("api/queue/delete") + "/" + data + sol();
+        return $http.delete(url);
     }
     this.changeStat = function (data, role) {
-        var url = urls.getWebApiControll("api/queue/change");
-        return $http.delete(url + "/" + data + "/role/" + role + sol());
+        var url = urls.getWebApiControll("api/queue/change") + "/" + data + "/role/" + role + sol();
+        return $http.delete(url);
     }
     this.blockUnblock = function () {
-        var url = urls.getWebApiControll("api/queue/block");
-        return $http.put(url + sol());
+        var url = urls.getWebApiControll("api/queue/block") + sol();
+        return $http.put(url);
     }
     this.updateQueue = function (queue){
-        var url = urls.getWebApiControll("api/queue/update/queue");
-        return $http.post(url + sol(), queue);
+        var url = urls.getWebApiControll("api/queue/update/queue") + sol();
+        return $http.post(url, queue);
     }
     this.sendMessage = function (msg, id) {
-        var url = urls.getWebApiControll("api/queue/sendMsg");
+        var url = urls.getWebApiControll("api/queue/sendMsg") + sol();
         var data = [msg, id];
-        return $http.post(url + sol(), data);
+        return $http.post(url, data);
     }
 });

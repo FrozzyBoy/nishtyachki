@@ -3,7 +3,6 @@
   <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
   <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:element name="AddNishtiak">
     <xs:complexType>
       <xs:sequence>
@@ -113,6 +112,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetQueueState">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQueueStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetQueueStateResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SendMsg">
     <xs:complexType>
       <xs:sequence>
@@ -177,20 +188,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Init">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InitResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UpdateQueue">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="sender" nillable="true" type="xs:anyType" />
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q7:EventArgs" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateNishtiachok">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="sender" nillable="true" type="xs:anyType" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q8:EventArgs" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

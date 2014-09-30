@@ -8,6 +8,7 @@ namespace AdminApp.QueueChannel
     public class QueueProxy : IQueueChannel
     {
         private static object _lockService = new object();
+        private static object _lockCommunicate = new object();
         private static IAdminAppService _service;
 
         private static IAdminAppServiceCallback _callback;
@@ -44,7 +45,7 @@ namespace AdminApp.QueueChannel
                         _callback = new CallBackAdminApp();
                         InstanceContext ic = new InstanceContext(_callback);
                         _service = new AdminAppServiceClient(ic);
-                        _service.Ping();
+                        _service.Init();
                     }
                 }
             }
@@ -57,79 +58,140 @@ namespace AdminApp.QueueChannel
 
         public void AddNishtiak(string id)
         {
-            Service.AddNishtiakAsync(id);
+            lock (_lockCommunicate)
+            {
+                Service.AddNishtiak(id);
+            }
         }
 
         public void DeleteNishtiak(string id)
         {
-            Service.DeleteNishtiakAsync(id);
+            lock (_lockCommunicate)
+            {
+                Service.DeleteNishtiak(id);
+            }
         }
 
         public void ChangeNishtiakState(string id, int state)
         {
-            Service.ChangeNishtiakStateAsync(id, state);
+            lock (_lockCommunicate)
+            {
+                Service.ChangeNishtiakState(id, state);
+            }
         }
 
         public void DeleteUserByAdmin(string id)
         {
-            Service.DeleteUserByAdminAsync(id);
+            lock (_lockCommunicate)
+            {
+                Service.DeleteUserByAdmin(id);
+            }
         }
 
         public void SwitchQueueState()
         {
-            Service.SwitchQueueStateAsync();
+            lock (_lockCommunicate)
+            {
+                Service.SwitchQueueState();
+            }
         }
 
         public void UpdateUsersInQueue(string[] userNames)
         {
-            Service.UpdateUsersInQueueAsync(userNames);
+            lock (_lockCommunicate)
+            {
+                Service.UpdateUsersInQueue(userNames);
+            }
         }
 
         public void SendMsg(string msg, string id)
         {
-            Service.SendMsgAsync(msg, id);
+            lock (_lockCommunicate)
+            {
+                Service.SendMsg(msg, id);
+            }
         }
 
         public void ChangeUserRole(string id, int role)
         {
-            Service.ChangeUserRoleAsync(id, role);
+            lock (_lockCommunicate)
+            {
+                Service.ChangeUserRole(id, role);
+            }
         }
 
         private List<T> ConvertArrayToList<T>(T[] arr)
         {
             List<T> list = new List<T>();
-            list.AddRange(arr);
+            if (arr != null)
+            {
+                list.AddRange(arr);
+            }
             return list;
         }
 
         public List<Nishtiachok> GetAllNishtiaks()
         {
-            var recive = Service.GetAllNishtiachoks();
-            return ConvertArrayToList<Nishtiachok>(recive);
+            lock (_lockCommunicate)
+            {
+                var recive = Service.GetAllNishtiachoks();
+                return ConvertArrayToList<Nishtiachok>(recive);
+            }
         }
 
         public QueueUser GetUserInQueueByID(string id)
         {
-            var data = Service.GetUserInQueueByID(id);
-            return data;
+            lock (_lockCommunicate)
+            {
+                var data = Service.GetUserInQueueByID(id);
+                return data;
+            }
         }
 
         public List<QueueUser> GetAllUsersInQueue()
         {
-            var recive = Service.GetAllUsersInQueue();
-            return ConvertArrayToList<QueueUser>(recive);
+            lock (_lockCommunicate)
+            {
+                var recive = Service.GetAllUsersInQueue();
+                return ConvertArrayToList<QueueUser>(recive);
+            }
         }
 
         public UserInfo GetUserInfoByID(string id)
         {
-            var recive = Service.GetUserInfoByID(id);
-            return recive;
+            lock (_lockCommunicate)
+            {
+                var recive = Service.GetUserInfoByID(id);
+                return recive;
+            }
         }
 
         public List<UserInfo> GetAllUsersInfo()
         {
-            var recive = Service.GetInfoForAllUsers();
-            return ConvertArrayToList<UserInfo>(recive);
+            lock (_lockCommunicate)
+            {
+                var recive = Service.GetInfoForAllUsers();
+                return ConvertArrayToList<UserInfo>(recive);
+            }
+        }
+
+        public int GetQueueState()
+        {
+            int recive = 0;
+            lock (_lockCommunicate)
+            {
+                recive = Service.GetQueueState();
+            }
+            return recive;
+        }
+
+        public object GetQueueInstance()
+        {
+            List<QueueUser> queue = GetAllUsersInQueue();
+            int queueState = GetQueueState();
+            
+            var recive = new { QueueState = queueState, Queue = queue };
+            return recive;
         }
     }
 }
