@@ -21,6 +21,7 @@ namespace AdminApp.Controllers
         [Route("{count}")]
         public object GetGeneral(int count)
         {  
+            /*
             List<UserStats> userStat = new List<UserStats>();
 
             using (var context = new AppDbContext())
@@ -50,11 +51,14 @@ namespace AdminApp.Controllers
             }
 
             return data;
+             */
+            return null;
         }
 
         [Route("user/{userID}")]
         public object GetPersonal(string userID)
         {
+            /*
             UserStats stats = new UserStats(userID);
 
             var names = Enum.GetNames(typeof(AdminApp.Queue.UserCurrentState));
@@ -77,6 +81,8 @@ namespace AdminApp.Controllers
             }
 
             return data;
+             */
+            return null;
         }
     }
 }

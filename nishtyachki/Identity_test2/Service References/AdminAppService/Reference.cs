@@ -15,7 +15,7 @@ namespace AdminApp.AdminAppService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Nishtiachok", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Nishtiachok", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects")]
     [System.SerializableAttribute()]
     public partial class Nishtiachok : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -26,7 +26,7 @@ namespace AdminApp.AdminAppService {
         private string IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private AdminApp.AdminAppService.Nishtiachok_State StateField;
+        private string StateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AdminApp.AdminAppService.QueueUser ownerField;
@@ -54,13 +54,13 @@ namespace AdminApp.AdminAppService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public AdminApp.AdminAppService.Nishtiachok_State State {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string State {
             get {
                 return this.StateField;
             }
             set {
-                if ((this.StateField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
                 }
@@ -92,7 +92,7 @@ namespace AdminApp.AdminAppService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="QueueUser", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="QueueUser", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects")]
     [System.SerializableAttribute()]
     public partial class QueueUser : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -103,13 +103,13 @@ namespace AdminApp.AdminAppService {
         private string IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private AdminApp.AdminAppService.Role RoleField;
+        private System.DateTime PremiumEndDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<System.DateTime> _premiumEndDateField;
+        private string RoleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private AdminApp.AdminAppService.UserCurrentState _stateField;
+        private string StateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -135,40 +135,40 @@ namespace AdminApp.AdminAppService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public AdminApp.AdminAppService.Role Role {
+        public System.DateTime PremiumEndDate {
+            get {
+                return this.PremiumEndDateField;
+            }
+            set {
+                if ((this.PremiumEndDateField.Equals(value) != true)) {
+                    this.PremiumEndDateField = value;
+                    this.RaisePropertyChanged("PremiumEndDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Role {
             get {
                 return this.RoleField;
             }
             set {
-                if ((this.RoleField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.RoleField, value) != true)) {
                     this.RoleField = value;
                     this.RaisePropertyChanged("Role");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> _premiumEndDate {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string State {
             get {
-                return this._premiumEndDateField;
+                return this.StateField;
             }
             set {
-                if ((this._premiumEndDateField.Equals(value) != true)) {
-                    this._premiumEndDateField = value;
-                    this.RaisePropertyChanged("_premiumEndDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public AdminApp.AdminAppService.UserCurrentState _state {
-            get {
-                return this._stateField;
-            }
-            set {
-                if ((this._stateField.Equals(value) != true)) {
-                    this._stateField = value;
-                    this.RaisePropertyChanged("_state");
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                    this.StateField = value;
+                    this.RaisePropertyChanged("State");
                 }
             }
         }
@@ -183,54 +183,6 @@ namespace AdminApp.AdminAppService {
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Nishtiachok_State", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki")]
-    public enum Nishtiachok_State : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        free = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        locked = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        wait_for_user = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        in_using = 3,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Role", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion")]
-    public enum Role : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        standart = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        premium = 1,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserCurrentState", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion")]
-    public enum UserCurrentState : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Offline = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Online = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        InQueue = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        AcceptingOffer = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        UsingNishtiak = 4,
-    }
-    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion")]
@@ -241,10 +193,13 @@ namespace AdminApp.AdminAppService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> PremiumEndDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private AdminApp.AdminAppService.UserCurrentState StateField;
+        private string StateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UserNameField;
@@ -256,6 +211,19 @@ namespace AdminApp.AdminAppService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
             }
         }
         
@@ -272,13 +240,13 @@ namespace AdminApp.AdminAppService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public AdminApp.AdminAppService.UserCurrentState State {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string State {
             get {
                 return this.StateField;
             }
             set {
-                if ((this.StateField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
                 }

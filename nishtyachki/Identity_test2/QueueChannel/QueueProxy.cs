@@ -53,7 +53,6 @@ namespace AdminApp.QueueChannel
 
         public QueueProxy()
         {
-
         }
 
         public void AddNishtiak(string id)

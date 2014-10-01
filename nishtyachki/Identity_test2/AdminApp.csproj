@@ -205,18 +205,12 @@
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserInfoValuesController.cs" />
     <Compile Include="Hubs\NishtiakHub.cs" />
+    <Compile Include="Hubs\Site.cs" />
     <Compile Include="Hubs\UserQueueHub.cs" />
     <Compile Include="Infrastructure\UnityControllerActivator.cs" />
     <Compile Include="Infrastructure\UnityHttpControllerActivator.cs" />
     <Compile Include="Infrastructure\UnityHubActivator.cs" />
     <Compile Include="Models\AppDbContext.cs" />
-    <Compile Include="Models\UserInfo.cs" />
-    <Compile Include="Nishtiachki\ChangeNishtArg.cs" />
-    <Compile Include="Nishtiachki\Nishtiachok.cs" />
-    <Compile Include="Queue\QueueArgs.cs" />
-    <Compile Include="Models\Stats.cs" />
-    <Compile Include="Queue\User.cs" />
-    <Compile Include="Queue\UsersQueue.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -230,7 +224,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\UserStat.cs" />
     <Compile Include="QueueChannel\CallBackAdminApp.cs" />
     <Compile Include="QueueChannel\IQueueChannel.cs" />
     <Compile Include="QueueChannel\QueueProxy.cs" />
@@ -1146,16 +1139,19 @@
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.UserInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.Nishtiachok.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.QueueUser.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.UserInfo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Service References\AdminAppService\AdminAppService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AdminAppService\AdminAppService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AdminAppService\AdminAppService41.xsd">

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Services.TransferObjects;
 
 namespace UsersQueue.Queue.Nishtiachki
 {
-    public enum Nishtiachok_State
+    public enum Nishtiachok_State : int
     {
         free, locked, wait_for_user, in_using
     }
 
-    [DataContract]
     public class Nishtiachok
     {
         static Nishtiachok()
@@ -21,15 +21,24 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public static List<Nishtiachok> Nishtiachki;
 
+        public static List<NishtiakTransferObject> GetAllNishtiakTransferObjects
+        {
+            get
+            {
+                var result = new List<NishtiakTransferObject>();
+                foreach (var item in Nishtiachki)
+                {
+                    result.Add(item.GetNishtiakTransferObject());
+                }
+                return result;
+            }
+        }
+
         public static event Action EventChangeNisht;
-        [DataMember]
         public Nishtiachok_State State { get; set; }
 
-        [DataMember]
         public string ID { get; private set; }
-
-        [DataMember]
-        public QueueUser owner { get; private set; }
+        public QueueUser Owner { get; private set; }
 
         private Nishtiachok(string id)
         {
@@ -38,6 +47,22 @@ namespace UsersQueue.Queue.Nishtiachki
         }
 
         private static bool _onchangeNicht = false;
+
+        public NishtiakTransferObject GetNishtiakTransferObject()
+        {
+            NishtiakTransferObject result = new NishtiakTransferObject();
+
+            result.ID = this.ID;
+            result.owner = null;
+
+            if (this.Owner != null)
+            {
+                result.owner = this.Owner.GetQueueUserTransferObject();
+            }
+            result.State = (int)this.State;
+
+            return result;
+        }
 
         public static void OnChangeNisht(Nishtiachok obj, ChangeNishtArg arg)
         {
@@ -60,16 +85,16 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public void SetOwner(QueueUser owner)
         {
-            if (this.owner != null && owner == null)
+            if (this.Owner != null && owner == null)
             {
-                this.owner.Client.DroppedByServer("nishtiak changed");
+                this.Owner.Client.DroppedByServer("nishtiak changed");
             }
             else
             {
-                this.owner = owner;
+                this.Owner = owner;
                 OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
             }
-            this.owner = owner;
+            this.Owner = owner;
         }
 
         public void ChangeNishtState(Nishtiachok_State state)
@@ -86,9 +111,9 @@ namespace UsersQueue.Queue.Nishtiachki
         {
             return Nishtiachki.Find((m) =>
             {
-                if (m.owner != null)
+                if (m.Owner != null)
                 {
-                    return m.owner.ID == id;
+                    return m.Owner.ID == id;
                 }
                 return false;
             });
@@ -157,7 +182,7 @@ namespace UsersQueue.Queue.Nishtiachki
 
         internal void MakeFree()
         {
-            this.owner = null;
+            this.Owner = null;
             this.State = Nishtiachok_State.free;
             OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
         }

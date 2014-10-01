@@ -66,6 +66,8 @@
     <Compile Include="Services\AdminAppService\AdminAppService.cs" />
     <Compile Include="Services\AdminAppService\IAdminAppService.cs" />
     <Compile Include="Services\AdminAppService\IAdminAppServiceCallback.cs" />
+    <Compile Include="Services\TransferObjects\NishtiakTransferObject.cs" />
+    <Compile Include="Services\TransferObjects\QueueUserTransferObject.cs" />
     <Compile Include="Services\UserAppService\ClientSafalyCommunicate.cs" />
     <Compile Include="Services\UserAppService\IUserAppService.cs" />
     <Compile Include="Services\UserAppService\IUserAppServiceClient.cs" />

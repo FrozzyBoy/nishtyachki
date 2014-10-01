@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using UsersQueue.Queue.Nishtiachki;
 using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Services.TransferObjects;
 
 namespace UsersQueue.Queue
 {
@@ -278,6 +279,21 @@ namespace UsersQueue.Queue
             get
             {
                 return _queue;
+            }
+        }
+
+        public List<QueueUserTransferObject> GetTransferQueueUsers
+        {
+            get
+            {
+                var result = new List<QueueUserTransferObject>();
+
+                foreach (var item in Queue)
+                {
+                    result.Add(item.GetQueueUserTransferObject());
+                }
+
+                return result;
             }
         }
 

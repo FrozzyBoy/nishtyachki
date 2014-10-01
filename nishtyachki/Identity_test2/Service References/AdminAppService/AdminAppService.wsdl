@@ -33,9 +33,10 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAdminAppService_AddNishtiak_InputMessage">

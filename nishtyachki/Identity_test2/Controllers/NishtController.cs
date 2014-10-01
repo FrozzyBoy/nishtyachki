@@ -24,27 +24,34 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]
+        [HttpGet]
         public IEnumerable<Nishtiachok> Get()
         {
             return _channel.GetAllNishtiaks();
         }
 
         [Route("add/{id}")]
-        public void Post(string id)
+        [HttpGet]
+        public IHttpActionResult Post(string id)
         {
             _channel.AddNishtiak(id);
+            return Ok();
         }
 
         [Route("delete/{id}")]
-        public void Delete(string id)
+        [HttpGet]
+        public IHttpActionResult Delete(string id)
         {
             _channel.DeleteNishtiak(id);
+            return Ok();
         }
 
         [Route("change/{id}/state/{state}")]
-        public void ChangeUserRole(string id, int state)
+        [HttpGet]
+        public IHttpActionResult ChangeNishtiakState(string id, int state)
         {
-            _channel.ChangeUserRole(id, state);
+            _channel.ChangeNishtiakState(id, state);
+            return Ok();
         }
     }
 }

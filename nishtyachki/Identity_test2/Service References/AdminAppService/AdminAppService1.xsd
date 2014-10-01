@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
   <xs:complexType name="ArrayOfNishtiachok">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Nishtiachok" nillable="true" type="tns:Nishtiachok" />
@@ -10,18 +11,24 @@
   <xs:complexType name="Nishtiachok">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="State" type="tns:Nishtiachok_State" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="owner" nillable="true" type="q1:QueueUser" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" minOccurs="0" name="State" type="q1:Nishtiachok_State" />
+      <xs:element minOccurs="0" name="owner" nillable="true" type="tns:QueueUser" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Nishtiachok" nillable="true" type="tns:Nishtiachok" />
-  <xs:simpleType name="Nishtiachok_State">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="free" />
-      <xs:enumeration value="locked" />
-      <xs:enumeration value="wait_for_user" />
-      <xs:enumeration value="in_using" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Nishtiachok_State" nillable="true" type="tns:Nishtiachok_State" />
+  <xs:complexType name="QueueUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PremiumEndDate" type="xs:dateTime" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="Role" type="q2:Role" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="State" type="q3:UserCurrentState" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QueueUser" nillable="true" type="tns:QueueUser" />
+  <xs:complexType name="ArrayOfQueueUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QueueUser" nillable="true" type="tns:QueueUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQueueUser" nillable="true" type="tns:ArrayOfQueueUser" />
 </xs:schema>

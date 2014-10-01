@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using UsersQueue.Queue;
+﻿using System.ServiceModel;
 using UsersQueue.Queue.Nishtiachki;
 using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Services.TransferObjects;
 
 namespace UsersQueue.Services.AdminAppService
 {
@@ -24,7 +18,7 @@ namespace UsersQueue.Services.AdminAppService
         [OperationContract]
         void ChangeNishtiakState(string id, int state);
         [OperationContract]
-        Nishtiachok[] GetAllNishtiachoks();
+        NishtiakTransferObject[] GetAllNishtiachoks();
         #endregion
 
         #region impliments_for_queue
@@ -35,9 +29,9 @@ namespace UsersQueue.Services.AdminAppService
         [OperationContract]
         void UpdateUsersInQueue(string[] userNames);
         [OperationContract]
-        QueueUser GetUserInQueueByID(string id);
+        QueueUserTransferObject GetUserInQueueByID(string id);
         [OperationContract]
-        QueueUser[] GetAllUsersInQueue();
+        QueueUserTransferObject[] GetAllUsersInQueue();
         [OperationContract]
         int GetQueueState();
 

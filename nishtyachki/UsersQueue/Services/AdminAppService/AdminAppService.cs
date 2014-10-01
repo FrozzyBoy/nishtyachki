@@ -1,9 +1,10 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using UsersQueue.Queue.Nishtiachki;
 using UsersQueue.Queue;
 using UsersQueue.Model;
 using System.Linq;
+using UsersQueue.Services.TransferObjects;
+using UsersQueue.Queue.UserInformtion;
 
 namespace UsersQueue.Services.AdminAppService
 {
@@ -62,40 +63,41 @@ namespace UsersQueue.Services.AdminAppService
             return true;
         }
 
-        public Queue.Nishtiachki.Nishtiachok[] GetAllNishtiachoks()
+        public NishtiakTransferObject[] GetAllNishtiachoks()
         {
-            return Nishtiachok.Nishtiachki.ToArray();
+            var recive = Nishtiachok.GetAllNishtiakTransferObjects.ToArray();
+            return recive;
         }
 
-        public Queue.UserInformtion.QueueUser GetUserInQueueByID(string id)
+        public QueueUserTransferObject GetUserInQueueByID(string id)
         {
-            return UsersQueueInstance.Instance.GetUser(id);
+            return UsersQueueInstance.Instance.GetUser(id).GetQueueUserTransferObject();
         }
 
-        public Queue.UserInformtion.QueueUser[] GetAllUsersInQueue()
+        public QueueUserTransferObject[] GetAllUsersInQueue()
         {
-            return UsersQueueInstance.Instance.Queue.ToArray();
+            return UsersQueueInstance.Instance.GetTransferQueueUsers.ToArray();
         }
 
-        public Queue.UserInformtion.UserInfo GetUserInfoByID(string id)
+        public UserInfo GetUserInfoByID(string id)
         {
-            Queue.UserInformtion.UserInfo info = null;
+            UserInfo info = null;
 
             using (var context = new AppDbContext())
             {
-                info = context.UsersInfo.SingleOrDefault<Queue.UserInformtion.UserInfo>((x) => x.UserName == id);
+                info = context.UsersInfo.SingleOrDefault<UserInfo>((x) => x.UserName == id);
             }
 
             return info;
         }
 
-        public Queue.UserInformtion.UserInfo[] GetInfoForAllUsers()
+        public UserInfo[] GetInfoForAllUsers()
         {
-            Queue.UserInformtion.UserInfo[] result = null;
+            UserInfo[] result = null;
             using (var context = new AppDbContext())
             {
                 result = (from ui in context.UsersInfo
-                          select ui).ToArray<Queue.UserInformtion.UserInfo>();
+                          select ui).ToArray<UserInfo>();
             }
             return result;
         }
@@ -109,7 +111,7 @@ namespace UsersQueue.Services.AdminAppService
 
         public int GetQueueState()
         {
-            return UsersQueueInstance.Instance.GetCount;        
+            return (int)UsersQueueInstance.Instance.QueueState;        
         }
     }
 }

@@ -18,12 +18,15 @@ namespace AdminApp.Controllers
 
         // GET api/<controller>
         [Route("")]
+        [HttpGet]
         public IEnumerable<UserInfo> Get()
         {
             return _channel.GetAllUsersInfo();
         }
 
         // GET api/<controller>/5
+        [Route("")]
+        [HttpGet]
         public UserInfo Get(string id)
         {
             return _channel.GetUserInfoByID(id);

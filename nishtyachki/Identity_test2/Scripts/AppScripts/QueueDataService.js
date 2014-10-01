@@ -15,23 +15,23 @@
     };
     this.delete = function (data) {
         var url = urls.getWebApiControll("api/queue/delete") + "/" + data + sol();
-        return $http.delete(url);
+        return $http.get(url);
     }
     this.changeStat = function (data, role) {
         var url = urls.getWebApiControll("api/queue/change") + "/" + data + "/role/" + role + sol();
-        return $http.delete(url);
+        return $http.get(url);
     }
     this.blockUnblock = function () {
         var url = urls.getWebApiControll("api/queue/block") + sol();
-        return $http.put(url);
+        return $http.get(url);
     }
     this.updateQueue = function (queue){
         var url = urls.getWebApiControll("api/queue/update/queue") + sol();
-        return $http.post(url, queue);
+        return $http.get(url, queue);
     }
     this.sendMessage = function (msg, id) {
         var url = urls.getWebApiControll("api/queue/sendMsg") + sol();
         var data = [msg, id];
-        return $http.post(url, data);
+        return $http.get(url, data);
     }
 });

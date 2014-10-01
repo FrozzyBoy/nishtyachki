@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using AdminApp.Queue;
 using AdminApp.QueueChannel;
 
 namespace AdminApp.Hubs

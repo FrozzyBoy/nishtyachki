@@ -18,6 +18,7 @@ namespace AdminApp.Controllers
         // GET api/<controller>
         [Route("")]
         [AllowAnonymous]
+        [HttpGet]
         public object Get()
         {
             return _channel.GetQueueInstance();
@@ -25,40 +26,50 @@ namespace AdminApp.Controllers
                 
         [Route("delete/{id}")]
         [AllowAnonymous]
-        public void Delete(string id)
+        [HttpGet]
+        public IHttpActionResult Delete(string id)
         {
             _channel.DeleteUserByAdmin(id);
+            return Ok();
         }
 
         [Route("change/{id}/role/{role}")]
         [AllowAnonymous]
-        public void ChangeUserRole(string id, int role)
+        [HttpGet]
+        public IHttpActionResult ChangeUserRole(string id, int role)
         {
             _channel.ChangeUserRole(id, role);
+            return Ok();
         }
 
         [Route("block")]
         [AllowAnonymous]
-        public void SwitchQueueState()
+        [HttpGet]
+        public IHttpActionResult SwitchQueueState()
         {
             _channel.SwitchQueueState();
+            return Ok();
         }
 
         [Route("update/queue")]
         [AllowAnonymous]
-        public void PushQueue(string[] userNames)
+        [HttpGet]
+        public IHttpActionResult PushQueue(string[] userNames)
         {
             _channel.UpdateUsersInQueue(userNames);
+            return Ok();
         }
 
         [Route("sendMsg")]
         [AllowAnonymous]
-        public void SendMsg(object[] data)
+        [HttpGet]
+        public IHttpActionResult SendMsg(object[] data)
         {
             string msg = data[0] as string;
             string id = data[1] as string;
 
             _channel.SendMsg(msg, id);
+            return Ok();
         }
         
     }

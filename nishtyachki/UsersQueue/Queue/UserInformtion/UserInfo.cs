@@ -10,6 +10,7 @@ namespace UsersQueue.Queue.UserInformtion
     public class UserInfo
     {
         [Key]
+        [DataMember]
         public int ID { get; set; }
         [DataMember]
         public string UserName { get; set; }

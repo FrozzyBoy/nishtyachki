@@ -1,5 +1,5 @@
 ﻿myApp.controller("QueueCtrl", function ($scope, QueueDataService, signalrFctr) {
-    var blockedButton = { Im: urls.getImg("red_button.jpg"), Message: "Qeueu is blocked!" };
+    var blockedButton = { Im: urls.getImg("red_button.jpg"), Message: "Queue is blocked!" };
     var unblockedButton = { Im: urls.getImg("green_button.png"), Message: "Queue is available!" };
 
     $scope.roles = [{ value: 0, name: "standart" },
@@ -59,17 +59,7 @@
         QueueDataService.changeStat(data.ID, role.value)
     }
     $scope.block = function (data) {
-        
-        QueueDataService.blockUnblock();
-
-        if (data._QueueState == 1) {
-            $scope.blockButton = unblockedButton;
-            $scope.queue._QueueState = 0;
-        }
-        else {
-            $scope.blockButton = blockedButton;
-            $scope.queue._QueueState = 1;
-        }
+        QueueDataService.blockUnblock();       
     }
 
     $scope.sendMessage = function (msg, id) {

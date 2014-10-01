@@ -5,28 +5,28 @@ using System.Linq;
 using UsersQueue;
 using System.Runtime.Serialization;
 using UsersQueue.Model;
+using UsersQueue.Services.TransferObjects;
 
 namespace UsersQueue.Queue.UserInformtion
 {
-    public enum Role
+    public enum Role : int
     {
         standart = 0,
         premium = 1
     }
-    public enum UserCurrentState
+
+    public enum UserCurrentState : int
     {
         Offline, Online, InQueue, AcceptingOffer, UsingNishtiak
     }
 
-    [DataContract]
     public class QueueUser
     {
-        [DataMember]
         public string ID { get; private set; }
         public IUserAppServiceClient Client { get; set; }
 
-        [DataMember]
         private UserCurrentState _state;
+
         public UserCurrentState State
         {
             get
@@ -40,7 +40,6 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
-        [DataMember]
         public Role Role
         {
             get
@@ -53,8 +52,8 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
-        [DataMember]
         private DateTime? _premiumEndDate;
+
         public DateTime PremiumEndDate
         {
             get
@@ -212,5 +211,17 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
+
+        public QueueUserTransferObject GetQueueUserTransferObject()
+        {
+            QueueUserTransferObject result = new QueueUserTransferObject();
+
+            result.ID = this.ID;
+            result.PremiumEndDate = this.PremiumEndDate;
+            result.Role = (int)this.Role;
+            result.State = (int)this.State;
+
+            return result;
+        }
     }
 }

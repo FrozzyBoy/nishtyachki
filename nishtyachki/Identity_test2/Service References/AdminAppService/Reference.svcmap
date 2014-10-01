@@ -24,6 +24,7 @@
     <MetadataSource Address="  http://localhost/AdminAppService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="AdminAppService4.xsd" MetadataType="Schema" ID="28edc2e8-f721-49da-a3ee-8b548fa07210" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd5" />
     <MetadataFile FileName="AdminAppService1.xsd" MetadataType="Schema" ID="42c2d75f-79a4-4f51-bb8a-a6fb41a70629" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd2" />
     <MetadataFile FileName="AdminAppService3.xsd" MetadataType="Schema" ID="199b4207-5016-41e2-806b-acfa6a3dae41" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd3" />
     <MetadataFile FileName="AdminAppService2.xsd" MetadataType="Schema" ID="e76a4e6f-01c2-4eee-8c1e-6ae8c5a51628" SourceId="1" SourceUrl="http://localhost/AdminAppService?xsd=xsd0" />

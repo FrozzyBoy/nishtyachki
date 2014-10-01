@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
   <xs:element name="AddNishtiak">
     <xs:complexType>
       <xs:sequence>
@@ -48,7 +48,7 @@
   <xs:element name="GetAllNishtiachoksResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" minOccurs="0" name="GetAllNishtiachoksResult" nillable="true" type="q1:ArrayOfNishtiachok" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetAllNishtiachoksResult" nillable="true" type="q1:ArrayOfNishtiachok" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -96,7 +96,7 @@
   <xs:element name="GetUserInQueueByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetUserInQueueByIDResult" nillable="true" type="q3:QueueUser" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetUserInQueueByIDResult" nillable="true" type="q3:QueueUser" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -108,7 +108,7 @@
   <xs:element name="GetAllUsersInQueueResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetAllUsersInQueueResult" nillable="true" type="q4:ArrayOfQueueUser" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetAllUsersInQueueResult" nillable="true" type="q4:ArrayOfQueueUser" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
