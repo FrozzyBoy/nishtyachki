@@ -16,16 +16,16 @@
 
     this.update = function (id) {
         var url = urls.getWebApiControll("api/nisht/add") + "/" + id + sol();
-        $http.get(url);
+        $http.post(url);
     };
 
     this.delete = function (data) {
         var url = urls.getWebApiControll("api/nisht/delete") + "/" + data + sol();
-        $http.get(url);
+        $http.delete(url);
     }
 
     this.changeStat = function (data, state) {
         var url = urls.getWebApiControll("api/nisht/change") + "/" + data + "/state/" + state + sol();
-        $http.get(url);
+        $http.put(url);
     }
 });

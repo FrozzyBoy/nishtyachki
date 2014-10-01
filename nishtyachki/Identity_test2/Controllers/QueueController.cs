@@ -2,6 +2,7 @@
 using AdminApp.QueueChannel;
 using System.Collections.Generic;
 using AdminApp.AdminAppService;
+using System;
 
 namespace AdminApp.Controllers
 {
@@ -26,7 +27,7 @@ namespace AdminApp.Controllers
                 
         [Route("delete/{id}")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpDelete]
         public IHttpActionResult Delete(string id)
         {
             _channel.DeleteUserByAdmin(id);
@@ -35,7 +36,7 @@ namespace AdminApp.Controllers
 
         [Route("change/{id}/role/{role}")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPut]
         public IHttpActionResult ChangeUserRole(string id, int role)
         {
             _channel.ChangeUserRole(id, role);
@@ -44,7 +45,7 @@ namespace AdminApp.Controllers
 
         [Route("block")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPut]
         public IHttpActionResult SwitchQueueState()
         {
             _channel.SwitchQueueState();
@@ -53,8 +54,8 @@ namespace AdminApp.Controllers
 
         [Route("update/queue")]
         [AllowAnonymous]
-        [HttpGet]
-        public IHttpActionResult PushQueue(string[] userNames)
+        [HttpPut]
+        public IHttpActionResult UpdateUsersQueue(string[] userNames)
         {
             _channel.UpdateUsersInQueue(userNames);
             return Ok();
@@ -62,14 +63,41 @@ namespace AdminApp.Controllers
 
         [Route("sendMsg")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult SendMsg(object[] data)
         {
             string msg = data[0] as string;
             string id = data[1] as string;
 
-            _channel.SendMsg(msg, id);
-            return Ok();
+            IHttpActionResult result = null;
+
+            if (msg == null || id == null)
+            {
+                var msgError = msg == null ? "msg parametr is not valid" : "";
+                var idError = id == null ? "id parametr is not valid" : "";
+
+                var errors = string.Join(" ", msgError, idError);
+
+                result = BadRequest(errors);
+            }
+            else
+            {
+                try
+                {
+                    _channel.SendMsg(msg, id);
+                    result = Ok();
+                }
+                catch (System.ServiceModel.CommunicationException)
+                {
+                    result = InternalServerError();
+                }
+                catch (Exception)
+                {
+                    result = NotFound();
+                }
+            }
+
+            return result;
         }
         
     }

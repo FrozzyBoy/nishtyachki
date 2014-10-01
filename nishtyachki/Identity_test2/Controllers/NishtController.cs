@@ -31,15 +31,15 @@ namespace AdminApp.Controllers
         }
 
         [Route("add/{id}")]
-        [HttpGet]
-        public IHttpActionResult Post(string id)
+        [HttpPost]
+        public IHttpActionResult AddNishtiak(string id)
         {
             _channel.AddNishtiak(id);
             return Ok();
         }
 
         [Route("delete/{id}")]
-        [HttpGet]
+        [HttpDelete]
         public IHttpActionResult Delete(string id)
         {
             _channel.DeleteNishtiak(id);
@@ -47,7 +47,7 @@ namespace AdminApp.Controllers
         }
 
         [Route("change/{id}/state/{state}")]
-        [HttpGet]
+        [HttpPut]
         public IHttpActionResult ChangeNishtiakState(string id, int state)
         {
             _channel.ChangeNishtiakState(id, state);

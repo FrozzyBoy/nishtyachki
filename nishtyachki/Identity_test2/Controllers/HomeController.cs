@@ -5,7 +5,6 @@ using System.Web.Mvc;
 
 namespace AdminApp.Controllers
 {
-    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
     public class HomeController : Controller
     {
         private string BaseUrl
@@ -27,7 +26,6 @@ namespace AdminApp.Controllers
         }
                 
         [Authorize]
-        [OutputCache(NoStore=true, Duration=0, VaryByParam="None")]
         public ActionResult Index()
         {
             ViewBag.Url = BaseUrl;
