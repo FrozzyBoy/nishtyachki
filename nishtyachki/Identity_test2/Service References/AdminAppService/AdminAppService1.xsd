@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfNishtiachok">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Nishtiachok" nillable="true" type="tns:Nishtiachok" />
@@ -11,7 +11,7 @@
   <xs:complexType name="Nishtiachok">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" minOccurs="0" name="State" type="q1:Nishtiachok_State" />
+      <xs:element minOccurs="0" name="State" type="xs:int" />
       <xs:element minOccurs="0" name="owner" nillable="true" type="tns:QueueUser" />
     </xs:sequence>
   </xs:complexType>
@@ -20,8 +20,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PremiumEndDate" type="xs:dateTime" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="Role" type="q2:Role" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="State" type="q3:UserCurrentState" />
+      <xs:element minOccurs="0" name="Role" type="xs:int" />
+      <xs:element minOccurs="0" name="State" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="QueueUser" nillable="true" type="tns:QueueUser" />
@@ -31,4 +31,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfQueueUser" nillable="true" type="tns:ArrayOfQueueUser" />
+  <xs:complexType name="ChartValues">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="labels" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="numbers" nillable="true" type="q2:ArrayOfint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChartValues" nillable="true" type="tns:ChartValues" />
 </xs:schema>

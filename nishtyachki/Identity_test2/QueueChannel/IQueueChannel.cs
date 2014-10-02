@@ -45,6 +45,12 @@ namespace AdminApp.QueueChannel
         UserInfo GetUserInfoByID(string id);
         List<UserInfo> GetAllUsersInfo();
         #endregion user
+
+        #region statistics
+        ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int state);
+        ChartValues GetStatisticsPersonal(string userID);
+        #endregion
+
         #endregion GetActions
     }
 }

@@ -1,32 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Text;
+﻿using System.Web.Mvc;
 
 namespace AdminApp.Controllers
 {
-    public class UserInfoController : Controller
-    {
-        private string BaseUrl
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder("");
-
-                sb.Append(Request.Url.Scheme);
-                sb.Append(System.Uri.SchemeDelimiter);
-                sb.Append(Request.Url.Host);
-                sb.Append(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
-
-                string content = Url.Content("~");
-                sb.Append(content == "" ? "/" : content);
-
-                return sb.ToString();
-            }
-        }
-                
+    public class UserInfoController : MvcControlWithBaseUrl
+    {        
         // GET: /UserInfo/
         public ActionResult Index(string userID)
         {

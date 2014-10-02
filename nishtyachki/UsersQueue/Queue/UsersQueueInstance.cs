@@ -9,7 +9,7 @@ using UsersQueue.Services.TransferObjects;
 namespace UsersQueue.Queue
 {
     [DataContract]
-    public enum QueueState:int
+    public enum QueueState : int
     {
         opened, locked
     }
@@ -55,7 +55,7 @@ namespace UsersQueue.Queue
             OnQueueChanged();
 
         }
-        
+
         public static UsersQueueInstance Instance
         {
             get
@@ -137,14 +137,16 @@ namespace UsersQueue.Queue
         {
             lock (_queue)
             {
+                var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
+
                 switch (user.State)
                 {
                     case UserCurrentState.AcceptingOffer:
-                        Nishtiachok.GetNishtiakByUserId(user.ID).MakeFree();
-                        user.Abort();
-                        break;
                     case UserCurrentState.UsingNishtiak:
-                        Nishtiachok.GetNishtiakByUserId(user.ID).MakeFree();
+                        if (nishtiak != null)
+                        {
+                            nishtiak.MakeFree();
+                        }
                         user.Abort();
                         break;
                 }
@@ -273,7 +275,7 @@ namespace UsersQueue.Queue
                 }
             }
         }
-        
+
         public List<QueueUser> Queue
         {
             get

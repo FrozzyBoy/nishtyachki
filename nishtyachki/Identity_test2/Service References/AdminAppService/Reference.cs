@@ -26,7 +26,7 @@ namespace AdminApp.AdminAppService {
         private string IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StateField;
+        private int StateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private AdminApp.AdminAppService.QueueUser ownerField;
@@ -54,13 +54,13 @@ namespace AdminApp.AdminAppService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string State {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int State {
             get {
                 return this.StateField;
             }
             set {
-                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                if ((this.StateField.Equals(value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
                 }
@@ -106,10 +106,10 @@ namespace AdminApp.AdminAppService {
         private System.DateTime PremiumEndDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RoleField;
+        private int RoleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StateField;
+        private int StateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -147,26 +147,26 @@ namespace AdminApp.AdminAppService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string Role {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Role {
             get {
                 return this.RoleField;
             }
             set {
-                if ((object.ReferenceEquals(this.RoleField, value) != true)) {
+                if ((this.RoleField.Equals(value) != true)) {
                     this.RoleField = value;
                     this.RaisePropertyChanged("Role");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string State {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int State {
             get {
                 return this.StateField;
             }
             set {
-                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                if ((this.StateField.Equals(value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
                 }
@@ -199,7 +199,7 @@ namespace AdminApp.AdminAppService {
         private System.Nullable<System.DateTime> PremiumEndDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StateField;
+        private AdminApp.AdminAppService.UserCurrentState StateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UserNameField;
@@ -240,13 +240,13 @@ namespace AdminApp.AdminAppService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string State {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AdminApp.AdminAppService.UserCurrentState State {
             get {
                 return this.StateField;
             }
             set {
-                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                if ((this.StateField.Equals(value) != true)) {
                     this.StateField = value;
                     this.RaisePropertyChanged("State");
                 }
@@ -269,6 +269,86 @@ namespace AdminApp.AdminAppService {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserCurrentState", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion")]
+    public enum UserCurrentState : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Offline = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Online = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        InQueue = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        AcceptingOffer = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        UsingNishtiak = 4,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ChartValues", Namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects")]
+    [System.SerializableAttribute()]
+    public partial struct ChartValues : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] labelsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int[] numbersField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] labels {
+            get {
+                return this.labelsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.labelsField, value) != true)) {
+                    this.labelsField = value;
+                    this.RaisePropertyChanged("labels");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int[] numbers {
+            get {
+                return this.numbersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numbersField, value) != true)) {
+                    this.numbersField = value;
+                    this.RaisePropertyChanged("numbers");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        void RaisePropertyChanged(string propertyName) {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
@@ -363,6 +443,22 @@ namespace AdminApp.AdminAppService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetInfoForAllUsers", ReplyAction="http://tempuri.org/IAdminAppService/GetInfoForAllUsersResponse")]
         System.Threading.Tasks.Task<AdminApp.AdminAppService.UserInfo[]> GetInfoForAllUsersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetStatisticsPersonal", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsPersonalResponse")]
+        AdminApp.AdminAppService.ChartValues GetStatisticsPersonal(string userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetStatisticsPersonal", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsPersonalResponse")]
+        System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsPersonalAsync(string userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" +
+            "", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" +
+            "Response")]
+        AdminApp.AdminAppService.ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int stat);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" +
+            "", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" +
+            "Response")]
+        System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsGeneralWasMoreThenAthoresInStateAsync(int stat);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Ping", ReplyAction="http://tempuri.org/IAdminAppService/PingResponse")]
         bool Ping();
@@ -525,6 +621,22 @@ namespace AdminApp.AdminAppService {
         
         public System.Threading.Tasks.Task<AdminApp.AdminAppService.UserInfo[]> GetInfoForAllUsersAsync() {
             return base.Channel.GetInfoForAllUsersAsync();
+        }
+        
+        public AdminApp.AdminAppService.ChartValues GetStatisticsPersonal(string userId) {
+            return base.Channel.GetStatisticsPersonal(userId);
+        }
+        
+        public System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsPersonalAsync(string userId) {
+            return base.Channel.GetStatisticsPersonalAsync(userId);
+        }
+        
+        public AdminApp.AdminAppService.ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int stat) {
+            return base.Channel.GetStatisticsGeneralWasMoreThenAthoresInState(stat);
+        }
+        
+        public System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsGeneralWasMoreThenAthoresInStateAsync(int stat) {
+            return base.Channel.GetStatisticsGeneralWasMoreThenAthoresInStateAsync(stat);
         }
         
         public bool Ping() {

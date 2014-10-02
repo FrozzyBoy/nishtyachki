@@ -1,8 +1,6 @@
-﻿using System.Web.Http;
-using AdminApp.QueueChannel;
-using System.Collections.Generic;
-using AdminApp.AdminAppService;
+﻿using AdminApp.QueueChannel;
 using System;
+using System.Web.Http;
 
 namespace AdminApp.Controllers
 {

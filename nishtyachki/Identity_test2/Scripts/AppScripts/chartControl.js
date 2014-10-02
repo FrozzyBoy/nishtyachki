@@ -2,10 +2,10 @@
 
     $scope.data = true;
 
-    $scope.drawtop = function (id) {
+    $scope.drawtop = function (id, state) {
         window.onload = function () {
             var ctx = document.getElementById(id).getContext("2d");
-            chartData.topusers(10).success(function (data) {
+            chartData.topusers(state).success(function (data) {
 
                 var topData = {
                     labels: data.labels,

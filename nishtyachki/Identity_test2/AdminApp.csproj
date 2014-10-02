@@ -200,6 +200,7 @@
     <Compile Include="App_Start\UnityResolver.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChartValuesController.cs" />
+    <Compile Include="Controllers\MvcControlWithBaseUrl.cs" />
     <Compile Include="Controllers\NishtController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
@@ -1148,10 +1149,10 @@
     <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.QueueUser.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.ChartValues.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\AdminAppService\AdminAppService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\AdminAppService\AdminAppService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AdminAppService\AdminAppService41.xsd">

@@ -3,6 +3,7 @@ using System.Web.Http.Dispatcher;
 using Microsoft.Practices.Unity;
 using AdminApp.Infrastructure;
 using AdminApp.QueueChannel;
+using System.Web.Mvc;
 
 namespace AdminApp.App_Start
 {

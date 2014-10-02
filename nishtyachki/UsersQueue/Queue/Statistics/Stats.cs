@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UsersQueue.Queue.UserInformtion;
 
-namespace UsersQueue.Queue.UserInformtion
+namespace UsersQueue.Queue.Statistics
 {
     public class Stats
     {
@@ -11,6 +12,7 @@ namespace UsersQueue.Queue.UserInformtion
         [ForeignKey("UserStateID")]
         public int UserInfoID;
 
+        [MaxLength(100)]
         public string UserName { get; set; }
 
         public UserCurrentState NewState { get; set; }//state changed to

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UsersQueue.Services.UserAppService;
 using System.Linq;
-using UsersQueue;
-using System.Runtime.Serialization;
 using UsersQueue.Model;
 using UsersQueue.Services.TransferObjects;
+using UsersQueue.Queue.Statistics;
 
 namespace UsersQueue.Queue.UserInformtion
 {

@@ -5,10 +5,10 @@
 
 <div ng-app="myApp">
 
-    <h2>Top 10 users</h2>
+    <h2>Top users use</h2>
     <div style="width:45%">
         <div ng-controller="chartControl">
-            <canvas id="canvas" height="450" width="600" ng-init="drawtop('canvas')"></canvas>
+            <canvas id="canvas" height="450" width="600" ng-init="drawtop('canvas', 3)"></canvas>
         </div>
     </div>
 </div>

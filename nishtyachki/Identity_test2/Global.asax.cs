@@ -10,8 +10,6 @@ namespace AdminApp
     {
         protected void Application_Start()
         {
-            //ContainerConfig.Config();
-
             AreaRegistration.RegisterAllAreas();
 
             AreaRegistration.RegisterAllAreas();

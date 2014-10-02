@@ -5,6 +5,7 @@ using UsersQueue.Model;
 using System.Linq;
 using UsersQueue.Services.TransferObjects;
 using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Queue.Statistics;
 
 namespace UsersQueue.Services.AdminAppService
 {
@@ -112,6 +113,19 @@ namespace UsersQueue.Services.AdminAppService
         public int GetQueueState()
         {
             return (int)UsersQueueInstance.Instance.QueueState;        
+        }
+
+        public ChartValues GetStatisticsPersonal(string userId)
+        {
+            var result = StatisticComposer.ChartPersonalStatistic(userId);
+            return result;
+        }
+
+        public ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int stat)
+        {
+            var parseStat = (UserCurrentState)stat;
+            var result = StatisticComposer.GeneralWasMoreThenAthoresInState(parseStat);
+            return result;
         }
     }
 }

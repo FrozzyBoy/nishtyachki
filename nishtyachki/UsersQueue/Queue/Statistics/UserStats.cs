@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using UsersQueue.Model;
+using UsersQueue.Queue.UserInformtion;
 
-namespace UsersQueue.Queue.UserInformtion
+namespace UsersQueue.Queue.Statistics
 {
     public class UserStats
     {
-        [Key]
         public int ID { get; set; }
         public string UserName { get; set; }
         public List<Stats> _stats;
@@ -23,6 +20,11 @@ namespace UsersQueue.Queue.UserInformtion
 
         internal void UpdateInfo(UserCurrentState newState, UserCurrentState oldState)
         {
+            if (newState == oldState)
+            {
+                return;
+            }
+
             var newStat = new Stats();
             newStat.UpdateInfo(newState, oldState);
             newStat.UserName = this.UserName;
@@ -41,7 +43,6 @@ namespace UsersQueue.Queue.UserInformtion
 
         }
 
-        [NotMapped]
         public Stats CurrentState
         {
             get
@@ -51,7 +52,6 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
-        [NotMapped]
         public IList<Stats> StatsForUser
         {
             get
@@ -72,6 +72,18 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
+        public int CountWasInState(UserCurrentState state)
+        {
+            int count = 0;
+
+            var userStats = StatsForUser;
+            foreach (var stat in userStats)
+            {
+                count += ((stat.NewState == state) ? 1 : 0);
+            }
+
+            return count;
+        }
 
         internal static UserStats GetUserStat(string userID)
         {

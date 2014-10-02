@@ -48,10 +48,17 @@ namespace UsersQueue.Services.AdminAppService
         UserInfo[] GetInfoForAllUsers();
         #endregion
 
+        #region impliments_for_chart
+        [OperationContract]
+        ChartValues GetStatisticsPersonal(string userId);
+        [OperationContract]
+        ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int stat);
+        #endregion
+
         #region service_configs
         [OperationContract]
         bool Ping();
-        [OperationContract(IsInitiating=true)]
+        [OperationContract(IsInitiating = true)]
         void Init();
         #endregion service_configs
     }

@@ -192,5 +192,18 @@ namespace AdminApp.QueueChannel
             var recive = new { QueueState = queueState, Queue = queue };
             return recive;
         }
+
+        public ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int state)
+        {
+            var result = Service.GetStatisticsGeneralWasMoreThenAthoresInState(state);
+            return result;
+        }
+
+        public ChartValues GetStatisticsPersonal(string userID)
+        {
+            var result = Service.GetStatisticsPersonal(userID);
+            return result;
+        }
+
     }
 }

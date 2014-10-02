@@ -34,9 +34,8 @@
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.Nishtiachki" />
+      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
-      <xsd:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAdminAppService_AddNishtiak_InputMessage">
@@ -123,6 +122,18 @@
   <wsdl:message name="IAdminAppService_GetInfoForAllUsers_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetInfoForAllUsersResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetStatisticsPersonal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatisticsPersonal" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetStatisticsPersonal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatisticsPersonalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatisticsGeneralWasMoreThenAthoresInState" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatisticsGeneralWasMoreThenAthoresInStateResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_Ping_InputMessage">
     <wsdl:part name="parameters" element="tns:Ping" />
   </wsdl:message>
@@ -197,6 +208,14 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetInfoForAllUsers">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetInfoForAllUsers" message="tns:IAdminAppService_GetInfoForAllUsers_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetInfoForAllUsersResponse" message="tns:IAdminAppService_GetInfoForAllUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetStatisticsPersonal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsPersonal" message="tns:IAdminAppService_GetStatisticsPersonal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsPersonalResponse" message="tns:IAdminAppService_GetStatisticsPersonal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetStatisticsGeneralWasMoreThenAthoresInState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" message="tns:IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInStateResponse" message="tns:IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ping">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/Ping" message="tns:IAdminAppService_Ping_InputMessage" />
@@ -335,6 +354,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetInfoForAllUsers">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetInfoForAllUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatisticsPersonal">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetStatisticsPersonal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatisticsGeneralWasMoreThenAthoresInState">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

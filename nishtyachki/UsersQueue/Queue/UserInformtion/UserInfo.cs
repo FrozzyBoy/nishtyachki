@@ -13,6 +13,7 @@ namespace UsersQueue.Queue.UserInformtion
         [DataMember]
         public int ID { get; set; }
         [DataMember]
+        [MaxLength(100)]
         public string UserName { get; set; }
         [DataMember]
         public UserCurrentState State { get; set; }

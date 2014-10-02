@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" />
-  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost/AdminAppService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" />
   <xs:element name="AddNishtiak">
     <xs:complexType>
@@ -173,6 +173,34 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetInfoForAllUsersResult" nillable="true" type="q6:ArrayOfUserInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatisticsPersonal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatisticsPersonalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsPersonalResult" type="q7:ChartValues" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatisticsGeneralWasMoreThenAthoresInState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="stat" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatisticsGeneralWasMoreThenAthoresInStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsGeneralWasMoreThenAthoresInStateResult" type="q8:ChartValues" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
