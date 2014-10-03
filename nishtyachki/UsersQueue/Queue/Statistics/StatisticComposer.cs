@@ -4,6 +4,7 @@ using UsersQueue.Queue.UserInformtion;
 using System;
 using UsersQueue.Model;
 using System.Linq;
+using UsersQueue.Queue.Nishtiachki;
 
 namespace UsersQueue.Queue.Statistics
 {
@@ -59,7 +60,7 @@ namespace UsersQueue.Queue.Statistics
                 }
 
                 listOfStatistics.Sort(
-                    (x, y) => 
+                    (x, y) =>
                         y.CountWasInState(stat).CompareTo(
                         x.CountWasInState(stat)));
 
@@ -77,6 +78,39 @@ namespace UsersQueue.Queue.Statistics
                 result = new ChartValues() { labels = labels, numbers = count };
             }
 
+            return result;
+        }
+
+        internal static ChartValues GetStatisticsForNishtiak(string nishtiakID)
+        {
+            List<NishtiakTransferObject> all = null;
+
+            using (var context = new AppDbContext())
+            {
+                all = (from n in context.Nishtiaki
+                       where n.ID == nishtiakID && n.owner.ID != ""
+                       orderby n.owner.ID
+                       select n).ToList<NishtiakTransferObject>();
+            }
+
+            List<string> names = new List<string>();
+            List<int> counts = new List<int>();
+
+            string lastName = all[0].owner.ID;
+
+            for (int i = 1; i < all.Count + 1; i++)
+            {
+                int count = 1;
+                while (i < all.Count && all[i].owner.ID == lastName)
+                {
+                    count++;
+                }
+
+                counts.Add(count);
+                names.Add(lastName);
+            }
+
+            ChartValues result = new ChartValues() { labels = names.ToArray(), numbers = counts.ToArray() };
             return result;
         }
     }

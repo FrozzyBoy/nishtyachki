@@ -19,6 +19,8 @@ namespace UsersQueue.Services.AdminAppService
         void ChangeNishtiakState(string id, int state);
         [OperationContract]
         NishtiakTransferObject[] GetAllNishtiachoks();
+        [OperationContract]
+        NishtiakTransferObject GetNishtiakById(string nishtiakId);
         #endregion
 
         #region impliments_for_queue
@@ -53,6 +55,8 @@ namespace UsersQueue.Services.AdminAppService
         ChartValues GetStatisticsPersonal(string userId);
         [OperationContract]
         ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int stat);
+        [OperationContract]
+        ChartValues GetStatisticsForNishtiak(string nishtiakID);
         #endregion
 
         #region service_configs

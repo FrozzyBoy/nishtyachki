@@ -59,4 +59,34 @@
         }
     }
 
+    $scope.drawRadar = function (element, id) {
+        window.onload = function () {
+            var ctx = document.getElementById(element).getContext("2d");
+            chartData.statisticForNishtiak(id).success(function (data) {
+
+                var topData = {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: id + " nishtiak stats",
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: data.numbers
+                        }]
+                };
+
+                window.myRadar = new Chart(ctx).Radar(topData, {
+                    responsive: true
+                });
+
+                $scope.data = true;
+
+            }).error($scope.data = false);
+        }
+    }
+
 });

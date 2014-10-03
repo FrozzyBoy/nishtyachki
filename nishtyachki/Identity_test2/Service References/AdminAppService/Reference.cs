@@ -384,6 +384,12 @@ namespace AdminApp.AdminAppService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetAllNishtiachoks", ReplyAction="http://tempuri.org/IAdminAppService/GetAllNishtiachoksResponse")]
         System.Threading.Tasks.Task<AdminApp.AdminAppService.Nishtiachok[]> GetAllNishtiachoksAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetNishtiakById", ReplyAction="http://tempuri.org/IAdminAppService/GetNishtiakByIdResponse")]
+        AdminApp.AdminAppService.Nishtiachok GetNishtiakById(string nishtiakId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetNishtiakById", ReplyAction="http://tempuri.org/IAdminAppService/GetNishtiakByIdResponse")]
+        System.Threading.Tasks.Task<AdminApp.AdminAppService.Nishtiachok> GetNishtiakByIdAsync(string nishtiakId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/DeleteUserByAdmin", ReplyAction="http://tempuri.org/IAdminAppService/DeleteUserByAdminResponse")]
         void DeleteUserByAdmin(string id);
         
@@ -459,6 +465,12 @@ namespace AdminApp.AdminAppService {
             "", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" +
             "Response")]
         System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsGeneralWasMoreThenAthoresInStateAsync(int stat);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiak", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiakResponse")]
+        AdminApp.AdminAppService.ChartValues GetStatisticsForNishtiak(string nishtiakID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiak", ReplyAction="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiakResponse")]
+        System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsForNishtiakAsync(string nishtiakID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/Ping", ReplyAction="http://tempuri.org/IAdminAppService/PingResponse")]
         bool Ping();
@@ -541,6 +553,14 @@ namespace AdminApp.AdminAppService {
         
         public System.Threading.Tasks.Task<AdminApp.AdminAppService.Nishtiachok[]> GetAllNishtiachoksAsync() {
             return base.Channel.GetAllNishtiachoksAsync();
+        }
+        
+        public AdminApp.AdminAppService.Nishtiachok GetNishtiakById(string nishtiakId) {
+            return base.Channel.GetNishtiakById(nishtiakId);
+        }
+        
+        public System.Threading.Tasks.Task<AdminApp.AdminAppService.Nishtiachok> GetNishtiakByIdAsync(string nishtiakId) {
+            return base.Channel.GetNishtiakByIdAsync(nishtiakId);
         }
         
         public void DeleteUserByAdmin(string id) {
@@ -637,6 +657,14 @@ namespace AdminApp.AdminAppService {
         
         public System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsGeneralWasMoreThenAthoresInStateAsync(int stat) {
             return base.Channel.GetStatisticsGeneralWasMoreThenAthoresInStateAsync(stat);
+        }
+        
+        public AdminApp.AdminAppService.ChartValues GetStatisticsForNishtiak(string nishtiakID) {
+            return base.Channel.GetStatisticsForNishtiak(nishtiakID);
+        }
+        
+        public System.Threading.Tasks.Task<AdminApp.AdminAppService.ChartValues> GetStatisticsForNishtiakAsync(string nishtiakID) {
+            return base.Channel.GetStatisticsForNishtiakAsync(nishtiakID);
         }
         
         public bool Ping() {

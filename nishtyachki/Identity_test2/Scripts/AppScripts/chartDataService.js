@@ -8,4 +8,9 @@
         var url = urls.getWebApiControll("api/chartValues/user/" + id);
         return $http.get(url);
     }
+
+    this.statisticForNishtiak = function (id) {
+        var url = urls.getWebApiControll("api/chartValues/nishtiak/" + id);
+        return $http.get(url);
+    }
 });

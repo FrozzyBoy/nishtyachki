@@ -4,17 +4,17 @@ using System.Web.Mvc;
 
 namespace AdminApp.Controllers
 {
-    public class UserInfoController : MvcControlWithBaseUrl
+    public class StatisticViewController : MvcControlWithBaseUrl
     {
         private readonly IQueueChannel _channel;
 
-        public UserInfoController(IQueueChannel channel)
+        public StatisticViewController(IQueueChannel channel)
         {
             _channel = channel;
         }
 
-        // GET: /UserInfo/
-        public ActionResult Index(int state = 3)
+        // GET: /StatisticView/
+        public ActionResult Index()
         {
             ViewBag.Url = BaseUrl;
             var model = _channel.GetAllUsersInfo();
@@ -27,6 +27,13 @@ namespace AdminApp.Controllers
             UserInfo user = _channel.GetUserInfoByID(userId);
             return View(user);
         }
-        
+
+        public ActionResult NishtiakPage(string nishtiakId)
+        {
+            ViewBag.Url = BaseUrl;
+            Nishtiachok nisht = _channel.GetNishtiakById(nishtiakId);
+            return View(nisht);
+        }
+
 	}
 }

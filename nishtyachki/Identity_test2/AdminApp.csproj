@@ -203,7 +203,7 @@
     <Compile Include="Controllers\MvcControlWithBaseUrl.cs" />
     <Compile Include="Controllers\NishtController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
-    <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\StatisticViewController.cs" />
     <Compile Include="Controllers\UserInfoValuesController.cs" />
     <Compile Include="Hubs\NishtiakHub.cs" />
     <Compile Include="Hubs\Site.cs" />
@@ -1140,7 +1140,7 @@
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.UserInfo.datasource">
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.ChartValues.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.Nishtiachok.datasource">
@@ -1149,21 +1149,14 @@
     <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.QueueUser.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.ChartValues.datasource">
+    <Content Include="Service References\AdminAppService\AdminApp.AdminAppService.UserInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\AdminAppService\AdminAppService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\AdminAppService\AdminAppService41.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\AdminAppService\configuration91.svcinfo" />
     <None Include="Service References\AdminAppService\configuration.svcinfo" />
     <None Include="Service References\AdminAppService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1206,11 +1199,14 @@
     <Content Include="Views\Account\Register.cshtml">
       <BrowseToURL>~/Account/Register</BrowseToURL>
     </Content>
-    <Content Include="Views\UserInfo\Index.cshtml">
-      <BrowseToURL>~/UserInfo/Index</BrowseToURL>
+    <Content Include="Views\StatisticView\Index.cshtml">
+      <BrowseToURL>~/StatisticView/Index</BrowseToURL>
     </Content>
     <Content Include="Views\Home\Index.cshtml">
       <BrowseToURL>~/Home/Index</BrowseToURL>
+    </Content>
+    <Content Include="Views\StatisticView\UserPage.cshtml">
+      <BrowseToURL>~/StatisticView/UserPage</BrowseToURL>
     </Content>
     <None Include="Service References\AdminAppService\AdminAppService.wsdl" />
     <None Include="Service References\AdminAppService\AdminAppService.xsd">
@@ -1222,9 +1218,13 @@
     <None Include="Service References\AdminAppService\AdminAppService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\UserInfo\UserPage.cshtml">
-      <BrowseToURL>~/UserInfo/UserPage</BrowseToURL>
-    </Content>
+    <None Include="Service References\AdminAppService\AdminAppService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AdminAppService\AdminAppService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\StatisticView\NishtiakPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

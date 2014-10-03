@@ -10,7 +10,8 @@ namespace UsersQueue.Queue.Nishtiachki
     {
         add, delete, change,
         blocked,
-        opened
+        opened,
+        create
     }
     public class ChangeNishtArg : EventArgs
     {
@@ -32,6 +33,14 @@ namespace UsersQueue.Queue.Nishtiachki
             get
             {
                 return _state;
+            }
+        }
+
+        public TypeOfChanges TypeOfChange
+        {
+            get
+            {
+                return _typeOfChange;
             }
         }
     }

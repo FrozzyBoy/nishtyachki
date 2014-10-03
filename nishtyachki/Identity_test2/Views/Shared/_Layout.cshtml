@@ -20,7 +20,7 @@
                 </button>
                 @if (Request.IsAuthenticated)
                 {
-                    @Html.ActionLink("Statistics", "Index", "UserInfo", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Statistics", "Index", "StatisticView", null, new { @class = "navbar-brand" })
                 }
                 else
                 {

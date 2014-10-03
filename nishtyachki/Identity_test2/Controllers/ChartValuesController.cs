@@ -25,5 +25,11 @@ namespace AdminApp.Controllers
         {            
             return _channel.GetStatisticsPersonal(userID);
         }
+
+        [Route("nishtiak/{id}")]
+        public object GetNishtiakStatistic(string id)
+        {
+            return _channel.GetStatisticsForNishtiak(id);
+        }
     }
 }

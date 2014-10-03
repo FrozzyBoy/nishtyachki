@@ -13,8 +13,13 @@
                     <br />
                     <img ng-src="{{n.Im}}">
                     <br>
+
+                    statistic <a href="StatisticView/NishtiakPage?nishtiakId={{n.ID}}">content</a>
+
+                    <br />
+
                     <p ng-show="n.owner.ID">
-                        Owner <a ng-href="UserInfo/UserPage?userID={{n.owner.ID}}">{{n.owner.ID}}</a>
+                        Owner <a ng-href="StatisticView/UserPage?userID={{n.owner.ID}}">{{n.owner.ID}}</a>
                         <br />
                         Message:
                         <input id="{{n.owner.ID}}" type="text" ng-model="msg" ng-model-options="{ getterSetter: true }" />
@@ -37,7 +42,7 @@
 
                 <li ng-repeat="q in queue.Queue"
                     ng-data-drag="true">
-                    <a ng-href='UserInfo/UserPage?userID={{q.ID}}'>{{q.ID}}</a>
+                    <a ng-href='StatisticView/UserPage?userID={{q.ID}}'>{{q.ID}}</a>
                     <button ng-click="deleteUser(q)">Delete</button>
                     <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
                     Message:

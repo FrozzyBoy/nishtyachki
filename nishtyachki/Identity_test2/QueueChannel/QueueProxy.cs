@@ -205,5 +205,16 @@ namespace AdminApp.QueueChannel
             return result;
         }
 
+        public Nishtiachok GetNishtiakById(string nishtiakId)
+        {
+            Nishtiachok result = Service.GetNishtiakById(nishtiakId);
+            return result;
+        }
+
+        public ChartValues GetStatisticsForNishtiak(string nishtiakID)
+        {
+            ChartValues result = Service.GetStatisticsForNishtiak(nishtiakID);
+            return result;
+        }
     }
 }

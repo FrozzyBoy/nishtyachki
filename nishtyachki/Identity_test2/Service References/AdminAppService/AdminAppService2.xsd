@@ -50,6 +50,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetNishtiakById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nishtiakId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNishtiakByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetNishtiakByIdResult" nillable="true" type="q2:Nishtiachok" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="DeleteUserByAdmin">
     <xs:complexType>
       <xs:sequence>
@@ -75,7 +89,7 @@
   <xs:element name="UpdateUsersInQueue">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="userNames" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="userNames" nillable="true" type="q3:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -94,7 +108,7 @@
   <xs:element name="GetUserInQueueByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetUserInQueueByIDResult" nillable="true" type="q3:QueueUser" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetUserInQueueByIDResult" nillable="true" type="q4:QueueUser" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -106,7 +120,7 @@
   <xs:element name="GetAllUsersInQueueResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetAllUsersInQueueResult" nillable="true" type="q4:ArrayOfQueueUser" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetAllUsersInQueueResult" nillable="true" type="q5:ArrayOfQueueUser" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -158,7 +172,7 @@
   <xs:element name="GetUserInfoByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetUserInfoByIDResult" nillable="true" type="q5:UserInfo" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetUserInfoByIDResult" nillable="true" type="q6:UserInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -170,7 +184,7 @@
   <xs:element name="GetInfoForAllUsersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetInfoForAllUsersResult" nillable="true" type="q6:ArrayOfUserInfo" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/UsersQueue.Queue.UserInformtion" minOccurs="0" name="GetInfoForAllUsersResult" nillable="true" type="q7:ArrayOfUserInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -184,7 +198,7 @@
   <xs:element name="GetStatisticsPersonalResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsPersonalResult" type="q7:ChartValues" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsPersonalResult" type="q8:ChartValues" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -198,7 +212,21 @@
   <xs:element name="GetStatisticsGeneralWasMoreThenAthoresInStateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsGeneralWasMoreThenAthoresInStateResult" type="q8:ChartValues" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsGeneralWasMoreThenAthoresInStateResult" type="q9:ChartValues" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatisticsForNishtiak">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nishtiakID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatisticsForNishtiakResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/UsersQueue.Services.TransferObjects" minOccurs="0" name="GetStatisticsForNishtiakResult" type="q10:ChartValues" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

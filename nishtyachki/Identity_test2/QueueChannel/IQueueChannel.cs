@@ -33,6 +33,7 @@ namespace AdminApp.QueueChannel
         #region GetActions
         #region nishtiak
         List<Nishtiachok> GetAllNishtiaks();
+        Nishtiachok GetNishtiakById(string nishtiakId);
         #endregion nishtiak
 
         #region queue
@@ -49,8 +50,9 @@ namespace AdminApp.QueueChannel
         #region statistics
         ChartValues GetStatisticsGeneralWasMoreThenAthoresInState(int state);
         ChartValues GetStatisticsPersonal(string userID);
+        ChartValues GetStatisticsForNishtiak(string nishtiakID);
         #endregion
 
-        #endregion GetActions
+        #endregion GetActions        
     }
 }

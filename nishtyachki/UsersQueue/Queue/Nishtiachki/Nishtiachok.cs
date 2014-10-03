@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using UsersQueue.Model;
 using UsersQueue.Queue.UserInformtion;
 using UsersQueue.Services.TransferObjects;
 
@@ -16,10 +17,27 @@ namespace UsersQueue.Queue.Nishtiachki
         static Nishtiachok()
         {
             Nishtiachki = new List<Nishtiachok>();
-            Nishtiachki.Add(new Nishtiachok());
+            AllChanges += SaveToDb;
+        }
+
+        private static object _lockChangeState = new object();
+        private static object _lockSetOwner = new object();
+
+        private static void SaveToDb(Nishtiachok nisht, ChangeNishtArg info)
+        {
+            var addData = nisht.GetNishtiakTransferObject();
+
+            using (var context = new AppDbContext())
+            {
+                addData.ChangeWas = info.TypeOfChange.ToString();
+                context.Nishtiaki.Add(addData);
+                context.SaveChanges();
+            }
+
         }
 
         public static List<Nishtiachok> Nishtiachki;
+        public static event Action<Nishtiachok, ChangeNishtArg> AllChanges;
 
         public static List<NishtiakTransferObject> GetAllNishtiakTransferObjects
         {
@@ -44,6 +62,7 @@ namespace UsersQueue.Queue.Nishtiachki
         {
             this.State = Nishtiachok_State.free;
             this.ID = Guid.NewGuid().ToString();
+            SaveToDb(this, new ChangeNishtArg(TypeOfChanges.create));
         }
 
         private static bool _onchangeNicht = false;
@@ -53,12 +72,23 @@ namespace UsersQueue.Queue.Nishtiachki
             NishtiakTransferObject result = new NishtiakTransferObject();
 
             result.ID = this.ID;
-            result.owner = null;
 
-            if (this.Owner != null)
+            var owner = new QueueUserTransferObject();
+
+            if (this.Owner == null)
             {
-                result.owner = this.Owner.GetQueueUserTransferObject();
+                owner.ID = "";
+                owner.Key = -1;
+                owner.Role = 0;
+                owner.State = 0;
             }
+            else
+            {
+                owner = this.Owner.GetQueueUserTransferObject();
+            }
+
+            result.owner = owner;
+
             result.State = (int)this.State;
 
             return result;
@@ -66,6 +96,11 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public static void OnChangeNisht(Nishtiachok obj, ChangeNishtArg arg)
         {
+            if (AllChanges != null)
+            {
+                AllChanges(obj, arg);
+            }
+
             if (!_onchangeNicht)
             {
                 _onchangeNicht = true;
@@ -85,27 +120,33 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public void SetOwner(QueueUser owner)
         {
-            if (this.Owner != null && owner == null)
+            lock (_lockSetOwner)
             {
-                this.Owner.Client.DroppedByServer("nishtiak changed");
-                MakeFree();
-            }
-            else
-            {
-                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
-                this.Owner = owner;
+                if (this.Owner != null && owner == null)
+                {
+                    this.Owner.Client.DroppedByServer("nishtiak changed and you dropped");
+                    MakeFree();
+                }
+                else
+                {
+                    this.Owner = owner;
+                    OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+                }
             }
         }
 
         public void ChangeNishtState(Nishtiachok_State state)
         {
-            this.State = state;
-
-            if ((int)state < (int)Nishtiachok_State.wait_for_user)
+            lock (_lockChangeState)
             {
-                this.SetOwner(null);
+                this.State = state;
+
+                if ((int)state < (int)Nishtiachok_State.wait_for_user)
+                {
+                    this.SetOwner(null);
+                }
+                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
             }
-            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
         }
 
         public static Nishtiachok GetNishtiakByUserId(string id)

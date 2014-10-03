@@ -62,6 +62,12 @@
   <wsdl:message name="IAdminAppService_GetAllNishtiachoks_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllNishtiachoksResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetNishtiakById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNishtiakById" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetNishtiakById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNishtiakByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_DeleteUserByAdmin_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteUserByAdmin" />
   </wsdl:message>
@@ -134,6 +140,12 @@
   <wsdl:message name="IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStatisticsGeneralWasMoreThenAthoresInStateResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetStatisticsForNishtiak_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatisticsForNishtiak" />
+  </wsdl:message>
+  <wsdl:message name="IAdminAppService_GetStatisticsForNishtiak_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatisticsForNishtiakResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdminAppService_Ping_InputMessage">
     <wsdl:part name="parameters" element="tns:Ping" />
   </wsdl:message>
@@ -168,6 +180,10 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAllNishtiachoks">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetAllNishtiachoks" message="tns:IAdminAppService_GetAllNishtiachoks_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetAllNishtiachoksResponse" message="tns:IAdminAppService_GetAllNishtiachoks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetNishtiakById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetNishtiakById" message="tns:IAdminAppService_GetNishtiakById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetNishtiakByIdResponse" message="tns:IAdminAppService_GetNishtiakById_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="DeleteUserByAdmin">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/DeleteUserByAdmin" message="tns:IAdminAppService_DeleteUserByAdmin_InputMessage" />
@@ -217,6 +233,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" message="tns:IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInStateResponse" message="tns:IAdminAppService_GetStatisticsGeneralWasMoreThenAthoresInState_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetStatisticsForNishtiak">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiak" message="tns:IAdminAppService_GetStatisticsForNishtiak_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiakResponse" message="tns:IAdminAppService_GetStatisticsForNishtiak_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ping">
       <wsdl:input wsaw:Action="http://tempuri.org/IAdminAppService/Ping" message="tns:IAdminAppService_Ping_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAdminAppService/PingResponse" message="tns:IAdminAppService_Ping_OutputMessage" />
@@ -264,6 +284,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllNishtiachoks">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetAllNishtiachoks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNishtiakById">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetNishtiakById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -372,6 +401,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetStatisticsGeneralWasMoreThenAthoresInState">
       <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetStatisticsGeneralWasMoreThenAthoresInState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatisticsForNishtiak">
+      <soap12:operation soapAction="http://tempuri.org/IAdminAppService/GetStatisticsForNishtiak" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

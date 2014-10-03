@@ -10,7 +10,7 @@ using UsersQueue.Queue.Statistics;
 namespace UsersQueue.Services.AdminAppService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "AdminAppService" in both code and config file together.
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class AdminAppService : IAdminAppService
     {
         public void AddNishtiak()
@@ -60,7 +60,7 @@ namespace UsersQueue.Services.AdminAppService
                 var nisht = Nishtiachok.GetNishtiakByUserId(id);
                 if (nisht != null)
                 {
-                    user =  nisht.Owner;
+                    user = nisht.Owner;
                 }
             }
 
@@ -129,7 +129,7 @@ namespace UsersQueue.Services.AdminAppService
 
         public int GetQueueState()
         {
-            return (int)UsersQueueInstance.Instance.QueueState;        
+            return (int)UsersQueueInstance.Instance.QueueState;
         }
 
         public ChartValues GetStatisticsPersonal(string userId)
@@ -142,6 +142,26 @@ namespace UsersQueue.Services.AdminAppService
         {
             var parseStat = (UserCurrentState)stat;
             var result = StatisticComposer.GeneralWasMoreThenAthoresInState(parseStat);
+            return result;
+        }
+
+
+        public NishtiakTransferObject GetNishtiakById(string nishtiakId)
+        {
+            var nisht = Nishtiachok.GetNishtiachokByName(nishtiakId);
+            NishtiakTransferObject result = null;
+            if (nisht != null)
+            {
+                result = nisht.GetNishtiakTransferObject();
+            }
+
+            return result;
+
+        }
+
+        public ChartValues GetStatisticsForNishtiak(string nishtiakID)
+        {
+            ChartValues result = StatisticComposer.GetStatisticsForNishtiak(nishtiakID);
             return result;
         }
     }
