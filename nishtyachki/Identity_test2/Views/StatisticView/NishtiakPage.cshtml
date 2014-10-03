@@ -8,9 +8,9 @@
 
 <div>
     <h4>Nishtiachok</h4>
-	<hr />
+    <hr />
     <dl class="dl-horizontal">
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.ID)
         </dt>
@@ -18,7 +18,7 @@
         <dd>
             @Html.DisplayFor(model => model.ID)
         </dd>
-        
+
         <dt>
             Current owner
         </dt>
@@ -28,16 +28,16 @@
         </dd>
 
     </dl>
-    
+
     <div ng-app="myApp" style="width:45%">
         <div ng-controller="chartControl">
-            <canvas ng-show="data" id="canvas" height="450" width="600" ng-init="drawRadar('canvas', @Model.ID)"></canvas>
+            <canvas ng-show="data" id="canvas" height="450" width="600" ng-init="drawRadar('canvas', '@Model.ID')"></canvas>
         </div>
     </div>
 
 
 </div>
-<p>    
+<p>
     @Html.ActionLink("Back Home Page", "Index", "Home")
 </p>
 @section scripts{

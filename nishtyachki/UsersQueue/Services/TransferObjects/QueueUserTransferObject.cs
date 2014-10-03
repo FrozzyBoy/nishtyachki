@@ -15,12 +15,12 @@ namespace UsersQueue.Services.TransferObjects
         public int Key { get; set; }                
         [DataMember]
         [MaxLength(100)]
-        public string ID;
+        public string ID { get; set; }
         [DataMember]
-        public int State;
+        public int State { get; set; }
         [DataMember]
-        public int Role;
+        public int Role { get; set; }
         [DataMember]
-        public DateTime PremiumEndDate;
+        public DateTime PremiumEndDate { get; set; }
     }
 }

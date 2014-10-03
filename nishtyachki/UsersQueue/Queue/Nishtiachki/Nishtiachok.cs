@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using UsersQueue.Model;
 using UsersQueue.Queue.UserInformtion;
@@ -31,7 +32,16 @@ namespace UsersQueue.Queue.Nishtiachki
             {
                 addData.ChangeWas = info.TypeOfChange.ToString();
                 context.Nishtiaki.Add(addData);
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                }
+                catch(Exception e)
+                { 
+                }
             }
 
         }
@@ -81,6 +91,7 @@ namespace UsersQueue.Queue.Nishtiachki
                 owner.Key = -1;
                 owner.Role = 0;
                 owner.State = 0;
+                owner.PremiumEndDate = QueueUser.DefaultPremiumEndDate;
             }
             else
             {

@@ -59,7 +59,7 @@ namespace UsersQueue.Queue.UserInformtion
             {
                 if (_premiumEndDate == null)
                 {
-                    _premiumEndDate = new DateTime(2000, 1, 1, 1, 1, 1, 1);//если нет премиума, то он кончается в 2000-ом году
+                    _premiumEndDate = DefaultPremiumEndDate;
                 }
                 return (DateTime)_premiumEndDate;
             }
@@ -221,6 +221,14 @@ namespace UsersQueue.Queue.UserInformtion
             result.State = (int)this.State;
 
             return result;
+        }
+
+        public static DateTime DefaultPremiumEndDate
+        {
+            get
+            {
+                return new DateTime(2000, 1, 1, 1, 1, 1, 1);//если нет премиума, то он кончается в 2000-ом году
+            }
         }
     }
 }

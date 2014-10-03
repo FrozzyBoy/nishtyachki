@@ -1,10 +1,9 @@
-﻿using UsersQueue.Services.TransferObjects;
+﻿using System;
 using System.Collections.Generic;
-using UsersQueue.Queue.UserInformtion;
-using System;
-using UsersQueue.Model;
 using System.Linq;
-using UsersQueue.Queue.Nishtiachki;
+using UsersQueue.Model;
+using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Services.TransferObjects;
 
 namespace UsersQueue.Queue.Statistics
 {
@@ -87,27 +86,37 @@ namespace UsersQueue.Queue.Statistics
 
             using (var context = new AppDbContext())
             {
-                all = (from n in context.Nishtiaki
-                       where n.ID == nishtiakID && n.owner.ID != ""
+                var nishtiaki = context.Nishtiaki.AsEnumerable<NishtiakTransferObject>();
+                var ask = (from n in nishtiaki
+                       where n.ID == nishtiakID && n.owner != null && n.owner.ID != ""
                        orderby n.owner.ID
-                       select n).ToList<NishtiakTransferObject>();
+                       select n);
+                all = ask.ToList<NishtiakTransferObject>();
             }
 
             List<string> names = new List<string>();
             List<int> counts = new List<int>();
 
-            string lastName = all[0].owner.ID;
-
-            for (int i = 1; i < all.Count + 1; i++)
+            if (all.Count > 0)
             {
-                int count = 1;
-                while (i < all.Count && all[i].owner.ID == lastName)
-                {
-                    count++;
-                }
+                string lastName = all[0].owner.ID;
 
-                counts.Add(count);
-                names.Add(lastName);
+                for (int i = 1; i < all.Count + 1; i++)
+                {
+                    int count = 1;
+                    while (i < all.Count && all[i].owner.ID == lastName)
+                    {
+                        count++;
+                    }
+
+                    counts.Add(count);
+                    names.Add(lastName);
+                }
+            }
+            else
+            {
+                counts.Add(0);
+                names.Add("no one");
             }
 
             ChartValues result = new ChartValues() { labels = names.ToArray(), numbers = counts.ToArray() };
