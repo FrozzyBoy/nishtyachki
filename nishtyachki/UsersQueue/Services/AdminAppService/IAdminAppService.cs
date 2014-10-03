@@ -12,7 +12,7 @@ namespace UsersQueue.Services.AdminAppService
     {
         #region impliments_for_nishtiak
         [OperationContract]
-        void AddNishtiak(string id);
+        void AddNishtiak();
         [OperationContract]
         void DeleteNishtiak(string id);
         [OperationContract]

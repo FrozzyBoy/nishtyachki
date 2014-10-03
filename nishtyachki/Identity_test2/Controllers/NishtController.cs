@@ -27,14 +27,15 @@ namespace AdminApp.Controllers
         [HttpGet]
         public IEnumerable<Nishtiachok> Get()
         {
-            return _channel.GetAllNishtiaks();
+            var result = _channel.GetAllNishtiaks();
+            return result;
         }
 
-        [Route("add/{id}")]
+        [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddNishtiak(string id)
+        public IHttpActionResult AddNishtiak()
         {
-            _channel.AddNishtiak(id);
+            _channel.AddNishtiak();
             return Ok();
         }
 

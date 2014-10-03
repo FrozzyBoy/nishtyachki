@@ -1206,9 +1206,6 @@
     <Content Include="Views\Account\Register.cshtml">
       <BrowseToURL>~/Account/Register</BrowseToURL>
     </Content>
-    <Content Include="Views\Chart\Index.cshtml">
-      <BrowseToURL>~/Chart/Index</BrowseToURL>
-    </Content>
     <Content Include="Views\UserInfo\Index.cshtml">
       <BrowseToURL>~/UserInfo/Index</BrowseToURL>
     </Content>
@@ -1225,6 +1222,9 @@
     <None Include="Service References\AdminAppService\AdminAppService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\UserInfo\UserPage.cshtml">
+      <BrowseToURL>~/UserInfo/UserPage</BrowseToURL>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

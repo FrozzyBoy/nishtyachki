@@ -63,10 +63,14 @@
     }
 
     $scope.sendMessage = function (msg, id) {
+
+        this.elementId = id;
+        var that = this;
+
         QueueDataService.sendMessage(msg, id).success(function (data, status) {
-           //очистить поле с сообщением и вывести что все хорошо 
+            document.getElementById(that.elementId).value = "";
         }).error(function (data, status) {
-           //напсать что все плохо
+            //print error
         });
     }
 

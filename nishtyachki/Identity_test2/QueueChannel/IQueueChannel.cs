@@ -12,7 +12,7 @@ namespace AdminApp.QueueChannel
         #region PutActions
 
         #region nishtiak
-        void AddNishtiak(string id);
+        void AddNishtiak();
         void DeleteNishtiak(string id);
         void ChangeNishtiakState(string id, int state);
         #endregion nishtiak

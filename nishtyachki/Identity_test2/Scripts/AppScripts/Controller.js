@@ -25,10 +25,8 @@
     getData();
 
     $scope.addNisht = function () {
-        $scope.nisht.push({ID: $scope.count, State: $scope.states[0].name });
         $scope.myState.push($scope.states[0]);
-        DataService.update($scope.count);
-        $scope.count = (parseInt($scope.count) + 1).toString();
+        DataService.addNisht();
     }
     
     $scope.deleteNisht = function (data) {

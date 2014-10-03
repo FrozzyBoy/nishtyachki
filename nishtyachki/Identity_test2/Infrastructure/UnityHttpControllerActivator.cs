@@ -18,7 +18,14 @@ namespace AdminApp.Infrastructure
 
         public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor, Type controllerType)
         {
-            return (IHttpController)_container.Resolve(controllerType);
+            IHttpController result = null;
+
+            if (controllerType != null)
+            {
+                result = _container.Resolve(controllerType) as IHttpController;
+            }
+
+            return result;
         }
     }
 }

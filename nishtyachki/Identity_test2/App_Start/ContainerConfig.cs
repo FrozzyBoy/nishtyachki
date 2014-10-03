@@ -15,8 +15,8 @@ namespace AdminApp.App_Start
             MapTypes(container);
 
             // Set resolver to MVC.
-            //var controllerActivator = new UnityControllerActivator(container);
-            //ControllerBuilder.Current.SetControllerFactory(new DefaultControllerFactory(controllerActivator));
+            var controllerActivator = new UnityControllerActivator(container);
+            ControllerBuilder.Current.SetControllerFactory(new DefaultControllerFactory(controllerActivator));
 
             // Set resolver to WebApi.
             var httpControllerActivator = new UnityHttpControllerActivator(container);

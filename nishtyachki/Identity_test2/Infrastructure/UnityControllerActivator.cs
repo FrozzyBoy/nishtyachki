@@ -17,7 +17,14 @@ namespace AdminApp.Infrastructure
 
         public IController Create(RequestContext requestContext, Type controllerType)
         {
-            return (IController)_container.Resolve(controllerType);
+            IController result = null;
+
+            if (controllerType != null)
+            {
+                result = _container.Resolve(controllerType) as IController;
+            }
+
+            return result;
         }
     }
 }

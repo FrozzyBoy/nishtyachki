@@ -361,10 +361,10 @@ namespace AdminApp.AdminAppService {
     public interface IAdminAppService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/AddNishtiak", ReplyAction="http://tempuri.org/IAdminAppService/AddNishtiakResponse")]
-        void AddNishtiak(string id);
+        void AddNishtiak();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/AddNishtiak", ReplyAction="http://tempuri.org/IAdminAppService/AddNishtiakResponse")]
-        System.Threading.Tasks.Task AddNishtiakAsync(string id);
+        System.Threading.Tasks.Task AddNishtiakAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdminAppService/DeleteNishtiak", ReplyAction="http://tempuri.org/IAdminAppService/DeleteNishtiakResponse")]
         void DeleteNishtiak(string id);
@@ -511,12 +511,12 @@ namespace AdminApp.AdminAppService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void AddNishtiak(string id) {
-            base.Channel.AddNishtiak(id);
+        public void AddNishtiak() {
+            base.Channel.AddNishtiak();
         }
         
-        public System.Threading.Tasks.Task AddNishtiakAsync(string id) {
-            return base.Channel.AddNishtiakAsync(id);
+        public System.Threading.Tasks.Task AddNishtiakAsync() {
+            return base.Channel.AddNishtiakAsync();
         }
         
         public void DeleteNishtiak(string id) {

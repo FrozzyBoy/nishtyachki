@@ -14,8 +14,8 @@
         return $http.get(url);
     };
 
-    this.update = function (id) {
-        var url = urls.getWebApiControll("api/nisht/add") + "/" + id + sol();
+    this.addNisht = function () {
+        var url = urls.getWebApiControll("api/nisht/add") + sol();
         $http.post(url);
     };
 

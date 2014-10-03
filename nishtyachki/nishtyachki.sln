@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinServiceHostUsersQueue", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersQueue", "UsersQueue\UsersQueue.csproj", "{6391C612-52A3-41F4-B2D2-5B7EA171D444}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImitateUserApp", "ImitateUserApp\ImitateUserApp.csproj", "{2C0F8CF9-C2D1-4EF2-9762-9A465E9990B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{6391C612-52A3-41F4-B2D2-5B7EA171D444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6391C612-52A3-41F4-B2D2-5B7EA171D444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6391C612-52A3-41F4-B2D2-5B7EA171D444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0F8CF9-C2D1-4EF2-9762-9A465E9990B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0F8CF9-C2D1-4EF2-9762-9A465E9990B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0F8CF9-C2D1-4EF2-9762-9A465E9990B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0F8CF9-C2D1-4EF2-9762-9A465E9990B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

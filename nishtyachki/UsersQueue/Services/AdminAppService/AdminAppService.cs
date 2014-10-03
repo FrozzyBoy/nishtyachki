@@ -13,9 +13,9 @@ namespace UsersQueue.Services.AdminAppService
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class AdminAppService : IAdminAppService
     {
-        public void AddNishtiak(string id)
+        public void AddNishtiak()
         {
-            Nishtiachok.AddNistiachokByAdmin(id);
+            Nishtiachok.AddNistiachokByAdmin();
         }
 
         public void DeleteNishtiak(string id)
@@ -25,8 +25,15 @@ namespace UsersQueue.Services.AdminAppService
 
         public void ChangeNishtiakState(string id, int state)
         {
-            var nishtiak = Nishtiachok.GetNishtiachokByNamme(id);
-            nishtiak.ChangeNishtState((Nishtiachok_State)state);
+            if (state > (int)Nishtiachok_State.locked)
+            {
+                state = (int)Nishtiachok_State.locked;
+            }
+
+            var changeTo = (Nishtiachok_State)state;
+
+            var nishtiak = Nishtiachok.GetNishtiachokByName(id);
+            nishtiak.ChangeNishtState(changeTo);
         }
 
         public void DeleteUserByAdmin(string id)
@@ -47,6 +54,16 @@ namespace UsersQueue.Services.AdminAppService
         public void SendMsg(string msg, string id)
         {
             var user = UsersQueueInstance.Instance.GetUser(id);
+
+            if (user == null)
+            {
+                var nisht = Nishtiachok.GetNishtiakByUserId(id);
+                if (nisht != null)
+                {
+                    user =  nisht.Owner;
+                }
+            }
+
             if (user != null)
             {
                 user.Client.ShowMessage(msg);

@@ -11,8 +11,21 @@ namespace UsersQueue.Queue.Statistics
     {
         public static ChartValues ChartPersonalStatistic(string userId)
         {
-            string[] lbls = Enum.GetNames(typeof(UserCurrentState));
-            int[] nums = new int[lbls.Length];
+            List<string> lbls = new List<string>();
+
+            string[] collection = Enum.GetNames(typeof(UserCurrentState));
+
+            foreach (var item in collection)
+            {
+                lbls.Add(item);
+            }
+
+            List<int> nums = new List<int>(lbls.Count);
+
+            for (int i = 0; i < lbls.Count; i++)
+            {
+                nums.Add(0);
+            }
 
             var info = UserStats.GetUserStat(userId).StatsForUser;
 
@@ -21,7 +34,10 @@ namespace UsersQueue.Queue.Statistics
                 nums[(int)item.NewState]++;
             }
 
-            ChartValues result = new ChartValues() { labels = lbls, numbers = nums };
+            lbls.RemoveRange(0, 2);
+            nums.RemoveRange(0, 2);
+
+            ChartValues result = new ChartValues() { labels = lbls.ToArray(), numbers = nums.ToArray() };
             return result;
         }
 
@@ -44,8 +60,8 @@ namespace UsersQueue.Queue.Statistics
 
                 listOfStatistics.Sort(
                     (x, y) => 
-                        x.CountWasInState(stat).CompareTo(
-                        y.CountWasInState(stat)));
+                        y.CountWasInState(stat).CompareTo(
+                        x.CountWasInState(stat)));
 
                 int length = listOfStatistics.Count;
 

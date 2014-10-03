@@ -1,6 +1,7 @@
 ﻿myApp.controller("chartControl", function ($scope, chartData) {
 
     $scope.data = true;
+    $scope.noDataMsg = "";
 
     $scope.drawtop = function (id, state) {
         window.onload = function () {
@@ -22,6 +23,9 @@
                 window.myBar = new Chart(ctx).Bar(topData, {
                     responsive: true
                 });
+
+                $scope.data = true;
+
             }).error($scope.data = false);
             
         }
@@ -46,11 +50,13 @@
 
                 window.myBar = new Chart(ctx).Bar(topData, {
                     responsive: true
-                }).error($scope.data = false);
-            })
+                });
+
+                $scope.data = true;
+
+            }).error($scope.data = false);
 
         }
     }
-
 
 });

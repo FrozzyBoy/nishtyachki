@@ -55,11 +55,11 @@ namespace AdminApp.QueueChannel
         {
         }
 
-        public void AddNishtiak(string id)
+        public void AddNishtiak()
         {
             lock (_lockCommunicate)
             {
-                Service.AddNishtiak(id);
+                Service.AddNishtiak();
             }
         }
 

@@ -16,7 +16,7 @@ namespace UsersQueue.Queue.Nishtiachki
         static Nishtiachok()
         {
             Nishtiachki = new List<Nishtiachok>();
-            Nishtiachki.Add(new Nishtiachok("1"));
+            Nishtiachki.Add(new Nishtiachok());
         }
 
         public static List<Nishtiachok> Nishtiachki;
@@ -40,10 +40,10 @@ namespace UsersQueue.Queue.Nishtiachki
         public string ID { get; private set; }
         public QueueUser Owner { get; private set; }
 
-        private Nishtiachok(string id)
+        private Nishtiachok()
         {
             this.State = Nishtiachok_State.free;
-            this.ID = id;
+            this.ID = Guid.NewGuid().ToString();
         }
 
         private static bool _onchangeNicht = false;
@@ -88,22 +88,23 @@ namespace UsersQueue.Queue.Nishtiachki
             if (this.Owner != null && owner == null)
             {
                 this.Owner.Client.DroppedByServer("nishtiak changed");
+                MakeFree();
             }
             else
             {
-                this.Owner = owner;
                 OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+                this.Owner = owner;
             }
-            this.Owner = owner;
         }
 
         public void ChangeNishtState(Nishtiachok_State state)
         {
+            this.State = state;
+
             if ((int)state < (int)Nishtiachok_State.wait_for_user)
             {
                 this.SetOwner(null);
             }
-            this.State = state;
             OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
         }
 
@@ -119,7 +120,7 @@ namespace UsersQueue.Queue.Nishtiachki
             });
         }
 
-        public static Nishtiachok GetNishtiachokByNamme(string id)
+        public static Nishtiachok GetNishtiachokByName(string id)
         {
             return Nishtiachki.Find(m => m.ID == id);
         }
@@ -129,9 +130,9 @@ namespace UsersQueue.Queue.Nishtiachki
             return Nishtiachki.Find(m => m.State == Nishtiachok_State.free);
         }
 
-        public static void AddNistiachokByAdmin(string id)
+        public static void AddNistiachokByAdmin()
         {
-            Nishtiachok obj = new Nishtiachok(id);
+            Nishtiachok obj = new Nishtiachok();
             Nishtiachki.Add(obj);
             ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.add);
             OnChangeNisht(obj, args);
@@ -139,26 +140,30 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public static void DeleteNishtiachok(string id)
         {
-            Nishtiachok obj = new Nishtiachok(id);
-            Nishtiachki.Remove(obj);
-            ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
-            OnChangeNisht(obj, args);
+            var obj = GetNishtiachokByName(id);
+
+            if (obj != null)
+            {
+                Nishtiachki.Remove(obj);
+                ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
+                OnChangeNisht(obj, args);
+            }
+            else
+            {
+                throw new ArgumentNullException("нет ништяка, который надо удалить");
+            }
         }
 
         public static void LockNishtiachok(string id)
         {
+            var n = GetNishtiachokByName(id);
 
-            foreach (Nishtiachok n in Nishtiachki)
+            if (n != null && n.ID == id)
             {
-                if (n.ID == id)
-                {
-                    n.State = Nishtiachok_State.locked;
-                    ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.change);
-                    OnChangeNisht(n, args);
-                    break;
-                }
+                n.State = Nishtiachok_State.locked;
+                ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.change);
+                OnChangeNisht(n, args);
             }
-
         }
 
         public override bool Equals(Object obj)
