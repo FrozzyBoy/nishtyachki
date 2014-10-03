@@ -11,7 +11,9 @@ namespace UsersQueue.Queue.Nishtiachki
         add, delete, change,
         blocked,
         opened,
-        create
+        create,
+        get_owner,
+        change_state
     }
     public class ChangeNishtArg : EventArgs
     {

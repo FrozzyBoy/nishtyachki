@@ -32,16 +32,7 @@ namespace UsersQueue.Queue.Nishtiachki
             {
                 addData.ChangeWas = info.TypeOfChange.ToString();
                 context.Nishtiaki.Add(addData);
-                try
-                {
-                    context.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                }
-                catch(Exception e)
-                { 
-                }
+                context.SaveChanges();
             }
 
         }
@@ -141,7 +132,7 @@ namespace UsersQueue.Queue.Nishtiachki
                 else
                 {
                     this.Owner = owner;
-                    OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+                    OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.get_owner));
                 }
             }
         }
@@ -156,7 +147,7 @@ namespace UsersQueue.Queue.Nishtiachki
                 {
                     this.SetOwner(null);
                 }
-                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change_state));
             }
         }
 
@@ -213,7 +204,7 @@ namespace UsersQueue.Queue.Nishtiachki
             if (n != null && n.ID == id)
             {
                 n.State = Nishtiachok_State.locked;
-                ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.change);
+                ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.blocked);
                 OnChangeNisht(n, args);
             }
         }
@@ -241,7 +232,7 @@ namespace UsersQueue.Queue.Nishtiachki
         {
             this.Owner = null;
             this.State = Nishtiachok_State.free;
-            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.change));
+            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.opened));
         }
     }
 }

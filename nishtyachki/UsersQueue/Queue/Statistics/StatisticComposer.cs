@@ -88,9 +88,9 @@ namespace UsersQueue.Queue.Statistics
             {
                 var nishtiaki = context.Nishtiaki.AsEnumerable<NishtiakTransferObject>();
                 var ask = (from n in nishtiaki
-                       where n.ID == nishtiakID && n.owner != null && n.owner.ID != ""
-                       orderby n.owner.ID
-                       select n);
+                           where n.ID == nishtiakID
+                           orderby n.ChangeWas
+                           select n);
                 all = ask.ToList<NishtiakTransferObject>();
             }
 
@@ -99,13 +99,16 @@ namespace UsersQueue.Queue.Statistics
 
             if (all.Count > 0)
             {
-                string lastName = all[0].owner.ID;
+                string lastName;
 
                 for (int i = 1; i < all.Count + 1; i++)
                 {
+                    lastName = all[i - 1].ChangeWas;
+
                     int count = 1;
-                    while (i < all.Count && all[i].owner.ID == lastName)
+                    while (i < all.Count && all[i].ChangeWas == lastName)
                     {
+                        i++;
                         count++;
                     }
 
@@ -121,6 +124,8 @@ namespace UsersQueue.Queue.Statistics
 
             ChartValues result = new ChartValues() { labels = names.ToArray(), numbers = counts.ToArray() };
             return result;
+
+
         }
     }
 }
