@@ -78,6 +78,7 @@ namespace UsersQueue.Queue.Statistics
             }
 
             return result;
+
         }
 
         internal static ChartValues GetStatisticsForNishtiak(string nishtiakID)
