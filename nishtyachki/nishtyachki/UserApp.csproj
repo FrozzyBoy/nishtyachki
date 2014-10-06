@@ -69,6 +69,7 @@
     <Compile Include="Logic\Repository.cs" />
     <Compile Include="Logic\TreyIcon.cs" />
     <Compile Include="Logic\TreyPos.cs" />
+    <Compile Include="Logic\Win32.cs" />
     <Compile Include="NotifyWindow.xaml.cs">
       <DependentUpon>NotifyWindow.xaml</DependentUpon>
     </Compile>

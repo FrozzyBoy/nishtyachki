@@ -17,5 +17,6 @@ namespace nishtyachki.Logic.Infrastructure
         void StopUse();
         void DroppedByServer(string text);
         void ShowPosition(int position);
+        void Restart(bool flag);
     }
 }

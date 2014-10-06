@@ -55,23 +55,18 @@ namespace nishtyachki
         }
 
         private void currentApp_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            //throw new NotImplementedException();
-            //e.Handled = true;
-            //e.Exception;
+        {           
             _log.Error("unhadled exception", e.Exception);
             ShowMessage(e.Exception.Message);
             e.Handled = true;
         }
 
-        private void Restart(bool isRestart)
+        public void Restart(bool isRestart)
         {
             _treyIcon.IsVicible = false;
             
             this.btnEnqueue.Content = AllStrings.BtnTextInit;
             btnEnqueue.IsEnabled = false;
-
-            _notifyToUse.Restart();
 
             if (isRestart)
             {
@@ -122,7 +117,6 @@ namespace nishtyachki
 
         public void ShowMessage(string msg)
         {
-            //this.Invoke();
             var thread = new Thread(() => MessageBox.Show(msg));
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.Lowest;
@@ -153,6 +147,8 @@ namespace nishtyachki
             btnEnqueue.IsEnabled = false;
             string msg = AllStrings.MsgUserInQueue;
             ShowMessage(msg);
+            _notifyToUse.Show();
+            _notifyToUse.StandInQueue();
         }
 
         public void OfferToUseObj()

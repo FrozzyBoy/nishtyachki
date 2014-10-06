@@ -19,6 +19,8 @@ namespace UsersQueue.Queue.Nishtiachki
         {
             Nishtiachki = new List<Nishtiachok>();
             AllChanges += SaveToDb;
+
+            Nishtiachki.Add(new Nishtiachok());
         }
 
         private static object _lockChangeState = new object();
