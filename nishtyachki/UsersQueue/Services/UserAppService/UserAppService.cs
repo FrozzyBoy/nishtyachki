@@ -26,7 +26,25 @@ namespace UsersQueue.Services.UserAppService
             IUserAppServiceClient safeClient = new ClientSafalyCommunicate(client);
             _user = new QueueUser(key, safeClient);
 
-            safeClient.NotifyServerReady();
+            switch (_user.State)
+            {
+                case UserCurrentState.Offline:
+                    break;
+                case UserCurrentState.Online:
+                    _user.Client.NotifyServerReady();
+                    break;
+                case UserCurrentState.InQueue:
+                    _user.Client.StandInQueue();
+                    break;
+                case UserCurrentState.AcceptingOffer:
+                    _user.Client.OfferToUseObj();
+                    break;
+                case UserCurrentState.UsingNishtiak:
+                    _user.Client.NotifyToUseObj();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public bool TryStandInQueue()
@@ -39,6 +57,7 @@ namespace UsersQueue.Services.UserAppService
         public void LeaveQueue()
         {
             UsersQueueInstance.Instance.DeleteFromTheQueue(_user);
+            _user.Client.NotifyServerReady();
         }
 
         public void AnswerForOfferToUse(bool willUse)
@@ -50,12 +69,14 @@ namespace UsersQueue.Services.UserAppService
             else
             {
                 UsersQueueInstance.Instance.DeleteFromTheQueue(_user);
+                _user.Client.NotifyServerReady();
             }
         }
 
         public void StopUseObj()
         {
             UsersQueueInstance.Instance.EndUseNishtiak(_user);
+            _user.Client.NotifyServerReady();
         }
 
         public void Disconnect()
