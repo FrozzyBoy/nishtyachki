@@ -1,0 +1,65 @@
+﻿@model AdminApp.AdminAppService.UserInfo
+
+@{
+    ViewBag.Title = "User Page";
+}
+
+<h2>User Page</h2>
+
+<div>
+    <h4>UserInfo</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.PremiumEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PremiumEndDate)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+    </dl>
+
+    <div ng-app="myApp">
+        <div style="width:45%">
+            <div ng-controller="chartControl">
+                <canvas ng-show="data" id="canvas" height="450" width="600" ng-init="drawLine('canvas', '@Model.UserName')"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+<p>    
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section scripts{
+
+    <script src="~/Scripts/AppScripts/stringFactory.js"></script>
+    <script>
+    var appBaseUrl = '@ViewBag.Url';
+    var urls = new stringFactory(appBaseUrl);
+    </script>
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/AppScripts/simpleMyApp.js"></script>
+    <script src="~/Scripts/AppScripts/chartDataService.js"></script>
+    <script src="~/Scripts/AppScripts/chartControl.js"></script>
+    <script src="~/Scripts/Chart.js-master/Chart.js"></script>
+}

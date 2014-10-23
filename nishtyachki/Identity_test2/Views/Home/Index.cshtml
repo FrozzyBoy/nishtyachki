@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="myApp">
+
+    <div id="Queue" ng-controller="QueueCtrl">
+
+        <div id="Nisht" ng-controller="MyCtrl">
+            <ol>
+                <li ng-repeat="n in nisht">
+                    <br />
+                    <img ng-src="{{n.Im}}">
+                    <br>
+
+                    <a href="StatisticView/NishtiakPage?nishtiakId={{n.ID}}">nishtiak statistic</a>
+                    <br />
+                    ID is {{n.ID}}
+                    <br />
+
+                    <p ng-show="n.owner.ID">
+                        Owner <a ng-href="StatisticView/UserPage?userID={{n.owner.ID}}">{{n.owner.ID}}</a>
+                        <br />
+                        Message:
+                        <input id="{{n.owner.ID}}" type="text" ng-model="msg" ng-model-options="{ getterSetter: true }" />
+                        <button ng-click="sendMessage(msg, n.owner.ID)">Send Message</button>
+                    </p>
+                    <br />
+                    <button ng-click="deleteNisht(n)">Delete</button>
+                    <select ng-model="myState[$index]" ng-options="state.name for state in states" ng-change="changeStatNisht(n,myState[$index])"></select>
+                </li>
+            </ol>
+            <button ng-click="addNisht()">Add</button>
+        </div>
+
+        <div ng-show="queue.Queue">
+            <h3>
+                Queue:
+            </h3>
+            <ol ng-model="queue.Queue"
+                ng-data-ui-sortable="sortableOptions">
+
+                <li ng-repeat="q in queue.Queue"
+                    ng-data-drag="true">
+                    <a ng-href='StatisticView/UserPage?userID={{q.ID}}'>{{q.ID}}</a>
+                    <button ng-click="deleteUser(q)">Delete</button>
+                    <select ng-model="myRole[$index]" ng-options="role.name for role in roles" ng-change="changeRoleUser(q,myRole[$index])"></select>
+                    Message:
+                    <input id="{{q.ID}}" type="text" ng-model="mess" ng-model-options="{ getterSetter: true }" />
+                    <button ng-click="sendMessage(mess, q.ID)">Send Message</button>
+
+                </li>
+
+            </ol>
+        </div>
+
+        <button ng-click="block(queue)"><img ng-src="{{blockButton.Im}}" width="150" height="100" /></button>
+        <p>
+            {{blockButton.Message}}
+        </p>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+    </script>
+
+    <script src="~/Scripts/AppScripts/stringFactory.js"></script>
+    <script>
+
+        var appBaseUrl = '@ViewBag.Url';
+        var urls = new stringFactory(appBaseUrl);
+    </script>
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.4.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script type="text/javascript" src="~/signalr/hubs"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/App.js"></script>
+    <script src="~/Scripts/AppScripts/signalrFctr.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/AppScripts/DataService.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/Controller.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/QueueDataService.js"></script>
+    <script type="text/javascript" src="~/Scripts/AppScripts/QueueCtrl.js"></script>
+
+    <script src="~/Scripts/sortable.js"></script>
+}

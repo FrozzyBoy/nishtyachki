@@ -1,8 +1,18 @@
 ﻿<Window x:Class="nishtyachki.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="" Height="229" Width="296">
     <Grid>
-        
+        <Button x:Name="btnEnqueue" Content="&#xD;&#xA;" HorizontalAlignment="Left" Height="57" Margin="78,69,0,0" VerticalAlignment="Top" Width="127" Click="Enqueue_Click" BorderBrush="#FF514141" Foreground="Black" FontSize="16" FontFamily="Showcard Gothic">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF975050" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
     </Grid>
 </Window>

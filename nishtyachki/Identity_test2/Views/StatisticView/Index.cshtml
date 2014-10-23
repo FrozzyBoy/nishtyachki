@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<AdminApp.AdminAppService.UserInfo>
+
+<div ng-app="myApp">
+
+    <h2>Top users use</h2>
+    <div style="width:45%">
+        <div ng-controller="chartControl">
+            <canvas ng-show="data" id="canvas" height="450" width="600" ng-init="drawtop('canvas', 3)"></canvas>
+        </div>
+    </div>
+
+    <div id="users">
+        <div ng-show="@Model.Count">
+            <h3>
+                Users:
+            </h3>
+            <ul>
+                @foreach (var item in @Model)
+                {
+                    <li>
+                        @Html.DisplayNameFor(x => item.UserName)
+                        @Html.ActionLink(item.UserName, "UserPage", "StatisticView", new { userID = item.UserName }, null)
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script src="~/Scripts/AppScripts/stringFactory.js"></script>
+    <script>
+        var appBaseUrl = '@ViewBag.Url';
+        var urls = new stringFactory(appBaseUrl);
+    </script>
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Chart.js-master/Chart.js"></script>
+    <script src="~/Scripts/AppScripts/simpleMyApp.js"></script>
+    <script src="~/Scripts/AppScripts/chartDataService.js"></script>
+    <script src="~/Scripts/AppScripts/chartControl.js"></script>
+}
