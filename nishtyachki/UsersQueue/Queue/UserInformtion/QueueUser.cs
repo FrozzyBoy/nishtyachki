@@ -35,6 +35,16 @@ namespace UsersQueue.Queue.UserInformtion
             set
             {
                 UserStats.GetUserStat(ID).UpdateInfo(value, _state);
+
+                if (_state == UserCurrentState.Offline)
+                {
+                    var nishtiak = Nishtiachki.Nishtiachok.GetNishtiakByUserId(this.ID);
+                    if (nishtiak != null)
+                    {
+                        nishtiak.MakeFree();
+                    }
+                }
+
                 _state = value;
             }
         }
@@ -108,8 +118,6 @@ namespace UsersQueue.Queue.UserInformtion
             this.Client = Client;
 
             LoadChanges();
-
-            this.State = UserCurrentState.Online;
         }
 
         public void AddPremium(int days = 3)

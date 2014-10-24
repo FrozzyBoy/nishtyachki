@@ -29,6 +29,8 @@ namespace UsersQueue.Services.UserAppService
             switch (_user.State)
             {
                 case UserCurrentState.Offline:
+                    _user.State = UserCurrentState.Online;
+                    _user.Client.NotifyServerReady();
                     break;
                 case UserCurrentState.Online:
                     _user.Client.NotifyServerReady();
