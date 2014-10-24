@@ -1,0 +1,17 @@
+﻿<Window x:Class="MvvmUserApp.ViewModel.TreyView.WindowFromTrey"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WindowFromTrey" Height="108" Width="257"
+        WindowStyle="ToolWindow">
+    <Grid>
+        <TextBlock 
+            Text="Your application is in trey."
+            FontSize="15"
+            Foreground="Chocolate"
+            TextWrapping="Wrap"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+            
+        </TextBlock>
+    </Grid>
+</Window>
