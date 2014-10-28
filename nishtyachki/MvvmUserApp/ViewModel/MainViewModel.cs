@@ -101,10 +101,12 @@ namespace MvvmUserApp.ViewModel
         {
             Text = ResourceStrings.StartMessage;
             _dataService = dataService;
-            _dataService.InitUserAsync();
-            _view = view;
 
-            //_dataService = dataService;
+            if (_dataService != null)
+            {
+                _dataService.InitUserAsync();
+            }
+            _view = view;
         }
 
         //public override void Cleanup()

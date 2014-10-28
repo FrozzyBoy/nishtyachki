@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>squire.decoupled.moq</id>
+    <version>0.1.0</version>
+    <title>Squire Decoupled Moq Components</title>
+    <authors>Daniel Krainas</authors>
+    <owners>Daniel Krainas</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Squire decoupled moq components.</description>
+    <tags>squire decoupled moq</tags>
+    <dependencies>
+      <dependency id="squire.essentials" />
+      <dependency id="squire.decoupled" />
+      <dependency id="Moq" version="4.2.1402.2112" />
+    </dependencies>
+  </metadata>
+</package>

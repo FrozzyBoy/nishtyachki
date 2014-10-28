@@ -80,7 +80,7 @@ namespace MvvmUserApp.Model
         }
         #endregion Impliment IButtonData Interface
 
-        internal static void InitCommandsForButtons(IUserAppService service)
+        public static void InitCommandsForButtons(IUserAppService service)
         {
             int count = Enum.GetNames(typeof(ButtonType)).Length * Enum.GetNames(typeof(ButtonsState)).Length;
             IButtonData[] arrayOfButtons = new IButtonData[count];

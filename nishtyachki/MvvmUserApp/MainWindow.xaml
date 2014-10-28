@@ -49,7 +49,7 @@
                 Command="{Binding CloseApp}"/>
         </StackPanel>
 
-        <TextBlock 
+        <TextBlock Name="TextInfo"
             Text="{Binding Path=Text}"
             FontSize="30" 
             FontWeight="Black" 

@@ -14,7 +14,7 @@
                     <img ng-src="{{n.Im}}">
                     <br>
 
-                    <a href="StatisticView/NishtiakPage?nishtiakId={{n.ID}}">nishtiak statistic</a>
+                    <a class="nishtiakId" href="StatisticView/NishtiakPage?nishtiakId={{n.ID}}">nishtiak statistic</a>
                     <br />
                     ID is {{n.ID}}
                     <br />
@@ -31,7 +31,7 @@
                     <select ng-model="myState[$index]" ng-options="state.name for state in states" ng-change="changeStatNisht(n,myState[$index])"></select>
                 </li>
             </ol>
-            <button ng-click="addNisht()">Add</button>
+            <button id="nishtiak_add_btn" ng-click="addNisht()">Add</button>
         </div>
 
         <div ng-show="queue.Queue">

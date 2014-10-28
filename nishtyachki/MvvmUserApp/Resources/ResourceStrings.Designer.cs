@@ -22,7 +22,7 @@ namespace MvvmUserApp.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResourceStrings {
+    public class ResourceStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MvvmUserApp.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MvvmUserApp.Resources.ResourceStrings", typeof(ResourceStrings).Assembly);
@@ -51,7 +51,7 @@ namespace MvvmUserApp.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string BtnCancelEnabled {
+        public static string BtnCancelEnabled {
             get {
                 return ResourceManager.GetString("BtnCancelEnabled", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enqueue.
         /// </summary>
-        internal static string BtnEnqueuEneble {
+        public static string BtnEnqueuEneble {
             get {
                 return ResourceManager.GetString("BtnEnqueuEneble", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string BtnNoEnabled {
+        public static string BtnNoEnabled {
             get {
                 return ResourceManager.GetString("BtnNoEnabled", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string BtnYesEnabled {
+        public static string BtnYesEnabled {
             get {
                 return ResourceManager.GetString("BtnYesEnabled", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Messages from server:.
         /// </summary>
-        internal static string LblMsgText {
+        public static string LblMsgText {
             get {
                 return ResourceManager.GetString("LblMsgText", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Message from server..
         /// </summary>
-        internal static string MessageBoxHead {
+        public static string MessageBoxHead {
             get {
                 return ResourceManager.GetString("MessageBoxHead", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Would you like to use some nishtiak?.
         /// </summary>
-        internal static string OfferToUse {
+        public static string OfferToUse {
             get {
                 return ResourceManager.GetString("OfferToUse", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Your are {0} in queue for nishtiak, wait please..
         /// </summary>
-        internal static string PositionInQueue {
+        public static string PositionInQueue {
             get {
                 return ResourceManager.GetString("PositionInQueue", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to You can stay in queue for some nihtiaks..
         /// </summary>
-        internal static string ServerReady {
+        public static string ServerReady {
             get {
                 return ResourceManager.GetString("ServerReady", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Please, wait initialization..
         /// </summary>
-        internal static string StartMessage {
+        public static string StartMessage {
             get {
                 return ResourceManager.GetString("StartMessage", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Please, wait free nishtiak..
         /// </summary>
-        internal static string StayInQueue {
+        public static string StayInQueue {
             get {
                 return ResourceManager.GetString("StayInQueue", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Your application is in trey..
         /// </summary>
-        internal static string String1TreyWindowTexTreyWindowText {
+        public static string String1TreyWindowTexTreyWindowText {
             get {
                 return ResourceManager.GetString("String1TreyWindowTexTreyWindowText", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Your application is in trey!.
         /// </summary>
-        internal static string TreyWindowText {
+        public static string TreyWindowText {
             get {
                 return ResourceManager.GetString("TreyWindowText", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace MvvmUserApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to You are using nishtiak! Come and get it!.
         /// </summary>
-        internal static string UseNishtiak {
+        public static string UseNishtiak {
             get {
                 return ResourceManager.GetString("UseNishtiak", resourceCulture);
             }

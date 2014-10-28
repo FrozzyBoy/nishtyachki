@@ -28,7 +28,7 @@
             }
             
         }).error(function (data, status, headers, config) {
-           alert("error recieve data!" + status);
+           //alert("error recieve data!" + status);
         });
     };
 
