@@ -24,13 +24,17 @@ namespace UsersQueue.Services.UserAppService
             key = key.Replace('\\', '_');
 
             IUserAppServiceClient safeClient = new ClientSafalyCommunicate(client);
-            _user = new QueueUser(key, safeClient);
 
+            _user = new QueueUser(key, safeClient);
+            ChangeStateThenNotifyClient();
+            _user.ChangedState += ChangeStateThenNotifyClient;
+        }
+
+        private void ChangeStateThenNotifyClient()
+        {
             switch (_user.State)
             {
                 case UserCurrentState.Offline:
-                    _user.State = UserCurrentState.Online;
-                    _user.Client.NotifyServerReady();
                     break;
                 case UserCurrentState.Online:
                     _user.Client.NotifyServerReady();
@@ -47,10 +51,11 @@ namespace UsersQueue.Services.UserAppService
                 default:
                     break;
             }
+
         }
 
         public bool TryStandInQueue()
-        {            
+        {
             bool stay = UsersQueueInstance.Instance.AddUserInQueue(_user);
 
             return stay;
@@ -59,7 +64,6 @@ namespace UsersQueue.Services.UserAppService
         public void LeaveQueue()
         {
             UsersQueueInstance.Instance.DeleteFromTheQueue(_user);
-            _user.Client.NotifyServerReady();
         }
 
         public void AnswerForOfferToUse(bool willUse)
@@ -71,25 +75,23 @@ namespace UsersQueue.Services.UserAppService
             else
             {
                 UsersQueueInstance.Instance.DeleteFromTheQueue(_user);
-                _user.Client.NotifyServerReady();
             }
         }
 
         public void StopUseObj()
         {
             UsersQueueInstance.Instance.EndUseNishtiak(_user);
-            _user.Client.NotifyServerReady();
         }
 
         public void Disconnect()
         {
-            if (_isDisconnected)
-            {
-                _isDisconnected = true;
+            //if (_isDisconnected)
+            //{
+            //    _isDisconnected = true;
 
-                _user.State = UserCurrentState.Offline;
+            //    _user.State = UserCurrentState.Offline;
 
-            }
+            //}
 
         }
 

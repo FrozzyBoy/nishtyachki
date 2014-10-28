@@ -5,6 +5,9 @@ using System.Linq;
 using UsersQueue.Model;
 using UsersQueue.Services.TransferObjects;
 using UsersQueue.Queue.Statistics;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace UsersQueue.Queue.UserInformtion
 {
@@ -26,6 +29,8 @@ namespace UsersQueue.Queue.UserInformtion
 
         private UserCurrentState _state;
 
+        public event Action ChangedState;
+
         public UserCurrentState State
         {
             get
@@ -36,7 +41,7 @@ namespace UsersQueue.Queue.UserInformtion
             {
                 UserStats.GetUserStat(ID).UpdateInfo(value, _state);
 
-                if (_state == UserCurrentState.Offline)
+                if (value != UserCurrentState.UsingNishtiak && value != UserCurrentState.AcceptingOffer)
                 {
                     var nishtiak = Nishtiachki.Nishtiachok.GetNishtiakByUserId(this.ID);
                     if (nishtiak != null)
@@ -44,8 +49,15 @@ namespace UsersQueue.Queue.UserInformtion
                         nishtiak.MakeFree();
                     }
                 }
-
+                                
                 _state = value;
+
+                if (ChangedState != null)
+                {
+                    ChangedState();
+                }
+
+                this.SaveChanges();
             }
         }
 
@@ -76,6 +88,7 @@ namespace UsersQueue.Queue.UserInformtion
             private set
             {
                 _premiumEndDate = value;
+                this.SaveChanges();
             }
 
         }
@@ -91,7 +104,7 @@ namespace UsersQueue.Queue.UserInformtion
                     this.AddPremium();
                     break;
                 default:
-                    break;
+                    return;
             }
         }
 
@@ -162,7 +175,10 @@ namespace UsersQueue.Queue.UserInformtion
         }
         internal void Abort()
         {
-            _t.Stop();
+            if (_t != null)
+            {
+                _t.Stop();
+            }
         }
         void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -200,6 +216,20 @@ namespace UsersQueue.Queue.UserInformtion
                 {
                     context.UsersInfo.Add(info);
                 }
+                else
+                {
+                    context.UsersInfo.Attach(info);
+                    var entry = context.Entry<UserInfo>(info);
+
+                    Type queueUser = typeof(UserInfo);
+
+                    foreach (var propertyInfo in queueUser.GetProperties())
+                    {
+                        if (propertyInfo.GetCustomAttribute<KeyAttribute>() == null 
+                            && propertyInfo.GetCustomAttribute<DataMemberAttribute>() != null)
+                            entry.Property(propertyInfo.Name).IsModified = true;
+                    }
+                }
                 context.SaveChanges();
             }
         }
@@ -215,6 +245,7 @@ namespace UsersQueue.Queue.UserInformtion
             else
             {
                 this.PremiumEndDate = (DateTime)info.PremiumEndDate;
+                this.State = info.State;
             }
         }
 

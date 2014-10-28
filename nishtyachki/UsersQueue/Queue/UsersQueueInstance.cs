@@ -197,7 +197,6 @@ namespace UsersQueue.Queue
                                 nishtiak.ChangeNishtState(Nishtiachok_State.wait_for_user);
                                 user.CheckTimeForAcess();
                                 user.State = UserCurrentState.AcceptingOffer;
-                                user.Client.OfferToUseObj();
                                 i--;
                             }
                         }
@@ -208,8 +207,6 @@ namespace UsersQueue.Queue
 
         public void StartUseNishtiak(QueueUser user)
         {
-            user.Client.NotifyToUseObj();
-
             user.Abort();
             user.CheckTimeForUsing();
             var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
@@ -228,7 +225,6 @@ namespace UsersQueue.Queue
                 nishtiak.MakeFree();
             }
 
-            user.State = UserCurrentState.Online;
             Instance.DeleteFromTheQueue(user);
         }
 
