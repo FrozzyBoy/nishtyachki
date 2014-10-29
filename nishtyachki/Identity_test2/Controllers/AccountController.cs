@@ -40,10 +40,13 @@ namespace AdminApp.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             //default adm
+            
             try
             {
                 var user = new ApplicationUser() { UserName = "Allonsi" };
                 var result = await UserManager.CreateAsync(user, "Fidelio");
+                IdentityManager im = new IdentityManager();
+                im.AddUserToRole(user.Id, "PowerFull");
             }
             catch { }
 
@@ -67,7 +70,7 @@ namespace AdminApp.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize]
+        [Authorize(Roles = "PowerFull")]
         public ActionResult Register()
         {
             return View();
@@ -76,7 +79,7 @@ namespace AdminApp.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles="PowerFull")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
