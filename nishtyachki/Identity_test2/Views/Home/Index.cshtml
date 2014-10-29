@@ -21,7 +21,8 @@
 
                     <p ng-show="n.owner.ID">
                         Owner <a ng-href="StatisticView/UserPage?userID={{n.owner.ID}}">{{n.owner.ID}}</a>
-                        <br />
+                        <button ng-click="deleteUser(n.owner)">Kick</button>
+                        <br />                        
                         Message:
                         <input id="{{n.owner.ID}}" type="text" ng-model="msg" ng-model-options="{ getterSetter: true }" />
                         <button ng-click="sendMessage(msg, n.owner.ID)">Send Message</button>

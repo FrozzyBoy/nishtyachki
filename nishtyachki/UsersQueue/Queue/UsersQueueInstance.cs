@@ -129,8 +129,17 @@ namespace UsersQueue.Queue
         public void DeleteUserByAdmin(string id)
         {
             var user = this.GetUser(id);
-            DeleteFromTheQueue(user);
-            user.Client.DroppedByServer("you're dropped by Admin");
+            if (user == null)
+            {
+                var nishtiak = Nishtiachok.GetNishtiakByUserId(id);
+                nishtiak.Owner.Client.DroppedByServer("you're dropped by Admin");
+                nishtiak.MakeFree();
+            }
+            else
+            {
+                DeleteFromTheQueue(user);
+                user.Client.DroppedByServer("you're dropped by Admin");
+            }
         }
 
         public void DeleteFromTheQueue(QueueUser user)
@@ -217,13 +226,13 @@ namespace UsersQueue.Queue
 
         public void EndUseNishtiak(QueueUser user)
         {
-            user.Abort();
-            var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
+            //user.Abort();
+            //var nishtiak = Nishtiachok.GetNishtiakByUserId(user.ID);
 
-            if (nishtiak != null)
-            {
-                nishtiak.MakeFree();
-            }
+            //if (nishtiak != null)
+            //{
+            //    nishtiak.MakeFree();
+            //}
 
             Instance.DeleteFromTheQueue(user);
         }

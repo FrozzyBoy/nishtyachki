@@ -4,7 +4,6 @@ using UsersQueue.Services.UserAppService;
 using System.Linq;
 using UsersQueue.Model;
 using UsersQueue.Services.TransferObjects;
-using UsersQueue.Queue.Statistics;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
@@ -39,17 +38,6 @@ namespace UsersQueue.Queue.UserInformtion
             }
             set
             {
-                UserStats.GetUserStat(ID).UpdateInfo(value, _state);
-
-                if (value != UserCurrentState.UsingNishtiak && value != UserCurrentState.AcceptingOffer)
-                {
-                    var nishtiak = Nishtiachki.Nishtiachok.GetNishtiakByUserId(this.ID);
-                    if (nishtiak != null)
-                    {
-                        nishtiak.MakeFree();
-                    }
-                }
-                                
                 _state = value;
 
                 if (ChangedState != null)
@@ -131,6 +119,26 @@ namespace UsersQueue.Queue.UserInformtion
             this.Client = Client;
 
             LoadChanges();
+
+            if (this.State == UserCurrentState.AcceptingOffer || this.State == UserCurrentState.UsingNishtiak)
+            {
+                var nishtiak = Nishtiachki.Nishtiachok.GetNishtiakByUserId(this.ID);
+
+                if (nishtiak == null)
+                {
+                    nishtiak = Nishtiachki.Nishtiachok.GetFreeNishtiachok();
+                }
+
+                if (nishtiak == null)
+                {
+                    this.State = UserCurrentState.Online;
+                }
+                else
+                {
+
+                    nishtiak.SetOwner(this);
+                }
+            }
         }
 
         public void AddPremium(int days = 3)
@@ -225,7 +233,7 @@ namespace UsersQueue.Queue.UserInformtion
 
                     foreach (var propertyInfo in queueUser.GetProperties())
                     {
-                        if (propertyInfo.GetCustomAttribute<KeyAttribute>() == null 
+                        if (propertyInfo.GetCustomAttribute<KeyAttribute>() == null
                             && propertyInfo.GetCustomAttribute<DataMemberAttribute>() != null)
                             entry.Property(propertyInfo.Name).IsModified = true;
                     }

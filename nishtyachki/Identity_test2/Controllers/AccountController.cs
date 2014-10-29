@@ -49,16 +49,16 @@ namespace AdminApp.Controllers
 
             if (ModelState.IsValid)
             {
-                    var user = await UserManager.FindAsync(model.UserName, model.Password);
-                    if (user != null)
-                    {
-                        await SignInAsync(user, model.RememberMe);
-                        return RedirectToLocal(returnUrl);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Invalid username or password.");
-                    }
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                if (user != null)
+                {
+                    await SignInAsync(user, model.RememberMe);
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -67,7 +67,7 @@ namespace AdminApp.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Register()
         {
             return View();
@@ -76,7 +76,7 @@ namespace AdminApp.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -382,7 +382,8 @@ namespace AdminApp.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
             {
             }
 

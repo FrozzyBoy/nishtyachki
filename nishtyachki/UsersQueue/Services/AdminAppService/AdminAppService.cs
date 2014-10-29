@@ -1,11 +1,11 @@
-﻿using System.ServiceModel;
-using UsersQueue.Queue.Nishtiachki;
-using UsersQueue.Queue;
+﻿using System.Linq;
+using System.ServiceModel;
 using UsersQueue.Model;
-using System.Linq;
-using UsersQueue.Services.TransferObjects;
-using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Queue;
+using UsersQueue.Queue.Nishtiachki;
 using UsersQueue.Queue.Statistics;
+using UsersQueue.Queue.UserInformtion;
+using UsersQueue.Services.TransferObjects;
 
 namespace UsersQueue.Services.AdminAppService
 {

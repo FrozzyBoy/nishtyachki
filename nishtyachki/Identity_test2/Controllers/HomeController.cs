@@ -13,7 +13,7 @@ namespace AdminApp.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Nishtiachki application description page.";
             ViewBag.Url = BaseUrl;
 
             return View();
@@ -21,7 +21,7 @@ namespace AdminApp.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contact page.";
             ViewBag.Url = BaseUrl;
 
             return View();

@@ -3,12 +3,13 @@ using System.ServiceModel;
 using System.Threading;
 using UsersQueue.Queue;
 using UsersQueue.Queue.UserInformtion;
+using System.Collections.Generic;
 
 namespace UsersQueue.Services.UserAppService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "UserAppService" in both code and config file together.
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class UserAppService : IUserAppService
+    public class UserAppService : IUserAppService, IDisposable
     {
         private QueueUser _user;
 
@@ -20,14 +21,14 @@ namespace UsersQueue.Services.UserAppService
 
             IUserAppServiceClient client = OperationContext.Current.GetCallbackChannel<IUserAppServiceClient>();
             string key = Thread.CurrentPrincipal.Identity.Name;
-
             key = key.Replace('\\', '_');
+            key = key.ToUpper();
 
             IUserAppServiceClient safeClient = new ClientSafalyCommunicate(client);
 
             _user = new QueueUser(key, safeClient);
-            ChangeStateThenNotifyClient();
             _user.ChangedState += ChangeStateThenNotifyClient;
+            ChangeStateThenNotifyClient();
         }
 
         private void ChangeStateThenNotifyClient()
@@ -35,6 +36,7 @@ namespace UsersQueue.Services.UserAppService
             switch (_user.State)
             {
                 case UserCurrentState.Offline:
+                    _user.State = UserCurrentState.Online;
                     break;
                 case UserCurrentState.Online:
                     _user.Client.NotifyServerReady();
@@ -85,15 +87,36 @@ namespace UsersQueue.Services.UserAppService
 
         public void Disconnect()
         {
-            //if (_isDisconnected)
-            //{
-            //    _isDisconnected = true;
+            if (_isDisconnected)
+            {
+                _isDisconnected = true;
 
-            //    _user.State = UserCurrentState.Offline;
-
-            //}
-
+                _user.State = UserCurrentState.Offline;
+            }
         }
 
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_user != null && _user.Client != null)
+                {
+                    _user.Client.DroppedByServer("stop your session");
+                }
+
+                Disconnect();
+                _user = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        ~UserAppService()
+        {
+            Dispose(false);
+        }
     }
 }

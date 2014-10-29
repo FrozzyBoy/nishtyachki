@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
@@ -40,6 +41,7 @@ namespace UsersQueue.Queue.Nishtiachki
         }
 
         public static List<Nishtiachok> Nishtiachki;
+
         public static event Action<Nishtiachok, ChangeNishtArg> AllChanges;
 
         public static List<NishtiakTransferObject> GetAllNishtiakTransferObjects
@@ -133,8 +135,21 @@ namespace UsersQueue.Queue.Nishtiachki
                 }
                 else
                 {
-                    this.Owner = owner;
-                    OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.get_owner));
+                    if (this.Owner == null)
+                    {
+                        this.Owner = owner; 
+                        OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.get_owner));
+                    }
+                    else
+                    {
+                        bool oldIdAreSame = this.Owner.ID == owner.ID;
+                        this.Owner = owner;
+
+                        if (oldIdAreSame)
+                        {
+                            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.get_owner));
+                        }
+                    }
                 }
             }
         }
@@ -189,6 +204,7 @@ namespace UsersQueue.Queue.Nishtiachki
 
             if (obj != null)
             {
+                obj.MakeFree();
                 Nishtiachki.Remove(obj);
                 ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
                 OnChangeNisht(obj, args);
@@ -232,6 +248,7 @@ namespace UsersQueue.Queue.Nishtiachki
 
         internal void MakeFree()
         {
+            Owner.State = UserCurrentState.Online;
             this.Owner = null;
             this.State = Nishtiachok_State.free;
             OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.opened));
