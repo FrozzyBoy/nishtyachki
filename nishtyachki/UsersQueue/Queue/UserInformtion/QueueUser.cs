@@ -113,7 +113,34 @@ namespace UsersQueue.Queue.UserInformtion
             }
         }
 
-        public QueueUser(string id, IUserAppServiceClient Client)
+        public static QueueUser GetOrInitQueueUser(string id, IUserAppServiceClient client)
+        {
+            QueueUser user = null;
+            var nishtiak = Nishtiachki.Nishtiachok.GetNishtiakByUserId(id);
+
+            if (nishtiak != null)
+            {
+                user = nishtiak.Owner;
+            }
+            else
+            {
+                user = UsersQueueInstance.Instance.GetUser(id);
+            }
+
+            if (user == null)
+            {
+                user = new QueueUser(id, client);
+            }
+            else
+            {
+                user.LoadChanges();
+                user.Client = client;
+            }
+
+            return user;
+        }
+
+        private QueueUser(string id, IUserAppServiceClient Client)
         {
             this.ID = id;
             this.Client = Client;
@@ -135,10 +162,12 @@ namespace UsersQueue.Queue.UserInformtion
                 }
                 else
                 {
-
                     nishtiak.SetOwner(this);
                 }
             }
+
+            UsersQueueInstance.Instance.UpdateUserIfExist(this);
+
         }
 
         public void AddPremium(int days = 3)

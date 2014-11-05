@@ -61,6 +61,7 @@ namespace AdminApp.Spec
                 btn.Click();
             }
 
+            Thread.Sleep(5000);
         }
 
         [Then(@"the result should be appeare (.*) new nihtiak")]

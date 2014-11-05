@@ -190,7 +190,7 @@ namespace UsersQueue.Queue
         //оповещение пользователей
         private static void AlertQueue()
         {
-            foreach (var nishtiak in Nishtiachok.Nishtiachki)
+            foreach (var nishtiak in Nishtiachok.NishtiachkiActive)
             {
                 if (nishtiak.State == Nishtiachok_State.free)
                 {
@@ -321,5 +321,13 @@ namespace UsersQueue.Queue
             }
         }
 
+        public void UpdateUserIfExist(QueueUser queueUser)
+        {
+            var old = GetUser(queueUser.ID);
+            if (old != null)
+            {
+                old.Client = queueUser.Client;
+            }
+        }
     }
 }

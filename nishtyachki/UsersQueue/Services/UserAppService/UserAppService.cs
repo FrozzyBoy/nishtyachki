@@ -4,6 +4,7 @@ using System.Threading;
 using UsersQueue.Queue;
 using UsersQueue.Queue.UserInformtion;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace UsersQueue.Services.UserAppService
 {
@@ -12,8 +13,9 @@ namespace UsersQueue.Services.UserAppService
     public class UserAppService : IUserAppService, IDisposable
     {
         private QueueUser _user;
-
         private bool _isDisconnected = false;
+
+        private static ConcurrentDictionary<string, IUserAppServiceClient> _clients = new ConcurrentDictionary<string,IUserAppServiceClient>();
 
         public void InitUser()
         {
@@ -26,8 +28,11 @@ namespace UsersQueue.Services.UserAppService
 
             IUserAppServiceClient safeClient = new ClientSafalyCommunicate(client);
 
-            _user = new QueueUser(key, safeClient);
+            _user = QueueUser.GetOrInitQueueUser(key, safeClient);
             _user.ChangedState += ChangeStateThenNotifyClient;
+
+            _clients[key] = safeClient;
+
             ChangeStateThenNotifyClient();
         }
 
@@ -39,16 +44,16 @@ namespace UsersQueue.Services.UserAppService
                     _user.State = UserCurrentState.Online;
                     break;
                 case UserCurrentState.Online:
-                    _user.Client.NotifyServerReady();
+                    _clients[_user.ID].NotifyServerReady();
                     break;
                 case UserCurrentState.InQueue:
-                    _user.Client.StandInQueue();
+                    _clients[_user.ID].StandInQueue();
                     break;
                 case UserCurrentState.AcceptingOffer:
-                    _user.Client.OfferToUseObj();
+                    _clients[_user.ID].OfferToUseObj();
                     break;
                 case UserCurrentState.UsingNishtiak:
-                    _user.Client.NotifyToUseObj();
+                    _clients[_user.ID].NotifyToUseObj();
                     break;
                 default:
                     break;
@@ -102,6 +107,7 @@ namespace UsersQueue.Services.UserAppService
                 if (_user != null && _user.Client != null)
                 {
                     _user.Client.DroppedByServer("stop your session");
+                    _user.ChangedState -= ChangeStateThenNotifyClient;
                 }
 
                 Disconnect();

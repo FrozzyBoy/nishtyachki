@@ -16,19 +16,24 @@ namespace UsersQueue.Services.TransferObjects
     {
         #region EntityFrameWorkRegion
         [Key]
-        public int Key { get; set; }
-        [MaxLength(100)]
-        public string ChangeWas { get; set; }
-        [ForeignKey("owner")]
-        public int OwnerId { get; set; }
-        #endregion EntityFrameWorkRegion
-
         [DataMember]
         [MaxLength(100)]
         public string ID { get; set; }
+        [DataMember]
+        public virtual ICollection<NishtiakLogs> AllChanges { get; set; }
+        #endregion EntityFrameWorkRegion
+
         [DataMember]        
         public QueueUserTransferObject owner { get; set; }
         [DataMember]
         public int State { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public NishtiakTransferObject()
+        {
+            this.AllChanges = new List<NishtiakLogs>();
+            this.IsActive = true;
+        }
     }
 }

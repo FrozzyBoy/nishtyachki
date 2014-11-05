@@ -6,6 +6,8 @@ using System.Runtime.Serialization;
 using UsersQueue.Model;
 using UsersQueue.Queue.UserInformtion;
 using UsersQueue.Services.TransferObjects;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 namespace UsersQueue.Queue.Nishtiachki
 {
@@ -18,29 +20,99 @@ namespace UsersQueue.Queue.Nishtiachki
     {
         static Nishtiachok()
         {
-            Nishtiachki = new List<Nishtiachok>();
-            AllChanges += SaveToDb;
-
-            Nishtiachki.Add(new Nishtiachok());
+            //Nishtiachki = new List<Nishtiachok>();
+            AllChanges += SaveToDbNishtiakChange;
         }
 
         private static object _lockChangeState = new object();
         private static object _lockSetOwner = new object();
 
-        private static void SaveToDb(Nishtiachok nisht, ChangeNishtArg info)
+        private static void SaveToDbNishtiakChange(Nishtiachok nisht, ChangeNishtArg info)
         {
-            var addData = nisht.GetNishtiakTransferObject();
-
             using (var context = new AppDbContext())
             {
-                addData.ChangeWas = info.TypeOfChange.ToString();
-                context.Nishtiaki.Add(addData);
+                var update = context.Nishtiaki.Single<NishtiakTransferObject>(x=> x.ID == nisht.ID);
+
+                NishtiakLogs log = new NishtiakLogs() { ChangeHappend = DateTime.Now, ChangeWas = info.TypeOfChange.ToString(), NishtiakId = update.ID, State = update.State };
+
+                context.NishtiakLogs.Add(log);
+
+                //var updateValue = context.Nishtiaki.Single<NishtiakTransferObject>();
+
+                if (info.TypeOfChange == TypeOfChanges.delete)
+                {
+                    update.IsActive = false;
+                }
+
+                //var entity = context.Entry(updateValue);
+                //var collection = typeof(NishtiakTransferObject).GetProperties();
+                //foreach (var item in collection)
+                //{
+                //    bool ifKey = item.GetCustomAttribute<KeyAttribute>() != null;
+                //    bool ifOwner = item.PropertyType == update.owner.GetType();
+                //    bool ifAllChanges = item.Name == "AllChanges";
+
+                //    if (!ifKey && !ifOwner && !ifAllChanges)
+                //    {
+                //        entity.Property(item.Name).IsModified = true;
+                //    }
+                //}
+
+                //update.AllChanges.Add(log);
+
+                //var entity = context.Entry(update);
+                //var collection = entity.Collection(x => x.AllChanges);
+                //collection.CurrentValue = update.AllChanges;
+                //property.IsModified = true;
                 context.SaveChanges();
             }
 
         }
 
-        public static List<Nishtiachok> Nishtiachki;
+        private static void SaveToDbNishtiak(Nishtiachok nisht)
+        {
+            using (var context = new AppDbContext())
+            {
+                var old = context.Nishtiaki.SingleOrDefault<NishtiakTransferObject>(x => x.ID == nisht.ID);
+
+                if (old == null)
+                {
+                    context.Nishtiaki.Add(nisht.GetNishtiakTransferObject());
+                }
+                //else
+                //{
+                //    var entity = context.Entry(old);
+                //    foreach (var item in typeof(NishtiakTransferObject).GetProperties())
+                //    {
+                //        if (item.GetCustomAttribute<KeyAttribute>() != null)
+                //        {
+                //            entity.Property(item.Name).IsModified = true;
+                //        }
+                //    }
+                //}
+                context.SaveChanges();
+            }
+        }
+
+        public static List<Nishtiachok> NishtiachkiActive
+        {
+            get
+            {
+                List<Nishtiachok> nishtiaki = null;
+                using (var content = new AppDbContext())
+                {
+                    nishtiaki = (from NishtiakTransferObject nisht in content.Nishtiaki
+                                 where nisht.IsActive == true
+                                 select new Nishtiachok() { ID=nisht.ID, State = (Nishtiachok_State)nisht.State }).ToList<Nishtiachok>();
+                }
+
+                return nishtiaki;
+            }
+            set
+            {
+                //                
+            }
+        }
 
         public static event Action<Nishtiachok, ChangeNishtArg> AllChanges;
 
@@ -49,7 +121,7 @@ namespace UsersQueue.Queue.Nishtiachki
             get
             {
                 var result = new List<NishtiakTransferObject>();
-                foreach (var item in Nishtiachki)
+                foreach (var item in NishtiachkiActive)
                 {
                     result.Add(item.GetNishtiakTransferObject());
                 }
@@ -67,7 +139,7 @@ namespace UsersQueue.Queue.Nishtiachki
         {
             this.State = Nishtiachok_State.free;
             this.ID = Guid.NewGuid().ToString();
-            SaveToDb(this, new ChangeNishtArg(TypeOfChanges.create));
+            
         }
 
         private static bool _onchangeNicht = false;
@@ -78,10 +150,11 @@ namespace UsersQueue.Queue.Nishtiachki
 
             result.ID = this.ID;
 
-            var owner = new QueueUserTransferObject();
+            QueueUserTransferObject owner = null;
 
             if (this.Owner == null)
             {
+                owner = new QueueUserTransferObject();
                 owner.ID = "";
                 owner.Key = -1;
                 owner.Role = 0;
@@ -96,6 +169,16 @@ namespace UsersQueue.Queue.Nishtiachki
             result.owner = owner;
 
             result.State = (int)this.State;
+            result.AllChanges = new List<NishtiakLogs>();
+
+            using (var context = new AppDbContext())
+            {
+                var old = context.Nishtiaki.SingleOrDefault<NishtiakTransferObject>(x => x.ID == this.ID);
+                if (old != null)
+                {
+                    result.AllChanges = old.AllChanges;
+                }
+            }
 
             return result;
         }
@@ -137,7 +220,7 @@ namespace UsersQueue.Queue.Nishtiachki
                 {
                     if (this.Owner == null)
                     {
-                        this.Owner = owner; 
+                        this.Owner = owner;
                         OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.get_owner));
                     }
                     else
@@ -170,7 +253,7 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public static Nishtiachok GetNishtiakByUserId(string id)
         {
-            return Nishtiachki.Find((m) =>
+            return NishtiachkiActive.Find((m) =>
             {
                 if (m.Owner != null)
                 {
@@ -182,18 +265,22 @@ namespace UsersQueue.Queue.Nishtiachki
 
         public static Nishtiachok GetNishtiachokByName(string id)
         {
-            return Nishtiachki.Find(m => m.ID == id);
+            return NishtiachkiActive.Find(m => m.ID == id);
         }
 
         public static Nishtiachok GetFreeNishtiachok()
         {
-            return Nishtiachki.Find(m => m.State == Nishtiachok_State.free);
+            return NishtiachkiActive.Find(m => m.State == Nishtiachok_State.free);
         }
 
         public static void AddNistiachokByAdmin()
         {
             Nishtiachok obj = new Nishtiachok();
-            Nishtiachki.Add(obj);
+
+            SaveToDbNishtiak(obj);
+            SaveToDbNishtiakChange(obj, new ChangeNishtArg(TypeOfChanges.create));
+
+            //NishtiachkiActive.Add(obj);
             ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.add);
             OnChangeNisht(obj, args);
         }
@@ -205,7 +292,6 @@ namespace UsersQueue.Queue.Nishtiachki
             if (obj != null)
             {
                 obj.MakeFree();
-                Nishtiachki.Remove(obj);
                 ChangeNishtArg args = new ChangeNishtArg(TypeOfChanges.delete);
                 OnChangeNisht(obj, args);
             }
@@ -248,10 +334,20 @@ namespace UsersQueue.Queue.Nishtiachki
 
         internal void MakeFree()
         {
-            Owner.State = UserCurrentState.Online;
-            this.Owner = null;
-            this.State = Nishtiachok_State.free;
-            OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.opened));
+            if (this.State == Nishtiachok_State.in_using || this.State == Nishtiachok_State.wait_for_user)
+            {
+                Owner.State = UserCurrentState.Online;
+                this.Owner = null;
+                this.State = Nishtiachok_State.free;
+                OnChangeNisht(this, new ChangeNishtArg(TypeOfChanges.opened));
+            }
+            else
+            {
+                if (this.State == Nishtiachok_State.locked)
+                {
+                    this.State = Nishtiachok_State.free;
+                }
+            }
         }
     }
 }

@@ -83,31 +83,27 @@ namespace UsersQueue.Queue.Statistics
 
         internal static ChartValues GetStatisticsForNishtiak(string nishtiakID)
         {
-            List<NishtiakTransferObject> all = null;
+            NishtiakLogs[] all = null;
 
-            using (var context = new AppDbContext())
-            {
-                var nishtiaki = context.Nishtiaki.AsEnumerable<NishtiakTransferObject>();
-                var ask = (from n in nishtiaki
-                           where n.ID == nishtiakID
-                           orderby n.ChangeWas
-                           select n);
-                all = ask.ToList<NishtiakTransferObject>();
-            }
+            //using (var context = new AppDbContext())
+            //{
+                NishtiakTransferObject nishtiak = Nishtiachki.Nishtiachok.GetNishtiachokByName(nishtiakID).GetNishtiakTransferObject();// context.Nishtiaki.SingleOrDefault<NishtiakTransferObject>(x => x.ID == nishtiakID);
+                all = nishtiak.AllChanges.ToArray<NishtiakLogs>();
+            //}
 
             List<string> names = new List<string>();
             List<int> counts = new List<int>();
 
-            if (all.Count > 0)
+            if (all.Length > 0)
             {
-                string lastName;
+                string lastName = "";
 
-                for (int i = 1; i < all.Count + 1; i++)
+                for (int i = 1; i < all.Length + 1; i++)
                 {
+                    int count = 1;
                     lastName = all[i - 1].ChangeWas;
 
-                    int count = 1;
-                    while (i < all.Count && all[i].ChangeWas == lastName)
+                    while (i < all.Length && all[i].ChangeWas == lastName)
                     {
                         i++;
                         count++;
